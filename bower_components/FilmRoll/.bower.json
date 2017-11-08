@@ -1,0 +1,27 @@
+{
+  "name": "FilmRoll",
+  "version": "0.1.17",
+  "main": "js/jquery.film_roll.min.js",
+  "ignore": [
+    "coffee",
+    ".gitignore"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/straydogstudio/film_roll"
+  },
+  "dependencies": {
+    "jquery": ">=1.4",
+    "jquery-touchswipe": ">=1.6.6"
+  },
+  "homepage": "https://github.com/straydogstudio/film_roll",
+  "_release": "0.1.17",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.17",
+    "commit": "cbf0c144c31ef86eea3abf4ea46b0b7b022f6fee"
+  },
+  "_source": "https://github.com/straydogstudio/film_roll.git",
+  "_target": "^0.1.17",
+  "_originalSource": "FilmRoll"
+}

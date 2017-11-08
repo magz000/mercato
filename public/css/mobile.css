@@ -1,0 +1,106 @@
+@media only screen and (max-width: 768px) {
+  .__image-slider {
+    height: 1000px;
+  }
+
+  .__image-slider.__search {
+    height: 600px;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
+
+  .__image-slider.__profile {
+    height: 650px !important;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
+
+  .__main-content {
+    margin-top: -400px !important;
+  }
+
+  .__main-content.__profile {
+    margin-top: -200px !important;
+  }
+
+  .__static-item .__profile > [class*='col-'] {
+    text-align: center !important;
+  }
+
+  .__search_item .__img {
+    overflow: hidden;
+    height: 180px;
+  }
+
+  .__search_item .__img div {
+    height: 180px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-transition: all 1.5s ease;
+    transition: all 1.5s ease;
+  }
+
+  .__search_item h6.title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .joined {
+    width: 100% !important;
+    display: block !important;
+    margin-top: 5px !important;
+    border: none;
+    outline-color: transparent !important;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    padding: 0px;
+    margin: 0px;
+    line-height: 10px !important;
+    text-transform: uppercase;
+    clear: both !important;
+    float: none !important;
+  }
+
+  .joined:first-child {
+    text-align: left !important;
+    border: none !important;
+    border-bottom: 1px solid #e1e1e1 !important;
+  }
+
+  .joined:last-child {
+    padding-left: 0px !important;
+  }
+
+  .joined .form-control {
+    font-size: 12px;
+    float: none;
+  }
+
+  .submit {
+    width: calc(100% + 20px) !important;
+  }
+
+  .form-group {
+    margin-bottom: 5px !important;
+  }
+
+  .padding-content {
+    padding: 10px 25px !important;
+  }
+
+  .padding-content h2 {
+    margin-top: 0px;
+  }
+
+  .food_avatar {
+    height: 220px;
+    width: calc(100% - 3px) !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    border: 6px solid #fff;
+  }
+}
+
