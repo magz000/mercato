@@ -171,7 +171,7 @@
                                                         <input type="hidden" name="prid" value="{{ $product->id }}">
                                                         <input type="hidden" name="crdate" value="{{ $input->date }}">
                                                         <input type="hidden" name="crtime" value="{{ $input->time }}">
-                                                        <input type="hidden" name="loca" value="{{ $input->locatioon }}">
+                                                        <input type="hidden" name="loca" value="{{ $input->location }}">
                                                         <button class="btn btn-primary btn-xs">Add to Cart</button>
                                                     </form>
                                                 </center>

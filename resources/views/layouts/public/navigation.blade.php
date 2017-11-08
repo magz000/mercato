@@ -11,6 +11,7 @@
                         <li><a href="#" data-toggle="modal" data-target="#_loginModal">Sign In</a></li>
                     @else
                         <li><a href="#">{{ Auth::guard('u')->user()->firstname .  ' ' . Auth::guard('u')->user()->lastname }}</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>
                     @endif
                 </ul>
             </div>

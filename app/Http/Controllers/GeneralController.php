@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 // Imports Models
 use App\Model\PageView;
@@ -66,6 +67,10 @@ class GeneralController extends Controller
 
 
         return view('public.profile')->with($data);
+    }
+
+    public function checkout() {
+        return view('public.checkout');
     }
 
     // TODO: POST Methods

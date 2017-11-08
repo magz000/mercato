@@ -20,6 +20,7 @@ Route::get('/',                             'GeneralController@index'   )->name(
 Route::get('/search',                       'GeneralController@search'  )->name('resultPage');
 Route::get('/page/{u}',                     'GeneralController@user_page'  )->name('userPage');
 Route::post('/cart/add',                    'GeneralController@add_cart'  )->name('addCartPage');
+Route::get('/checkout/{u}',                 'GeneralController@checkout'  )->name('checkoutPage');
 
 // Providers
 Route::post('/provider/login',                    'ProviderController@login'  )->name('loginProviderPage');
