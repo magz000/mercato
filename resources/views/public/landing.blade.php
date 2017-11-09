@@ -2,10 +2,13 @@
 
 @section('content')
 
+        <style media="screen">
+            ul.dropdown-menu li {
+                margin: 0px;
+            }
+        </style>
+
         <section class="__image-slider">
-
-
-
             <div class="__static-item">
                 <div class="container">
                     <div class="row">
@@ -91,7 +94,22 @@
                                 @if (!Auth::guard('u')->check())
                                     <li><a href="#" data-toggle="modal" data-target="#_loginModal">Sign In</a></li>
                                 @else
-                                    <li><a href="#">{{ Auth::guard('u')->user()->firstname .  ' ' . Auth::guard('u')->user()->lastname }}</a></li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <div class=" dropdown-toggle" type="button" data-toggle="dropdown">
+                                                {{ Auth::guard('u')->user()->firstname .  ' ' . Auth::guard('u')->user()->lastname }}
+                                                <span class="caret"></span></div>
+                                            </button>
+
+                                            <ul class="dropdown-menu">
+                                              <li><a href="{{ route('userDashboardPage') }}">Dashboard</a></li>
+                                              <li><a href="{{ route('userOrderPage') }}">Orders</a></li>
+                                              <li><a href="{{ route('userProfilePage') }}">Profiles</a></li>
+                                            </ul>
+
+
+                                        </div>
+                                    </li>
                                     <li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>
                                 @endif
                             </ul>

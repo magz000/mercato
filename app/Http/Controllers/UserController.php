@@ -13,6 +13,10 @@ class UserController extends Controller
         $this->middleware('auth:u')->except(['login']);
     }
 
+    public function dashboard() {}
+    public function orders() {}
+    public function profile() {}
+
     public function login(Request $request) {
 
         $validator = $this->validate($request, [

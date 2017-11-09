@@ -33,3 +33,7 @@ Route::get('/payment/{oid}/{uid}/{rand}/cancelled',   'GeneralController@payment
 // Users
 Route::post('/user/login',                    'UserController@login'            )->name('loginUserPage');
 Route::get('/user/logout',                    'UserController@logout'            )->name('logoutUserPage');
+
+Route::get('/user/dashboard',                    'UserController@dashboard'            )->name('userDashboardPage');
+Route::get('/user/orders',                    'UserController@orders'            )->name('userOrderPage');
+Route::get('/user/profile',                    'UserController@profile'            )->name('userProfilePage');
