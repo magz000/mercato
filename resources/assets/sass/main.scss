@@ -427,3 +427,68 @@ footer {
         border: none !important;
     }
 }
+
+// CHeckout Progress Bar
+
+._checkoutProgressBar {
+    li {
+        position: relative;
+        margin-top: 50px;
+        padding: 60px 30px;
+
+        &.finished {
+            &:before {
+                background: #5ebdff !important;
+            }
+
+            &:after {
+                background: #5ebdff !important;
+            }
+        }
+
+        &.active {
+            &:before {
+                background: #5eff6d !important;
+            }
+
+            &:after {
+                background: #5eff6d !important;
+            }
+        }
+
+        &.pending {
+            &:before {
+                background: #949494 !important;
+            }
+
+            &:after {
+                background: #949494 !important;
+            }
+        }
+
+        &:not(:last-child) {
+            &:before {
+                content: "";
+                position: absolute;
+                left: 58%;
+                top: calc(50% - 45px);
+                width: 110%;
+                height: 5px;
+                background: #000;
+            }
+        }
+
+        &:after {
+            content: "" attr(title) "";
+            position: absolute;
+            left: calc(50% - 25px);
+            top: 0;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            padding-top: 10px;
+            background: #000;
+            border-radius: 50%;
+        }
+    }
+}

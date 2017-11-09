@@ -121,9 +121,6 @@
 
                     @if ($results != null)
                         @foreach ($results as $key => $product)
-                            @php
-                                $Provider = $Provider($product->provider_id);
-                            @endphp
                             <div class="col-md-3 col-xs-6 col-sm-6">
                                 <div class="__card __search_item">
                                     <div class="__img">
@@ -155,10 +152,10 @@
                                         </div>
 
                                         <div class="row">
-                                            <a href="{{ route('userPage', $Provider->username) }}">
+                                            <a href="{{ route('userPage',  $Provider($product->provider_id)->username) }}">
                                                 <div class="col-md-12">
-                                                    <div class="avatar small pull-left" style="background-image: url('{{ route('providerResources', $Provider->id) }}');"></div>
-                                                    <div class="pull-left" style="margin-left: 10px; margin-top: -3px;"><h6><small>By</small></h6> {{ $Provider->firstname . ' ' . $Provider->lastname }}</div>
+                                                    <div class="avatar small pull-left" style="background-image: url('{{ route('providerResources', $product->provider_id) }}');"></div>
+                                                    <div class="pull-left" style="margin-left: 10px; margin-top: -3px;"><h6><small>By</small></h6> {{ $Provider($product->provider_id)->firstname . ' ' .  $Provider($product->provider_id)->lastname }}</div>
                                                 </div>
                                             </a>
                                         </div>

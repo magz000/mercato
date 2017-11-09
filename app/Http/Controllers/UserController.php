@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class ProviderController extends Controller
+class UserController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth:u')->except(['login']);
+    }
 
     public function login(Request $request) {
 
@@ -30,6 +34,11 @@ class ProviderController extends Controller
         // } else {
         //     return redirect(url()->previous())->with('signin_error', 'Please confirm the Captcha.');
         // }
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect(route('landingPage'));
     }
 
 }

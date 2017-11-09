@@ -12473,3 +12473,56 @@ footer ul li {
   border: none !important;
 }
 
+._checkoutProgressBar li {
+  position: relative;
+  margin-top: 50px;
+  padding: 60px 30px;
+}
+
+._checkoutProgressBar li.finished:before {
+  background: #5ebdff !important;
+}
+
+._checkoutProgressBar li.finished:after {
+  background: #5ebdff !important;
+}
+
+._checkoutProgressBar li.active:before {
+  background: #5eff6d !important;
+}
+
+._checkoutProgressBar li.active:after {
+  background: #5eff6d !important;
+}
+
+._checkoutProgressBar li.pending:before {
+  background: #949494 !important;
+}
+
+._checkoutProgressBar li.pending:after {
+  background: #949494 !important;
+}
+
+._checkoutProgressBar li:not(:last-child):before {
+  content: "";
+  position: absolute;
+  left: 58%;
+  top: calc(50% - 45px);
+  width: 110%;
+  height: 5px;
+  background: #000;
+}
+
+._checkoutProgressBar li:after {
+  content: "" attr(title) "";
+  position: absolute;
+  left: calc(50% - 25px);
+  top: 0;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  padding-top: 10px;
+  background: #000;
+  border-radius: 50%;
+}
+

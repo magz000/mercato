@@ -18,6 +18,17 @@ var film_roll = new FilmRoll({
         scroll : false
       });
 
+$('[data-plugin="text_limiter"]').keypress(function(e) {
+  var tval = $(this).val(),
+      tlength = tval.length,
+      set = $(this).attr('data-limit'),
+      remain = parseInt(set - tlength);
+  $($(this).attr('data-counter')).text(remain);
+  if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
+        $(this).val((tval).substring(0, tlength - 1))
+  }
+})
+
 $('.example').barrating({
     theme: 'fontawesome-stars',
     readonly: true

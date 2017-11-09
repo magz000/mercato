@@ -12,15 +12,24 @@
 */
 
 
-Route::get('/resources/product/{id}',       'GeneralController@resources_product'  )->name('productResources');
-Route::get('/resources/provider/{id}',      'GeneralController@resources_provider'  )->name('providerResources');
+Route::get('/resources/product/{id}',       'GeneralController@resources_product'       )->name('productResources');
+Route::get('/resources/provider/{id}',      'GeneralController@resources_provider'      )->name('providerResources');
 
 
-Route::get('/',                             'GeneralController@index'   )->name('landingPage');
-Route::get('/search',                       'GeneralController@search'  )->name('resultPage');
-Route::get('/page/{u}',                     'GeneralController@user_page'  )->name('userPage');
-Route::post('/cart/add',                    'GeneralController@add_cart'  )->name('addCartPage');
-Route::get('/checkout/{u}',                 'GeneralController@checkout'  )->name('checkoutPage');
+Route::get('/',                             'GeneralController@index'                   )->name('landingPage');
+Route::get('/search',                       'GeneralController@search'                  )->name('resultPage');
+Route::get('/page/{u}',                     'GeneralController@user_page'               )->name('userPage');
+Route::post('/cart/add',                    'GeneralController@add_cart'                )->name('addCartPage');
 
-// Providers
-Route::post('/provider/login',                    'ProviderController@login'  )->name('loginProviderPage');
+Route::get('/checkout/{u}',                 'GeneralController@checkout'                )->name('checkoutPage');
+Route::post('/checkout/{u}/process',        'GeneralController@checkout_process'        )->name('checkoutProcess');
+
+Route::get('/payment/{oid}/{uid}/{rand}',   'GeneralController@payment'                )->name('paymentPage');
+Route::post('/payment/{oid}/{uid}/{rand}/process',   'GeneralController@payment_process'                )->name('paymentProcess');
+Route::get('/payment/{oid}/{uid}/{rand}/success',   'GeneralController@payment_success'                )->name('paymentSuccessPage');
+Route::get('/payment/{oid}/success',   'GeneralController@payment_success_message'                )->name('paymentSuccessMessagePage');
+Route::get('/payment/{oid}/{uid}/{rand}/cancelled',   'GeneralController@payment_cancelled'                )->name('paymentCancelledPage');
+
+// Users
+Route::post('/user/login',                    'UserController@login'            )->name('loginUserPage');
+Route::get('/user/logout',                    'UserController@logout'            )->name('logoutUserPage');

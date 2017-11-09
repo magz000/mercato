@@ -83,6 +83,9 @@
 <script src="/js/main.js"></script>
 <!-- endbuild -->
 
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip(); 
+</script>
 
 
 

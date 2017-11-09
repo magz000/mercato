@@ -4,18 +4,7 @@
 
         <section class="__image-slider">
 
-            <div class="__static-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <br/><br/>
-                            <h2 class="logo">Virtual Mercato</h2>
-                            <div class="clearfix"></div>
-                            <small class="logo-by">by CCA</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="__static-item">
                 <div class="container">
@@ -85,7 +74,31 @@
                     </div>
                 </div>
             </div>
+            <div class="__static-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <br/><br/>
+                            <h2 class="logo">Virtual Mercato</h2>
+                            <div class="clearfix"></div>
+                            <small class="logo-by">by CCA</small>
+                        </div>
 
+                        <div class="col-md-9" style="text-align: right;">
+                            <br/><br/>
+                                <br/>
+                            <ul class="list-unstyled list-inline" style="margin-top: 10px;">
+                                @if (!Auth::guard('u')->check())
+                                    <li><a href="#" data-toggle="modal" data-target="#_loginModal">Sign In</a></li>
+                                @else
+                                    <li><a href="#">{{ Auth::guard('u')->user()->firstname .  ' ' . Auth::guard('u')->user()->lastname }}</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="__slider-item" style="background-image: url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D')"></div>
         </section>
