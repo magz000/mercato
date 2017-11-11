@@ -46,7 +46,7 @@
   ga('create','UA-XXXXX-X');ga('send','pageview');
 </script>
 
-
+@yield('stylesheet')
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <!-- build:js scripts/vendor.js -->
@@ -79,12 +79,15 @@
 <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
 <!-- endbuild -->
 
+
+@yield('scripts')
+
 <!-- build:js scripts/main.js -->
 <script src="/js/main.js"></script>
 <!-- endbuild -->
 
 <script type="text/javascript">
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 
 

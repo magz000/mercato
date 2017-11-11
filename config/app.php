@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Manila',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         'hisorange\BrowserDetect\Provider\BrowserDetectService',
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -228,7 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'BrowserDetect' => 'hisorange\BrowserDetect\Facade\Parser',
-
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

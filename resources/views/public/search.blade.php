@@ -124,7 +124,7 @@
                             <div class="col-md-3 col-xs-6 col-sm-6">
                                 <div class="__card __search_item">
                                     <div class="__img">
-                                        <div style="background-image: url('{{ route('productResources', $product->id) }}')"></div>
+                                        <div style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}')"></div>
                                     </div>
 
                                     <div class="content">
@@ -144,9 +144,12 @@
 
                                             <div class="col-md-5 col-xs-5 col-sm-5">
                                                 <h6>PHP</h6>
-                                                <h5 class="price">{{ number_format($product->price, 2) }}</h5>
                                                 @if ($product->sale_price != 0 || $product->sale_price != null)
-                                                    <h5 class="price" style="margin-top: -10px;"><small>From </small><small  style="text-decoration: line-through;">1,234.00</small></h5>
+                                                    <h5 class="price">{{ number_format($product->sale_price, 2) }}</h5>
+                                                    <h5 class="price" style="margin-top: -10px;"><small>From </small><small  style="text-decoration: line-through;">{{ number_format($product->price, 2) }}</small></h5>
+                                                @else
+                                                    <h5 class="price">{{ number_format($product->price, 2) }}</h5>
+                                                    <h5 class="price" style="margin-top: -10px;">&nbsp;</h5>
                                                 @endif
                                             </div>
                                         </div>

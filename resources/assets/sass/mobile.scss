@@ -7,6 +7,12 @@
             height: 600px;
             -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
             clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+
+            &.__checkout {
+                display: none;
+            }
+
+            
         }
 
         &.__profile {

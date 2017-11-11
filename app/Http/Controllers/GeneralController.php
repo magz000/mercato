@@ -33,7 +33,7 @@ class GeneralController extends Controller
 {
 
     public function __construct() {
-        PageView::insert();
+        //PageView::insert();
 
         $this->_api_context = new ApiContext(new OAuthTokenCredential(
           config('services.paypal.client_id'),

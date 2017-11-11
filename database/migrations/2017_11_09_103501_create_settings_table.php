@@ -11,18 +11,24 @@ class CreateSettingsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        //
-    }
+     public function up()
+     {
+         Schema::create('settings', function (Blueprint $table) {
+             $table->increments('id');
+             $table->string('key');
+             $table->text('value');
+             $table->integer('status')->default(1);
+             $table->timestamps();
+         });
+     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
+     /**
+      * Reverse the migrations.
+      *
+      * @return void
+      */
+     public function down()
+     {
+         Schema::dropIfExists('settings');
+     }
 }

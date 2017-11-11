@@ -9,6 +9,10 @@
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
   }
 
+  .__image-slider.__search.__checkout {
+    display: none;
+  }
+
   .__image-slider.__profile {
     height: 650px !important;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
@@ -102,36 +106,5 @@
     position: relative;
     border: 6px solid #fff;
   }
-
-  .__image-slider.__checkout {
-      display: none;
-  }
-
-
-  ._checkoutProgressBar li {
-      position: relative;
-      padding: 60px 30px;
-      margin-top: -20px;
-      display: block !important;
-  }
-
-  ._checkoutProgressBar li:last-child:before {
-      display: none;
-  }
-
-  ._checkoutProgressBar li.finished:before,
-  ._checkoutProgressBar li.active:before,
-  ._checkoutProgressBar li.pending:before {
-      content: "";
-      position: absolute;
-      left: calc(50% - 0px);
-      top: calc(60%);
-      width: 5px;
-      height: 50%;
-      background: #000;
-  }
-
-
-
-
 }
+

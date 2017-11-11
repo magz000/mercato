@@ -59,7 +59,7 @@
                                       @endphp
                                       <tr>
                                           <td class="hidden-xs hidden-sm">
-                                              <div class="avatar med" style="background-image: url('{{ route('productResources', $product->id) }}');"></div>
+                                              <div class="avatar med" style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}');"></div>
                                           </td>
                                           <td style="width: 20%;">
                                                 <h5 class="small" style="margin-bottom: -5px;">{{ $product->name }}</h5>

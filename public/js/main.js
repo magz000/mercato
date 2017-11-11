@@ -107,6 +107,21 @@ $('[data-plugin="text_limiter"]').keypress(function (e) {
   }
 });
 
+$('.__rating').prop('selectedIndex', '-1');
+
+$('.__rating').barrating('show', {
+  initialRating: null,
+  showSelectedRating: true,
+  theme: 'fontawesome-stars',
+  value: 0
+});
+
+$('.__rating_selected').barrating('show', {
+  showSelectedRating: true,
+  theme: 'fontawesome-stars',
+  readonly: true
+});
+
 $('.example').barrating({
   theme: 'fontawesome-stars',
   readonly: true
@@ -147,6 +162,13 @@ $('.__opt-categ').click(function () {
   $('.__categ-failed[data-categ != "' + category + '"]').hide();
 
   $('input[name="type"]').val(category);
+});
+
+$('.datetimepicker').datetimepicker({
+  date: new Date($.now()),
+  minDate: $.now(),
+  timepicker: false,
+  format: 'Y-m-d'
 });
 
 $('#date').datetimepicker({

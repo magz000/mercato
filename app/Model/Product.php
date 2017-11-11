@@ -81,4 +81,21 @@ class Product extends Model
         return $result;
     }
 
+
+    public static function delivery_type($type) {
+        if ($type == 1) {
+            return "Standard Delivery";
+        } else if($type == 2) {
+            return "By Arrangement";
+        }
+    }
+
+    public static function status($status) {
+        if($status == 1) {
+            return "Published";
+        } else {
+            return "Draft";
+        }
+    }
+
 }

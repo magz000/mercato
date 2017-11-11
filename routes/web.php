@@ -37,3 +37,16 @@ Route::get('/user/logout',                    'UserController@logout'           
 Route::get('/user/dashboard',                    'UserController@dashboard'            )->name('userDashboardPage');
 Route::get('/user/orders',                    'UserController@orders'            )->name('userOrderPage');
 Route::get('/user/profile',                    'UserController@profile'            )->name('userProfilePage');
+Route::get('/user/ratings',                    'UserController@profile'            )->name('userRatingPage');
+Route::post('/user/ratings/process/{oid}/{uid}/{rand}',                    'UserController@rating_process'            )->name('userRatingProcess');
+
+
+// Providers
+Route::get('/p/logout',                    'ProviderController@logout'            )->name('logoutProviderPage');
+Route::get('/p/dashboard',                    'ProviderController@dashboard'            )->name('providerDashboardPage');
+Route::get('/p/orders',                    'ProviderController@orders'            )->name('providerOrderPage');
+Route::get('/p/profile',                    'ProviderController@profile'            )->name('providerProfilePage');
+
+Route::get('/p/products',                    'ProviderController@products'            )->name('providerProductPage');
+Route::get('/p/product/add',                    'ProviderController@product_add'            )->name('providerProductAddPage');
+Route::post('/p/product/process',                    'ProviderController@product_add_process'            )->name('providerProductAddProcess');
