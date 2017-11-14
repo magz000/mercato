@@ -25,11 +25,8 @@
                                   <li><a href="{{ route('providerProfilePage') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>
                                   <li><a href="{{ route('logoutUserPage') }}"> <i class="fa fa-fw fa-sign-out"> </i> Logout</a></li>
                                 </ul>
-
-
                             </div>
                         </li>
-                        <li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>
                     @endif
                 </ul>
             </div>

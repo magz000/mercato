@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Imports Models
 use App\Model\PageView;
+use App\Model\AuditTrail;
 use App\Model\ProductCategory;
 use App\Model\Product;
 use App\Model\Provider;
@@ -121,10 +122,9 @@ class GeneralController extends Controller
 
     public function payment_cancelled($oid, $uid, $enc) {
         if(md5($oid . ' ' . $uid) != $enc) {
+            AuditTrail::log('orders', 'Cancelled the Order id ' . $oid);
             return redirect(route('landingPage'));
         }
-
-
     }
 
     public function payment_success($oid, $uid, $enc, Request $request) {
@@ -157,6 +157,7 @@ class GeneralController extends Controller
         $order->status = 2;
         $order->save();
 
+        AuditTrail::log('orders', 'Paid the Order ' . $oid);
         return redirect(route('paymentSuccessMessagePage', $oid));
     }
 
@@ -175,7 +176,9 @@ class GeneralController extends Controller
             "loca" => 'required'
         ]);
 
-        Cart::add_cart(Auth::guard('u')->user()->id, $request->prid, $request->crdate, $request->crtime, $request->loca);
+        $status = Cart::add_cart(Auth::guard('u')->user()->id, $request->prid, $request->crdate, $request->crtime, $request->loca);
+        AuditTrail::log('carts', $status . ' Cart product id = ' . $request->prid);
+
         return redirect(url()->previous())->with('addcart_success', 'Successfully added to Cart.');
     }
 
@@ -214,6 +217,8 @@ class GeneralController extends Controller
         $order->state           = $request->state;
         $order->contact         = $request->contact;
         $order->save();
+
+        AuditTrail::log('orders', 'Checkout of Order id ' . $order->id);
 
         // TODO : Transfering of Cart to Order Table
         foreach ($carts as $key => $cart) {

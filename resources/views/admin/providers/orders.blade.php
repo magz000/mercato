@@ -1,7 +1,7 @@
-@extends('layouts.public.layouts')
+@extends('layouts.admin.layouts')
 
 @section('content')
-    @include('layouts.providers.navigation')
+    @include('layouts.admin.navigation')
 
 
     @inject('OrderContentModel', 'App\Model\OrderContent')
@@ -17,20 +17,21 @@
             td {
                 border-top: none !important;
             }
-
-            
         </style>
 
         <br><br><br>
 
         <div class="row">
 
-            @include('layouts.providers.side_nav')
+            @include('layouts.admin.side_nav')
             <div class="col-md-10">
+
+                <h4>Orders List of {{ $provider->firstname . ' ' . $provider->lastname }}</h4>
+
                 @foreach ($order_ids as $key => $order_id)
                     @php
                         $order = $OrderModel->find($order_id);
-                        $contents = $OrderContentModel->where('order_id', '=', $order_id)->where('provider_id', '=', Auth::guard('p')->user()->id)->get();
+                        $contents = $OrderContentModel->where('order_id', '=', $order_id)->where('provider_id', '=', $provider->id)->get();
                     @endphp
 
                     <div class="panel panel-default">
@@ -123,65 +124,5 @@
         </div>
     </div>
 
-    <div id="__updateOrder" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-sm">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Update Order Status</h4>
-          </div>
-          <div class="modal-body">
-              <div class="form-group">
-                  <label for="">Status</label>
-                  <input type="hidden" name="content_id" value="">
-                  <select name="content_status" id="" class="form-control">
-                      <option value="0">Pending</option>
-                      <option value="1">Cooking</option>
-                      <option value="2">Ready for Pickup</option>
-                  </select>
-
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="__updateOrderBtn" class="btn btn-success" data-dismiss="modal">Update Order</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
-@endsection
-
-@section('scripts')
-    <script type="text/javascript">
-        $(function() {
-
-            $('#__updateOrderBtn').click(function() {
-                $(this).attr('disabled', 'disabled').html('<i class="fa fa-refresh  fa-spin fa-fw"></i> Saving...');
-                $.ajax({
-                    url: '{{ route('order.content.update') }}',
-                    method : 'POST',
-                    data : {content_id : $('input[name="content_id"]').val(), status : $('select[name="content_status"]').val()},
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    },
-                    success: function(data) {
-                        if(data == "1") {
-                            location.reload();
-                        }
-                    }
-                });
-            });
-
-            $('.__updateTrigger').click(function() {
-                var ocid = $(this).attr('data-ocid');
-                $('input[name="content_id"]').val(ocid);
-                $('select[name="content_status"]').val($(this).attr('data-status'));
-            });
-        });
-    </script>
 @endsection

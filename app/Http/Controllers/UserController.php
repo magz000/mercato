@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Import Models
 use App\Model\PageView;
+use App\Model\AuditTrail;
 use App\Model\ProductCategory;
 use App\Model\Product;
 use App\Model\Provider;
@@ -21,7 +22,7 @@ class UserController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:u')->except(['login']);
+        $this->middleware('auth:u')->except(['login', 'logout']);
 
     }
 

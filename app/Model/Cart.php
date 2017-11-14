@@ -36,12 +36,14 @@ class Cart extends Model
             $cart->pickup_time          = $time;
             $cart->save();
 
+            return 'Added';
         } else {
 
             $check->quantity    = $check->quantity + 1;
             $check->total       = $check->total + $product->price;
             $check->save();
 
+            return 'Updated';
         }
 
     }

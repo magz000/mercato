@@ -1,6 +1,6 @@
 <?php
 
-namespace App\model;
+namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +13,7 @@ class Provider extends Authenticatable
     use Notifiable;
 
 
-    protected $guard = 'user';
+    protected $guard = 'p';
 
     /**
      * The attributes that are mass assignable.

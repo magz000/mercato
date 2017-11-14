@@ -9,6 +9,7 @@ use Intervention\Image\ImageManager;
 
 // Import Models
 use App\Model\PageView;
+use App\Model\AuditTrail;
 use App\Model\ProductCategory;
 use App\Model\Product;
 use App\Model\Provider;
@@ -78,13 +79,32 @@ class ProviderController extends Controller
         $product->status            = $request->status != null ? 1 : 0;
         $product->save();
 
+        AuditTrail::log('products', 'insert new product ' . $request->name . ' with an id of ' . $product->name);
         return redirect(route('providerProductPage'))->with('success', 'Successfully added a product.');
 
     }
 
     public function orders() {
-        $data["order_ids"] = OrderContent::where('provider_id', '=', $this->provider_id())->groupBy('order_id')->pluck('order_id');
+        $data["order_ids"] = OrderContent::where('provider_id', '=', $this->provider_id())->orderBy('created_at', 'desc')->groupBy('order_id')->pluck('order_id');
         return view('provider.orders.all')->with($data);
+    }
+
+    public function orders_status_process(Request $request) {
+
+        $this->validate($request, [
+            "content_id" => 'required',
+            "status"    => 'required'
+        ]);
+
+        $content = OrderContent::find($request->content_id);
+
+        AuditTrail::log('order_contents', 'updated status from '. $content->status .' to '. $request->status .' order content id = ' . $request->content_id);
+
+        $content->status = $request->status;
+        $content->save();
+
+        echo '1';
+        exit();
     }
 
     public function profile() {
