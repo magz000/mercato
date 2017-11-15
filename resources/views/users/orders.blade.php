@@ -96,7 +96,7 @@ use App\Model\Provider;
 
                                                     @if (OrderRating::is_rated($content->id) != null)
                                                         @php
-                                                            $rating = OrderRating::where('order_id', '=', $content->id)->get()->first();
+                                                            $rating = OrderRating::where('content_id', '=', $content->id)->get()->first();
                                                         @endphp
                                                         <label for="" class="small">What do you think about the food?</label>
                                                         <div class="row">

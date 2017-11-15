@@ -3,6 +3,7 @@
 @section('content')
 
      @include('layouts.public.navigation')
+     @inject('OrderRating', 'App\Model\OrderRating')
 
     <section class="__image-slider __search">
 
@@ -130,11 +131,9 @@
                                     <div class="content">
                                         <center>
                                             <select class="example" readonly>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5" selected>5</option>
+                                              @for ($i=1; $i <= 5; $i++)
+                                                  <option value="{{ $i }}" {{ $OrderRating->get_rating($product->id) == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                              @endfor
                                             </select>
                                         </center>
                                         <div class="row">

@@ -6,6 +6,7 @@
         @inject('Setting', 'App\Model\Setting')
         @inject('ProductCategory', 'App\Model\ProductCategory')
         @inject('Provider', 'App\Model\Provider')
+        @inject('OrderRating', 'App\Model\OrderRating')
 
         <style media="screen">
             ul.dropdown-menu li {
@@ -148,12 +149,11 @@
                                             <center>
                                                 <div class="avatar" style="background-image: url('{{ asset('img/providers/' . $pr->picture) }}');"></div>
                                                 <br>
+
                                                 <select class="example" readonly>
-                                                  <option value="1">1</option>
-                                                  <option value="2">2</option>
-                                                  <option value="3">3</option>
-                                                  <option value="4">4</option>
-                                                  <option value="5" selected>5</option>
+                                                    @for ($i=1; $i <= 5; $i++)
+                                                        <option value="{{ $i }}" {{ $OrderRating->get_provider_rating($pr->id) == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                                    @endfor
                                                 </select>
                                             </center>
                                         </div>
@@ -209,12 +209,16 @@
                                         <div class="col-md-4">
                                             <center>
                                                 <div class="food_avatar" style="background-image: url('{{ asset('img/uploads/' . $pr->picture) }}');"></div>
-
                                             </center>
                                         </div>
 
                                         <div class="col-md-8 padding-content">
                                             <h2>{{ $pr->name }}</h2>
+                                            <select class="example" readonly>
+                                              @for ($i=1; $i <= 5; $i++)
+                                                  <option value="{{ $i }}" {{ $OrderRating->get_rating($pr->id) == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                              @endfor
+                                            </select>
                                             <p>{{ $pr->description }}</p>
                                             <span class="label label-primary">{{ $ProductCategory->find($pr->category_id)->name }}</span>
                                         </div>

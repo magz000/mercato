@@ -1,7 +1,8 @@
 @extends('layouts.public.layouts')
 
 @section('content')
-
+     @include('layouts.public.navigation')
+    @inject('OrderRating', 'App\Model\OrderRating')
         <section class="__image-slider __profile">
 
 
@@ -14,11 +15,9 @@
                                 <div class="avatar big" style="background-image: url('{{ asset('img/providers/' . $Provider->picture) }}'); border: 3px solid rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);"></div>
                                 <br/>
                                 <select class="example" readonly>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5" selected>5</option>
+                                    @for ($i=1; $i <= 5; $i++)
+                                        <option value="{{ $i }}" {{ $OrderRating->get_provider_rating($Provider->id) == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
                                 </select>
                             </center>
                         </div>
@@ -152,17 +151,15 @@
                             <div class="col-md-3 col-xs-6 col-sm-6">
                                 <div class="__card __search_item">
                                     <div class="__img">
-                                        <div style="background-image: url('{{ route('productResources', $product->id) }}')"></div>
+                                        <div style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}')"></div>
                                     </div>
 
                                     <div class="content">
                                         <center>
                                             <select class="example" readonly>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5" selected>5</option>
+                                                @for ($i=1; $i <= 5; $i++)
+                                                    <option value="{{ $i }}" {{ $OrderRating->get_rating($product->id) == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                                @endfor
                                             </select>
                                         </center>
                                         <div class="row">

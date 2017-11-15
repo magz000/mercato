@@ -18,7 +18,7 @@
                 border-top: none !important;
             }
 
-            
+
         </style>
 
         <br><br><br>
@@ -87,7 +87,7 @@
 
                                                 @if ($OrderRatingModel->is_rated($content->id) != null)
                                                     @php
-                                                        $rating = $OrderRatingModel->where('order_id', '=', $content->id)->get()->first();
+                                                        $rating = $OrderRatingModel->where('content_id', '=', $content->id)->get()->first();
                                                     @endphp
 
                                                     <div class="row">

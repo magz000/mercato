@@ -59,8 +59,10 @@ class UserController extends Controller
         foreach ($request->input('ocid') as $content_id) {
             if($request->input('rating__' . $content_id) != 0
             || $request->input('rating__' . $content_id) != null) {
+                $cotent = OrderContent::find($content_id);
                 $rating = new OrderRating;
-                $rating->order_id   = $content_id;
+                $rating->product_id   = $cotent->product_id;
+                $rating->content_id   = $cotent->id;
                 $rating->category   = "overall";
                 $rating->value      = $request->input('rating__' . $content_id);
                 $rating->message      = $request->input('message__' . $content_id);
