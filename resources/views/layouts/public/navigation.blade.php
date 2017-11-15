@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h4 class="logo">Virtual Mercato</h4>
+                <h4 class="logo"><a href="{{ route('landingPage') }}">Virtual Mercato</a></h4>
             </div>
 
             <div class="col-md-9" style="text-align: right;">
@@ -20,7 +20,6 @@
                                 <ul class="dropdown-menu">
                                   <li><a href="{{ route('userDashboardPage') }}"> <i class="fa fa-fw fa-dashboard"> </i> Dashboard</a></li>
                                   <li><a href="{{ route('userOrderPage') }}"> <i class="fa fa-fw fa-list"> </i> Orders</a></li>
-                                  <li><a href="{{ route('userOrderPage') }}"> <i class="fa fa-fw fa-star"> </i> Ratings</a></li>
                                   <li><a href="{{ route('userProfilePage') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>
                                   <li><a href="{{ route('logoutUserPage') }}"> <i class="fa fa-fw fa-sign-out"> </i> Logout</a></li>
                                 </ul>

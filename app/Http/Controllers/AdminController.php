@@ -100,6 +100,28 @@ class AdminController extends Controller
         return view('admin.clients.activities')->with($data);
     }
 
+    public function category() {
+        $data['categories'] = ProductCategory::paginate(20);
+        return view('admin.categories.all')->with($data);
+    }
+
+    public function category_add() {
+        return view('admin.categories.add');
+    }
+
+    public function category_add_process() {
+
+    }
+
+    public function category_edit() {
+
+    }
+
+    public function category_process() {
+
+    }
+
+
 
     public function login(Request $request) {
         $this->validate($request, [

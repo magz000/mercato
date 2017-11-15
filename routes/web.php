@@ -18,6 +18,7 @@ Route::get('/resources/provider/{id}',      'GeneralController@resources_provide
 
 Route::get('/',                             'GeneralController@index'                   )->name('landingPage');
 Route::get('/search',                       'GeneralController@search'                  )->name('resultPage');
+Route::get('/login',                       'GeneralController@catcher'                  )->name('login');
 Route::get('/page/{u}',                     'GeneralController@user_page'               )->name('userPage');
 Route::post('/cart/add',                    'GeneralController@add_cart'                )->name('addCartPage');
 
@@ -75,3 +76,9 @@ Route::get('/admin/clients',                    'AdminController@clients'       
 Route::get('/admin/clients/{id}',                    'AdminController@client_view'            )->name('admin.client.profile');
 Route::get('/admin/clients/{id}/orders',                    'AdminController@client_orders'            )->name('admin.client.orders');
 Route::get('/admin/clients/{id}/activities',                    'AdminController@client_activities'            )->name('admin.client.activities');
+
+Route::get('/admin/category',                    'AdminController@category'            )->name('admin.category');
+Route::get('/admin/category/add',                    'AdminController@category_add'            )->name('admin.category.add');
+Route::post('/admin/category/add',                    'AdminController@category_add_process'            )->name('admin.category.add.process');
+Route::get('/admin/category/{id}/edit',                    'AdminController@category_edit'            )->name('admin.category.edit');
+Route::post('/admin/category{id}/edit',                    'AdminController@category_process'            )->name('admin.category.edit.process');

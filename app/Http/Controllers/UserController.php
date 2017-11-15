@@ -22,7 +22,7 @@ class UserController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:u')->except(['login', 'logout']);
+        $this->middleware('auth:u')->except(['login']);
 
     }
 
@@ -31,15 +31,14 @@ class UserController extends Controller
     }
 
     public function dashboard() {
+        $data['orders']     = Order::where('user_id', '=', $this->user_id())->orderBy('created_at', 'desc')->limit(5)->get();
 
-        return view('users.dashboard');
-
+        return view('users.dashboard')->with($data);
     }
 
     public function orders() {
 
         $data['orders']     = Order::where('user_id', '=', $this->user_id())->orderBy('created_at', 'desc')->get();
-
         $data['contents']   = function($order_id) {
                 return OrderContent::where('order_id', '=', $order_id)->get();
         };
@@ -89,15 +88,18 @@ class UserController extends Controller
                     'email'     => $request->input('email'),
                     'password'  => $request->input('password')
                 ])) {
+                    AuditTrail::log('user', $request->input('email') . ' logged in.');
                     return redirect(url()->previous())->with('signin_success', 'Successfully Logged In.');
                 } else {
                     return redirect(url()->previous())->with('signin_error', 'Email or Password is Incorrect.');
                 }
+
             } else {
                 if(Auth::guard('p')->attempt([
                     'email'     => $request->input('email'),
                     'password'  => $request->input('password')
                 ])) {
+                    AuditTrail::log('provider', $request->input('email') . ' logged in.');
                     return redirect(route('providerDashboardPage'))->with('signin_success', 'Successfully Logged In.');
                 } else {
                     return redirect(url()->previous())->with('signin_error', 'Email or Password is Incorrect.');

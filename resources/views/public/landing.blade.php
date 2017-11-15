@@ -2,6 +2,11 @@
 
 @section('content')
 
+        @inject('Product', 'App\Model\Product')
+        @inject('Setting', 'App\Model\Setting')
+        @inject('ProductCategory', 'App\Model\ProductCategory')
+        @inject('Provider', 'App\Model\Provider')
+
         <style media="screen">
             ul.dropdown-menu li {
                 margin: 0px;
@@ -132,96 +137,48 @@
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner">
-                            <div class="item active">
 
-                                <div class="row">
-                                    <div class="col-md-4"><Br/>
-                                        <center>
-                                            <div class="avatar" style="background-image: url('https://www.hestancue.com/wp-content/themes/hestan/images/get-start-pic-1.jpg');"></div>
-                                            <br>
-                                            <select class="example" readonly>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5" selected>5</option>
-                                            </select>
-                                        </center>
+                            @foreach ($Setting->pull('featured_chefs', 'array') as $key => $value)
+                                @php
+                                    $pr = $Provider->find($value);
+                                @endphp
+                                <div class="item {{ $key == 0 ? 'active' : '' }}">
+                                    <div class="row">
+                                        <div class="col-md-4"><Br/>
+                                            <center>
+                                                <div class="avatar" style="background-image: url('{{ asset('img/providers/' . $pr->picture) }}');"></div>
+                                                <br>
+                                                <select class="example" readonly>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5" selected>5</option>
+                                                </select>
+                                            </center>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <h2 class="pull-left">{{ $pr->firstname . ' ' . $pr->lastname }}</h2>
+                                            <div class="pull-right" style="margin-top: 30px;"><a href="{{ route('userPage', $pr->username) }}"><span class="label label-primary">View Profile</span></a></div>
+                                            <div class="clearfix"></div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
+                                            <span class="label label-primary">Frozen</span> <span class="label label-primary">Cakes</span> <span class="label label-primary">Porks</span>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-8">
-                                        <h2 class="pull-left">Chef Cravings</h2>
-                                        <div class="pull-right" style="margin-top: 30px;"><span class="label label-primary">View Profile</span></div>
-                                        <div class="clearfix"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
-                                        <span class="label label-primary">Frozen</span> <span class="label label-primary">Cakes</span> <span class="label label-primary">Porks</span>
-                                    </div>
                                 </div>
+                            @endforeach
 
-                            </div>
-
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-md-4"><Br/>
-                                        <center>
-                                            <div class="avatar" style="background-image: url('https://www.hestancue.com/wp-content/themes/hestan/images/get-start-pic-1.jpg');"></div>
-                                            <br>
-                                            <select class="example" readonly>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5" selected>5</option>
-                                            </select>
-                                        </center>
-                                    </div>
-
-                                    <div class="col-md-8">
-                                        <h2 class="pull-left">Chef Cravings</h2>
-                                        <div class="pull-right" style="margin-top: 30px;"><span class="label label-primary">View Profile</span></div>
-                                        <div class="clearfix"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
-                                        <span class="label label-primary">Frozen</span> <span class="label label-primary">Cakes</span> <span class="label label-primary">Porks</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-md-4"><Br/>
-                                        <center>
-                                            <div class="avatar" style="background-image: url('https://www.hestancue.com/wp-content/themes/hestan/images/get-start-pic-1.jpg');"></div>
-                                            <br>
-                                            <select class="example" readonly>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5" selected>5</option>
-                                            </select>
-                                        </center>
-                                    </div>
-
-                                    <div class="col-md-8">
-                                        <h2 class="pull-left">Chef Cravings</h2>
-                                        <div class="pull-right" style="margin-top: 30px;"><span class="label label-primary">View Profile</span></div>
-                                        <div class="clearfix"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
-                                        <span class="label label-primary">Frozen</span> <span class="label label-primary">Cakes</span> <span class="label label-primary">Porks</span>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="clearfix"></div>
                           </div>
-
-                          <div class="clearfix"></div>
                           <br/>
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
-                              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                              <li data-target="#myCarousel" data-slide-to="1"></li>
-                              <li data-target="#myCarousel" data-slide-to="2"></li>
+                                @for ($i = 0; $i < count($Setting->pull('featured_chefs', 'array')); $i++)
+                                  <li data-target="#myCarousel" data-slide-to="{{ $i }}" {!! $i == 0 ? 'class="active"' : '' !!}></li>
+                                @endfor
                             </ol>
                         </div>
 
@@ -236,65 +193,34 @@
                             <div class="clearfix"></div>
                               <!-- Indicators -->
                               <ol class="carousel-indicators">
-                                <li data-target="#foodCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#foodCarousel" data-slide-to="1"></li>
-                                <li data-target="#foodCarousel" data-slide-to="2"></li>
+                                  @for ($i = 0; $i < count($Setting->pull('features_foods', 'array')); $i++)
+                                    <li data-target="#foodCarousel" data-slide-to="{{ $i }}" {!! $i == 0 ? 'class="active"' : '' !!}></li>
+                                  @endfor
                               </ol>
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner">
-                            <div class="item active">
+                            @foreach ($Setting->pull('features_foods', 'array') as $key => $value)
+                                @php
+                                    $pr = $Product->find($value);
+                                @endphp
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <center>
-                                            <div class="food_avatar" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/42');"></div>
+                                <div class="item {{ $key == 0 ? 'active' : ''  }}">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <center>
+                                                <div class="food_avatar" style="background-image: url('{{ asset('img/uploads/' . $pr->picture) }}');"></div>
 
-                                        </center>
-                                    </div>
+                                            </center>
+                                        </div>
 
-                                    <div class="col-md-8 padding-content">
-                                        <h2>Chicken & Pesto Penne</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
-                                        <span class="label label-primary">Pasta</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <center>
-                                            <div class="food_avatar" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/53');"></div>
-
-                                        </center>
-                                    </div>
-
-                                    <div class="col-md-8 padding-content">
-                                        <h2>Bagoong Rice</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
-                                        <span class="label label-primary">Seafood</span>
+                                        <div class="col-md-8 padding-content">
+                                            <h2>{{ $pr->name }}</h2>
+                                            <p>{{ $pr->description }}</p>
+                                            <span class="label label-primary">{{ $ProductCategory->find($pr->category_id)->name }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <center>
-                                            <div class="food_avatar" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/6');"></div>
-
-                                        </center>
-                                    </div>
-
-                                    <div class="col-md-8 padding-content">
-                                        <h2>Pina Colada Pork Ribs</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam accusantium rem excepturi, expedita nobis vitae.</p>
-                                        <span class="label label-primary">Pork</span>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endforeach
                             <div class="clearfix"></div>
                           </div>
 
@@ -305,54 +231,16 @@
                 </div>
             </div>
 
-                <h3 class="title">Food Categories</h3>
-                    <div id="itemslide" class="row">
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/21');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/3');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/37');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/48');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/21');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/26');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/24');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/23');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="__card full_bg" style="background-image: url('http://mercato.chefsandbutlers.net/cmplx/product/22');">
-                                        <div class="inner"><p>Pasta</p></div>
-                                    </div>
-                                </div>
-                    </div>
+            <h3 class="title">Food Categories</h3>
+            <div id="itemslide" class="row">
+                    @foreach ($MainCategories as $key => $category)
+                        <div class="col-md-3">
+                            <div class="__card full_bg" style="background-image: url('{{ asset('img/categories/' . $category->image) }}');">
+                                <div class="inner"><p>{{ $category->name }}</p></div>
+                            </div>
+                        </div>
+                    @endforeach
+            </div>
 
 
 

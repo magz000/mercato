@@ -29,8 +29,8 @@ class Cart extends Model
             $cart->user_id              = $user_id;
             $cart->product_id           = $product_id;
             $cart->quantity             = 1;
-            $cart->price                = $product->price;
-            $cart->total                = $product->price;
+            $cart->price                = $product->sale_price != null ? $product->sale_price : $product->price;
+            $cart->total                = $product->sale_price != null ? $product->sale_price : $product->price;
             $cart->pickup_location      = $location;
             $cart->pickup_date          = $date;
             $cart->pickup_time          = $time;
@@ -40,7 +40,7 @@ class Cart extends Model
         } else {
 
             $check->quantity    = $check->quantity + 1;
-            $check->total       = $check->total + $product->price;
+            $check->total       = $check->total + ($product->sale_price != null ? $product->sale_price : $product->price);
             $check->save();
 
             return 'Updated';

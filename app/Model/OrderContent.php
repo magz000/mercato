@@ -1,6 +1,6 @@
 <?php
 
-namespace App\model;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -61,7 +61,7 @@ class OrderContent extends Model
         // Verify if the number of expired content is
         // equal to the number of contents then return false
         if(count($contents) == count($expired)) return false;
-        
+
         foreach ($contents as $content) {
             if($content->status == 4) continue;
             if($content->status != 3) return false;

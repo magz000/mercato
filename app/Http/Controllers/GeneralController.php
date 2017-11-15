@@ -68,6 +68,8 @@ class GeneralController extends Controller
 
         if($request->type == 1) {
             $results = Product::result_category($request->category, $request->date, $request->location);
+        } else if($request->type == 2) {
+            $results = Product::result_food($request->product_name, $request->date, $request->location);
         }
 
         $data = array(
@@ -323,6 +325,10 @@ class GeneralController extends Controller
 
 	    return redirect()->to( $redirectUrl );
 
+    }
+
+    public function catcher() {
+        return redirect(route('landingPage'));
     }
 
     // Below are the API for the Resources

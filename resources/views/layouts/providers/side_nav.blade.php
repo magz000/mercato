@@ -1,9 +1,9 @@
 <div class="col-md-2">
     <ul class="list-unstyled __dashboardMenu">
-        <li><i class="fa fa-fw fa-dashboard"> </i> Dashboard</li>
+        <li><a href="{{ route('providerDashboardPage') }}"> <i class="fa fa-fw fa-dashboard"> </i> Dashboard</a></li>
+        <li><a href="{{ route('providerOrderPage') }}"> <i class="fa fa-fw fa-list"> </i> Orders</a></li>
         <li><a href="{{ route('providerProductPage') }}"> <i class="fa fa-fw fa-cutlery"> </i> Products</a></li>
-        <li><i class="fa fa-fw fa-list"> </i> Orders</li>
-        <li><i class="fa fa-fw fa-star"> </i> Ratings</li>
-        <li><i class="fa fa-fw fa-user"> </i> Profile</li>
+        <li><a href="{{ route('providerProfilePage') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>
+        <li><a href="{{ route('logoutProviderPage') }}"> <i class="fa fa-fw fa-sign-out"> </i> Logout</a></li>
     </ul>
 </div>

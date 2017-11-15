@@ -11,7 +11,7 @@
                     <div class="row __profile">
                         <div class="col-md-3">
                             <center>
-                                <div class="avatar big" style="background-image: url('{{ route('providerResources', $Provider->id) }}'); border: 3px solid rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);"></div>
+                                <div class="avatar big" style="background-image: url('{{ asset('img/providers/' . $Provider->picture) }}'); border: 3px solid rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);"></div>
                                 <br/>
                                 <select class="example" readonly>
                                   <option value="1">1</option>
@@ -179,7 +179,7 @@
                                             </div>
                                         </div>
 
-                                    
+
 
                                         <div class="add-to-cart">
                                             <br/>

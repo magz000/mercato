@@ -16,12 +16,12 @@
                             <div class="form-group col-md-5">
                               <label for="" class="pull-left">Product</label>
                             <div class="pull-right" style="margin-top: -2px; margin-bottom: 2px;">
-                                <span class="label label-primary __opt-categ" data-category="1" style="cursor: pointer">Search By Category</span>
-                                <span class="label label-default __opt-categ" data-category="2" style="cursor: pointer">Search Dishes</span>
+                                <span class="label {!! $input->type == 1 ? 'label-primary' : 'label-default' !!} __opt-categ" data-category="1" style="cursor: pointer">Search By Category</span>
+                                <span class="label {!! $input->type == 2 ? 'label-primary' : 'label-default' !!} __opt-categ" data-category="2" style="cursor: pointer">Search Dishes</span>
                             </div>
 
                             <div class="clearfix"></div>
-                            <div data-categ="1" class="__categ-failed">
+                            <div data-categ="1" class="__categ-failed"  {!! $input->type == 1 ? '' : 'style="display: none;"' !!}>
                                 <select name="category" id="" class="form-control">
                                     @foreach ($MainCategories as $category)
                                         <optgroup label="{{ $category->name }}">
@@ -34,8 +34,8 @@
                                 </select>
                             </div>
 
-                            <div data-categ="2" class="__categ-failed" style="display: none;">
-                                <input type="text" class="form-control" name="product_name" placeholder="Search for a dish...">
+                            <div data-categ="2" class="__categ-failed" {!! $input->type == 2 ? '' : 'style="display: none;"' !!}>
+                                <input type="text" class="form-control" name="product_name" placeholder="Search for a dish..." value="{{ $input->product_name }}">
                             </div>
 
                             </div>
@@ -157,7 +157,7 @@
                                         <div class="row">
                                             <a href="{{ route('userPage',  $Provider($product->provider_id)->username) }}">
                                                 <div class="col-md-12">
-                                                    <div class="avatar small pull-left" style="background-image: url('{{ route('providerResources', $product->provider_id) }}');"></div>
+                                                    <div class="avatar small pull-left" style="background-image: url('{{ asset('img/providers/'. $Provider($product->provider_id)->picture) }}');"></div>
                                                     <div class="pull-left" style="margin-left: 10px; margin-top: -3px;"><h6><small>By</small></h6> {{ $Provider($product->provider_id)->firstname . ' ' .  $Provider($product->provider_id)->lastname }}</div>
                                                 </div>
                                             </a>

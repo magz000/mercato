@@ -56,7 +56,7 @@ class Product extends Model
 
     public static function result_food($name, $date, $location) {
 
-        $products = Product::where('status', '=', 1)->where('name', 'like', '%'. $name .'%')->get();
+        $products = Product::where('status', '=', 1)->where('name', 'LIKE', "%$name%")->get();
         $resultIds = array();
         foreach ($products as $product) {
             $locations = ProviderLocation::where('provider_id','=', $product->provider_id)
@@ -71,9 +71,8 @@ class Product extends Model
                 $date_end   = strtotime($product->day_end);
                 $date_curr  = strtotime($date);
 
-                if($date_start >= $date_curr && $date_end <= $date_curr) $resultIds[] = $product->id;
+                if($date_start <= $date_curr && $date_end >= $date_curr) $resultIds[] = $product->id;
                 else continue;
-
             }
         }
 
