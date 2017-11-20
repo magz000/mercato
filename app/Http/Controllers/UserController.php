@@ -17,12 +17,13 @@ use App\Model\Order;
 use App\Model\OrderContent;
 use App\Model\OrderTransaction;
 use App\Model\OrderRating;
+use App\Model\User;
 
 class UserController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:u')->except(['login']);
+        $this->middleware('auth:u')->except(['login', 'create']);
 
     }
 
@@ -72,6 +73,59 @@ class UserController extends Controller
         }
 
         return redirect(url()->previous())->with('rating_success', 'Sucessfully Rated.');
+    }
+
+    public function create(Request $request) {
+
+        $this->validate($request, ['user_type' => 'required']);
+
+        if($request->user_type == 1) {
+            $rules = array(
+                'semail' => 'required|email|max:191|unique:users,email',
+                'spassword' => 'required|min:8',
+                'srepassword' => 'required|same:spassword',
+                'sfirstname' => 'required|string',
+                'slastname' => 'required|string',
+                'scontact' => 'required',
+                'sbirthday' => 'required',
+            );
+        } else if($request->user_type == 2) {
+            $rules = array(
+                'semail' => 'required|email|max:191|unique:providers,email',
+                'spassword' => 'required|min:8',
+                'srepassword' => 'required|same:spassword',
+                'sfirstname' => 'required|string',
+                'slastname' => 'required|string',
+                'scontact' => 'required',
+                'sbirthday' => 'required',
+            );
+        }
+
+        $validator = $this->validate($request, $rules);
+
+        if($request->user_type == 1) {
+            $client = new User;
+            $client->email = $request->semail;
+            $client->password = Hash::make($request->spassword);
+            $client->firstname = $request->sfirstname;
+            $client->lastname = $request->slastname;
+            $client->contact = $request->scontact;
+            $client->save();
+
+            return redirect(route('landingPage'))->with('success', 'Successfully Registered as Client.');
+
+        } else {
+            $provider = new Provider;
+            $provider->email = $request->semail;
+            $provider->password = Hash::make($request->spassword);
+            $provider->firstname = $request->sfirstname;
+            $provider->lastname = $request->slastname;
+            $provider->contact = $request->scontact;
+            $provider->save();
+
+            return redirect(route('landingPage'))->with('success', 'Successfully Registered as Provider.');
+
+        }
     }
 
     public function login(Request $request) {

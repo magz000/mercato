@@ -34,6 +34,7 @@ Route::get('/payment/{oid}/{uid}/{rand}/cancelled',   'GeneralController@payment
 // Users
 Route::post('/user/login',                    'UserController@login'            )->name('loginUserPage');
 Route::get('/user/logout',                    'UserController@logout'            )->name('logoutUserPage');
+Route::post('/user/create',                    'UserController@create'            )->name('createUserProcess');
 
 Route::get('/user/dashboard',                    'UserController@dashboard'            )->name('userDashboardPage');
 Route::get('/user/orders',                    'UserController@orders'            )->name('userOrderPage');

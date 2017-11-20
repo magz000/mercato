@@ -95,6 +95,12 @@ $('.datetimepicker').datetimepicker({
 	format: 'Y-m-d'
 });
 
+$('.birthday').datetimepicker({
+	date : new Date($.now()),
+    timepicker: false,
+	format: 'Y-m-d'
+});
+
 $('#date').datetimepicker({
 	date : new Date($.now()),
 	minDate : $.now(),

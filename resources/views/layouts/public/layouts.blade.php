@@ -82,7 +82,31 @@
 
 @yield('scripts')
 
+<script type="text/javascript">
+    $(function() {
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                $.notify(
+                  "{{ $error }}",
+                  { position:"top center" }
+                );
+            @endforeach
+        @endif
+
+        @if(session('success'))
+        $.notify(
+          "{{ session('success') }}",
+          "success",
+          { position:"top center" }
+        );
+        @endif
+
+    });
+</script>
+
 <!-- build:js scripts/main.js -->
+<script src="/js/notify.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- endbuild -->
 

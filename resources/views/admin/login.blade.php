@@ -16,7 +16,6 @@
               <h1 style="color: #fff;">Virtual Mercato</h1>
           </center>
 
-          {{ bcrypt("password") }}
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">

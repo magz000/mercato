@@ -99,6 +99,7 @@
                             <ul class="list-unstyled list-inline" style="margin-top: 10px;">
                                 @if (!Auth::guard('u')->check())
                                     <li><a href="#" data-toggle="modal" data-target="#_loginModal">Sign In</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#_SignUpModal">Sign Up</a></li>
                                 @else
                                     <li>
                                         <div class="dropdown">

@@ -116,6 +116,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'semail' => 'email',
+        'spassword' => 'password',
+        'srepassword' => 'repassword',
+        'sfirstname' => 'first name',
+        'slastname' => 'last name',
+        'scontact' => 'contact',
+        'sbirthday' => 'birthday'
+    ],
 
 ];
