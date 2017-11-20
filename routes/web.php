@@ -54,7 +54,9 @@ Route::get('/p/profile',                    'ProviderController@profile'        
 
 Route::get('/p/products',                    'ProviderController@products'            )->name('providerProductPage');
 Route::get('/p/product/add',                    'ProviderController@product_add'            )->name('providerProductAddPage');
+Route::get('/p/product/{id}/edit',                    'ProviderController@product_edit'            )->name('providerProductEditPage');
 Route::post('/p/product/process',                    'ProviderController@product_add_process'            )->name('providerProductAddProcess');
+Route::post('/p/product/{id}/edit',                    'ProviderController@product_edit_process'            )->name('providerProductEditProcess');
 
 
 // Admin

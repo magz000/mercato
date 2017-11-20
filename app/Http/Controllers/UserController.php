@@ -116,11 +116,12 @@ class UserController extends Controller
 
         } else {
             $provider = new Provider;
-            $provider->email = $request->semail;
-            $provider->password = Hash::make($request->spassword);
-            $provider->firstname = $request->sfirstname;
-            $provider->lastname = $request->slastname;
-            $provider->contact = $request->scontact;
+            $provider->email        = $request->semail;
+            $provider->username     = $request->sfirstname . '' . $request->slastname;
+            $provider->password     = Hash::make($request->spassword);
+            $provider->firstname    = $request->sfirstname;
+            $provider->lastname     = $request->slastname;
+            $provider->contact      = $request->scontact;
             $provider->save();
 
             return redirect(route('landingPage'))->with('success', 'Successfully Registered as Provider.');

@@ -79,10 +79,59 @@ class ProviderController extends Controller
         $product->status            = $request->status != null ? 1 : 0;
         $product->save();
 
-        AuditTrail::log('products', 'insert new product ' . $request->name . ' with an id of ' . $product->name);
+        AuditTrail::log('products', 'insert new product ' . $request->name . ' with an id of ' . $product->id);
         return redirect(route('providerProductPage'))->with('success', 'Successfully added a product.');
 
     }
+
+    public function product_edit($product_id) {
+        $data["MainCategories"]    = ProductCategory::get_main();
+        $data["SubCategories" ]    = function($parent) {
+                return ProductCategory::get_sub($parent);
+            };
+        $data['product'] = Product::find($product_id);
+        return view('provider.products.edit')->with($data);
+    }
+
+    public function product_edit_process(Request $request, $product_id) {
+
+        $this->validate($request, [
+            "name"          => 'required',
+            "price"         => 'required',
+            "quantity"      => 'required',
+            "description"   => 'required',
+            "start"         => 'required',
+            "end"           => 'required',
+            "category"      => 'required'
+        ]);
+
+        $filename  = time() . '.jpg';
+        $path = public_path().'/img/uploads/'. $filename;
+        $manager = new ImageManager(array('driver' => 'GD'));
+        $manager->make(file_get_contents($request->image_base64))->save($path);
+
+        $product = Product::find($product_id);
+        $product->provider_id       = $this->provider_id();
+        $product->name              = $request->name;
+        $product->qty              = $request->quantity;
+        $product->price             = $request->price;
+        $product->description       = $request->description;
+        if($request->image_base64 != '') {
+            $product->picture           = $filename;
+        }
+        $product->category_id       = $request->category;
+        $product->day_start         = $request->start;
+        $product->day_end           = $request->end;
+        $product->delivery_type           = 1;
+        $product->non_expiry        = $request->non_expiry != null ? 1 : 0;
+        $product->status            = $request->status != null ? 1 : 0;
+        $product->save();
+
+        AuditTrail::log('products', 'Updated product ' . $request->name . ' with an id of ' . $product->id);
+        return redirect(route('providerProductPage'))->with('success', 'Successfully updated a product.');
+
+    }
+
 
     public function orders() {
         $data["order_ids"] = OrderContent::where('provider_id', '=', $this->provider_id())->orderBy('created_at', 'desc')->groupBy('order_id')->pluck('order_id');

@@ -55,7 +55,7 @@
                                             <div class="dropdown">
                                                 <button class="btn btn-default btn-xs" data-toggle="dropdown">Options <span class="caret"></span></button>
                                                 <ul class="dropdown-menu small">
-                                                    <li class="small"><a href="#">Edit</a></li>
+                                                    <li class="small"><a href="{{ route('providerProductEditPage', $product->id) }}">Edit</a></li>
                                                     <li class="small"><a href="#">Delete</a></li>
                                                     @if ($product->sale_price == null)
                                                         <li class="small"><a href="#">Put On Sale</a></li>
