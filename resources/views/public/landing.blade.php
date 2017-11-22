@@ -8,10 +8,12 @@
         @inject('Provider', 'App\Model\Provider')
         @inject('OrderRating', 'App\Model\OrderRating')
 
-        <style media="screen">
+        <style type="stylesheet">
             ul.dropdown-menu li {
                 margin: 0px;
             }
+
+
         </style>
 
         <section class="__image-slider">
@@ -125,7 +127,13 @@
                 </div>
             </div>
 
-            <div class="__slider-item" style="background-image: url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D')"></div>
+            <div class="__slider-item">
+                <video id="video" autoplay loop>
+                  <source src="{{ asset('img/vid_banner.mp4') }}" type="video/mp4">
+                  <source src="mov_bbb.ogg" type="video/ogg">
+                  Your browser does not support HTML5 video.
+                </video>
+            </div>
         </section>
 
         <div class="container __main-content">

@@ -12535,3 +12535,7 @@ footer ul li {
   font-size: 18px;
 }
 
+#video {
+  width: 100vw !important;
+}
+

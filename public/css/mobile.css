@@ -106,5 +106,10 @@
     position: relative;
     border: 6px solid #fff;
   }
+
+  #video {
+    height: 150vh !important;
+    width: auto !important;
+  }
 }
 

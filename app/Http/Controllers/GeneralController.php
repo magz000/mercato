@@ -17,6 +17,9 @@ use App\Model\Order;
 use App\Model\OrderContent;
 use App\Model\OrderTransaction;
 
+
+use App\Services\SMS;
+
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Amount;
@@ -59,7 +62,10 @@ class GeneralController extends Controller
                     return ProductCategory::get_sub($parent);
                 }
         );
-        return view('public.landing')->with($data);
+
+
+        //return view('public.landing')->with($data);
+        return view('email.receipt')->with($data);
     }
 
     public function search(Request $request) {
