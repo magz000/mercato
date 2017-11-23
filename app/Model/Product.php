@@ -18,19 +18,21 @@ class Product extends Model
 
         $pCategory = ProductCategory::where('id', '=', $category_id)->get()->first();
 
-        $category_id = array();
-        if($pCategory->parent == null) {
-            $subs = ProductCategory::get_sub($pCategory->id);
-            foreach ($subs as $key => $sub) {
-                $category_id[] = $sub->id;
+        if($category_id != 0) {
+            $category_id = array();
+            if($pCategory->parent == null) {
+                $subs = ProductCategory::get_sub($pCategory->id);
+                foreach ($subs as $key => $sub) {
+                    $category_id[] = $sub->id;
+                }
+            } else {
+                $category_id[] = $pCategory->id;
             }
-        } else {
-            $category_id[] = $pCategory->id;
         }
 
         foreach ($products as $product) {
-
-            if(!in_array($product->category_id, $category_id)) continue;
+            if($category_id != 0)
+                if(!in_array($product->category_id, $category_id)) continue;
 
             $locations = ProviderLocation::where('provider_id','=', $product->provider_id)
                                         ->where('location', '=', $location)->get()->first();

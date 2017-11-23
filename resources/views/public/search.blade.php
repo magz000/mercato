@@ -57,9 +57,9 @@
                             <div class="form-group col-md-2">
                               <label for="">Pick-up Station</label>
                               <select name="location" id="" class="form-control">
-                                <option value="Katipunan" {{ $input->location == 'Katipunan' ? 'selected' : '' }}>Katipunan</option>
-                                <option value="Cubao" {{ $input->location == 'Cubao' ? 'selected' : '' }}>Cubao</option>
-                                <option value="Marikina" {{ $input->location == 'Marikina' ? 'selected' : '' }}>Marikina</option>
+                                  @foreach ($Locations as $location)
+                                      <option value="{{ $location->id }}" {{ $input->location == $location->id ? 'selected' : '' }}>{{ $location->name }}</option>
+                                  @endforeach
                               </select>
                             </div>
 

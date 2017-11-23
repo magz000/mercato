@@ -21,6 +21,7 @@
                           @php
                               $product = App\Model\Product::find($cart->product_id);
                               $provider = App\Model\Provider::find($product->provider_id);
+                              $location = App\Model\Location::find($cart->pickup_location);
                               $grandtotal += $cart->total;
                               $fees += 20;
                           @endphp
@@ -35,7 +36,7 @@
 
                               <td>
                                     <h6 class="label-h6">Pick-Up</h6>
-                                    <h5>{{ $cart->pickup_location }}</h5>
+                                    <h5>{{ $location->name }}</h5>
                               </td>
 
                               <td>
@@ -60,7 +61,12 @@
                               </td>
 
                               <td>
-                                  <button class="btn btn-danger btn-xs" style="margin-top: 15px;">X</button>
+                                  <form class="" action="{{ route('deleteCartProcess') }}" method="post">
+                                      {{ csrf_field() }}
+                                      <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+                                      <input type="hidden" name="_method" value="delete" />
+                                      <button class="btn btn-danger btn-xs" style="margin-top: 15px;">X</button>
+                                  </form>
                               </td>
                           </tr>
                       @endforeach

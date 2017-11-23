@@ -16,6 +16,7 @@ use App\Model\Cart;
 use App\Model\Order;
 use App\Model\OrderContent;
 use App\Model\OrderTransaction;
+use App\Model\Location;
 
 
 use App\Services\SMS;
@@ -60,12 +61,13 @@ class GeneralController extends Controller
             "MainCategories"    => ProductCategory::get_main(),
             "SubCategories"     => function($parent) {
                     return ProductCategory::get_sub($parent);
-                }
+                },
+            "Locations"  => Location::all()
         );
 
 
-        //return view('public.landing')->with($data);
-        return view('email.receipt')->with($data);
+        return view('public.landing')->with($data);
+        //return view('email.receipt')->with($data);
     }
 
     public function search(Request $request) {
@@ -87,7 +89,8 @@ class GeneralController extends Controller
                     return Provider::find($provider_id);
                 },
             "input"            => $request,
-            "results"            => $results
+            "results"            => $results,
+            "Locations"  => Location::all()
         );
         return view('public.search')->with($data);
     }
@@ -185,9 +188,21 @@ class GeneralController extends Controller
         ]);
 
         $status = Cart::add_cart(Auth::guard('u')->user()->id, $request->prid, $request->crdate, $request->crtime, $request->loca);
-        AuditTrail::log('carts', $status . ' Cart product id = ' . $request->prid);
+        AuditTrail::log('carts', $status . 'Added to Cart product id = ' . $request->prid);
 
-        return redirect(url()->previous())->with('addcart_success', 'Successfully added to Cart.');
+        return redirect(url()->previous())->with('success', 'Successfully added to Cart.');
+    }
+
+    public function delete_cart(Request $request) {
+        $this->validate($request, [
+            "cart_id" => 'required'
+        ]);
+
+        $cart = Cart::find($request->cart_id);
+        AuditTrail::log('carts',' Deleted a Cart product id = ' . $cart->product_id);
+        $cart->delete();
+
+        return redirect(url()->previous())->with('success', 'Successfully Deleted a product from Cart.');
     }
 
     public function checkout_process(Request $request) {

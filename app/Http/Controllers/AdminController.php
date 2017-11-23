@@ -19,6 +19,7 @@ use App\Model\OrderTransaction;
 use App\Model\OrderRating;
 use App\Model\Admin;
 use App\Model\User;
+use App\Model\Location;
 
 // Reports
 use App\Model\Reports;
@@ -106,20 +107,120 @@ class AdminController extends Controller
     }
 
     public function category_add() {
-        return view('admin.categories.add');
+        $data['categories'] = ProductCategory::where('parent', '=', null)->get();
+        return view('admin.categories.add')->with($data);
     }
 
-    public function category_add_process() {
+    public function category_add_process(Request $request) {
+        $this->validate($request, [
+            'name'  =>'required',
+            'category_type' => 'required'
+        ]);
+
+        if($request->category_type == 1) {
+            $filename  = time() . '.jpg';
+    		$path = public_path().'/img/categories/'. $filename;
+            $manager = new ImageManager(array('driver' => 'GD'));
+            $manager->make(file_get_contents($request->image_base64))->save($path);
+
+            $category = new ProductCategory;
+            $category->name = $request->name;
+            $category->parent = null;
+            $category->image = $filename;
+            $category->save();
+
+            AuditTrail::log('product_categories', 'inserted new Main Category ' . $category->name);
+            return redirect(route('admin.category'))->with('success', 'Successfully added a new Main Category');
+
+        } else {
+            $category = new ProductCategory;
+            $category->name = $request->name;
+            $category->parent = $request->parent;
+            $category->image = null;
+            $category->save();
+            AuditTrail::log('product_categories', 'inserted new Sub Category ' . $category->name);
+            return redirect(route('admin.category'))->with('success', 'Successfully added a new Sub Category');
+        }
 
     }
 
-    public function category_edit() {
+    public function category_edit($category_id) {
+        $data['categories'] = ProductCategory::where('parent', '=', null)->get();
+        $data['categ'] = ProductCategory::find($category_id);
+        return view('admin.categories.edit')->with($data);
+    }
+
+    public function category_edit_process(Request $request, $category_id) {
+        $this->validate($request, [
+            'name'  =>'required',
+            'category_type' => 'required'
+        ]);
+
+        if($request->category_type == 1) {
+            $filename  = time() . '.jpg';
+            $path = public_path().'/img/categories/'. $filename;
+            $manager = new ImageManager(array('driver' => 'GD'));
+            $manager->make(file_get_contents($request->image_base64))->save($path);
+
+            $category = ProductCategory::find($category_id);
+            $category->name = $request->name;
+            $category->parent = null;
+            $category->image = $filename;
+            $category->save();
+            AuditTrail::log('product_categories', 'Updated Main Category #' . $category->id);
+            return redirect(route('admin.category'))->with('success', 'Successfully added a new Main Category');
+
+        } else {
+            $category = ProductCategory::find($category_id);
+            $category->name = $request->name;
+            $category->parent = $request->parent;
+            $category->image = null;
+            $category->save();
+            AuditTrail::log('product_categories', 'Updated Sub Category #' . $category->id);
+            return redirect(route('admin.category'))->with('success', 'Successfully added a new Sub Category');
+        }
 
     }
 
-    public function category_process() {
 
+    public function location() {
+        $data['locations'] = Location::paginate(20);
+        return view('admin.locations.all')->with($data);
     }
+
+    public function location_add() {
+        return view('admin.locations.add');
+    }
+
+    public function location_add_process(Request $request) {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $location = new Location;
+        $location->name = $request->name;
+        $location->save();
+        AuditTrail::log('locations', 'inserted a new Pick-up Location' . $location->name);
+        return redirect(route('admin.locations'))->with('success', 'Successfully added a new Pick-up Location');
+    }
+
+    public function location_edit($location_id) {
+        $data['loc'] = Location::find($location_id);
+        return view('admin.locations.edit')->with($data);
+    }
+
+    public function location_edit_process(Request $request, $location_id) {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $location = Location::find($location_id);
+        $location->name = $request->name;
+        $location->save();
+        AuditTrail::log('locations', 'Updated Pick-up Location #' . $location->id);
+        return redirect(route('admin.locations'))->with('success', 'Successfully updated a Pick-up Location');
+    }
+
 
 
 

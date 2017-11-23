@@ -34,6 +34,7 @@
                                 <div class="clearfix"></div>
                                 <div data-categ="1" class="__categ-failed">
                                     <select name="category" id="" class="form-control">
+                                        <option value="0">All Dishes</option>
                                         @foreach ($MainCategories as $category)
                                             <optgroup label="{{ $category->name }}">
                                                 <option value="{{ $category->id }}">All {{ $category->name }}</option>
@@ -60,6 +61,11 @@
                                     <label for="">Time</label>
                                     <select name="time" id="" class="form-control">
                                         <option value="9:00 AM">9:00 AM</option>
+                                        <option value="11:00 AM">11:00 AM</option>
+                                        <option value="12:00 NN">12:00 NN</option>
+                                        <option value="02:00 PM">02:00 PM</option>
+                                        <option value="04:00 PM">04:00 PM</option>
+                                        <option value="06:00 PM">06:00 PM</option>
                                     </select>
                                   </div>
                                 </div>
@@ -67,9 +73,9 @@
                                 <div class="form-group col-md-2">
                                   <label for="">Pick-up Station</label>
                                   <select name="location" id="" class="form-control">
-                                    <option value="Katipunan">Katipunan</option>
-                                    <option value="Cubao">Cubao</option>
-                                    <option value="Marikina">Marikina</option>
+                                    @foreach ($Locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                    @endforeach
                                   </select>
                                 </div>
 
@@ -245,6 +251,7 @@
             </div>
 
             <h3 class="title">Food Categories</h3>
+            <Br/>
             <div id="itemslide" class="row">
                     @foreach ($MainCategories as $key => $category)
                         <div class="col-md-3">

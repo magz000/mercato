@@ -24,6 +24,11 @@
             @include('layouts.admin.side_nav')
 
             <div class="col-md-10">
+                @if (count($orders) == 0)
+                    <center>
+                        <h1>No Orders Yet.</h1>
+                    </center>
+                @endif
                 @foreach ($orders as $order)
                     @php
                         $contents = $OrderContentModel->where('order_id', '=', $order->id)->get();

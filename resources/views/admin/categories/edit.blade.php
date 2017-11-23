@@ -15,33 +15,33 @@
             <div class="col-md-10">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h4>Add New Product Category</h4>
+                        <h4>Update Product Category</h4>
 
                         <br/>
-                        <form class="" action="{{ route('admin.category.add.process') }}" method="post">
+                        <form class="" action="{{ route('admin.category.edit.process', $categ->id) }}" method="post">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Category Name</label>
-                                        <input type="text" name="name" class="form-control">
+                                        <input type="text" name="name" class="form-control" value="{{ $categ->name }}">
                                     </div>
 
                                     <div class="form-group">
                                         <div class="btn-group" data-toggle="buttons">
-                                            <label class="btn btn-primary active" style="width: 150px;">
-                                              <input type="radio" name="category_type" id="option2" value="1" autocomplete="off" checked>
+                                            <label class="btn btn-primary {{ $categ->parent == null ? 'active' : '' }}" style="width: 150px;">
+                                              <input type="radio" name="category_type" id="option2" value="1" autocomplete="off" {{ $categ->parent == null ? 'checked' : '' }}>
                                               Main Category
                                             </label>
 
-                                            <label class="btn btn-primary" style="width: 150px;">
-                                              <input type="radio" name="category_type" id="option3" value="2" autocomplete="off">
+                                            <label class="btn btn-primary {{ $categ->parent == null ? '' : 'active' }}" style="width: 150px;">
+                                              <input type="radio" name="category_type" id="option3" value="2" autocomplete="off" {{ $categ->parent == null ? '' : 'checked' }}>
                                               Sub Category
                                             </label>
                                           </div>
                                     </div>
 
-                                    <div class="form-group __1">
+                                    <div class="form-group __1" {!! $categ->parent != null ? 'style="display: none;"' : '' !!}>
                                         <center>
                                             <div id="upload-demo"></div>
                                             <label for="upload" class="btn btn-primary btn-xs">
@@ -52,18 +52,18 @@
                                         </center>
                                     </div>
 
-                                    <div class="form-group __2" style="display: none;">
+                                    <div class="form-group __2" {!! $categ->parent != null ? '' : 'style="display: none;"' !!} >
                                         <label for="">Sub Category of</label>
                                         <select name="parent" id="" class="form-control">
                                             @foreach ($categories as $key => $value)
-                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                <option value="{{ $value->id }}" {{ $categ->parent != null && $categ->parent == $value->id ? 'selected' : ''  }}>{{ $value->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <button id="_submit" class="btn btn-success">Add Category</button>
+                            <button id="_submit" class="btn btn-success">Update Category</button>
                         </form>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
             var el = document.getElementById('upload-demo');
 
             var vanilla = new Croppie(el, {
-                url     : "{{ asset('img/placeholder.jpg') }}",
+                url     : "{{ $categ->parent == null ? asset('img/categories/' . $categ->image) : asset('img/placeholder.jpg') }}",
                 viewport: { width: 300, height: 300 },
                 boundary: { width: 300, height: 300 },
             });

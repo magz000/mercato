@@ -21,6 +21,7 @@ Route::get('/search',                       'GeneralController@search'          
 Route::get('/login',                       'GeneralController@catcher'                  )->name('login');
 Route::get('/page/{u}',                     'GeneralController@user_page'               )->name('userPage');
 Route::post('/cart/add',                    'GeneralController@add_cart'                )->name('addCartPage');
+Route::delete('/cart/delete',                    'GeneralController@delete_cart'                )->name('deleteCartProcess');
 
 Route::get('/checkout/{u}',                 'GeneralController@checkout'                )->name('checkoutPage');
 Route::post('/checkout/{u}/process',        'GeneralController@checkout_process'        )->name('checkoutProcess');
@@ -84,4 +85,11 @@ Route::get('/admin/category',                    'AdminController@category'     
 Route::get('/admin/category/add',                    'AdminController@category_add'            )->name('admin.category.add');
 Route::post('/admin/category/add',                    'AdminController@category_add_process'            )->name('admin.category.add.process');
 Route::get('/admin/category/{id}/edit',                    'AdminController@category_edit'            )->name('admin.category.edit');
-Route::post('/admin/category{id}/edit',                    'AdminController@category_process'            )->name('admin.category.edit.process');
+Route::post('/admin/category{id}/edit',                    'AdminController@category_edit_process'            )->name('admin.category.edit.process');
+
+
+Route::get('/admin/location',                    'AdminController@location'            )->name('admin.locations');
+Route::get('/admin/location/add',                    'AdminController@location_add'            )->name('admin.location.add');
+Route::post('/admin/location/add',                    'AdminController@location_add_process'            )->name('admin.location.add.process');
+Route::get('/admin/location/{id}/edit',                    'AdminController@location_edit'            )->name('admin.location.edit');
+Route::post('/admin/location{id}/edit',                    'AdminController@location_edit_process'            )->name('admin.location.edit.process');
