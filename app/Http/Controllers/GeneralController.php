@@ -17,9 +17,11 @@ use App\Model\Order;
 use App\Model\OrderContent;
 use App\Model\OrderTransaction;
 use App\Model\Location;
+use App\Model\User;
 
 
 use App\Services\SMS;
+use App\Services\Emailer;
 
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
@@ -65,9 +67,7 @@ class GeneralController extends Controller
             "Locations"  => Location::all()
         );
 
-
         return view('public.landing')->with($data);
-        //return view('email.receipt')->with($data);
     }
 
     public function search(Request $request) {
@@ -167,6 +167,20 @@ class GeneralController extends Controller
 
         $order->status = 2;
         $order->save();
+
+
+        $user = User::find($order->user_id);
+
+        $mail_data = array(
+            "fullname"  => $user->firstname . ' ' . $user->lastname,
+            "date"      => date('m d Y', strtotime($order->create_at)),
+            "order_id"  => $order->id,
+            "control_no"=> Order::format($order->id)
+        );
+
+        $email = new Emailer('carlo.flores@chefsandbutlers.net', 'email.receipt', $mail_data, 'Receipt');
+        $email->send();
+
 
         AuditTrail::log('orders', 'Paid the Order ' . $oid);
         return redirect(route('paymentSuccessMessagePage', $oid));

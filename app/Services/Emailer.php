@@ -14,20 +14,21 @@ class Emailer
     public $data    = null;
     public $subject = null;
 
-    public function __construct($to, $cc, $bcc, $view, $data) {
+    public function __construct($to, $view, $data, $subject, $cc = null, $bcc = null) {
         $this->to = $to;
         $this->cc = $cc;
         $this->bcc = $bcc;
         $this->view = $view;
         $this->data = $data;
+        $this->subject = $subject;
     }
 
 
     public function send() {
         Mail::send($this->view, $this->data, function ($message) {
-            $message->from($this->from);
+            $message->from('app@chefsandbutlers.net');
             $message->to($this->to);
-            $message->subject($subject);
+            $message->subject($this->subject);
         });
 
         return Mail::failures();

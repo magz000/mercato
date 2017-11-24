@@ -242,6 +242,7 @@ th {
       @inject('Provider',      'App\Model\Provider')
       @inject('OrderRating',      'App\Model\OrderRating')
       @inject('Encrypt',      'App\Services\Encryption')
+      @inject('Location',      'App\Model\Location')
 
       <br/><br/>
      <div class="row">
@@ -249,15 +250,19 @@ th {
              <center>
                  <h1 style="font-size: 46px;">Virtual Mercato</h1>
              </center>
+
+             <div class="pull-right" style="margin-top: -50px;">
+                 {!! QrCode::size(100)->margin(0)->generate($Encrypt->encrypt($Order->format($order_id))) !!}
+             </div>
              <h2 style="margin-bottom: -20px;">
-                 Hello, Marcial Amaro
+                 Hello, {{ $fullname }}
              </h2>
              <p>This mail informs you that the payment is received and your order is in process. </p>
 
              <hr>
              <div class="clearfix"></div>
-               <small class="pull-left">Order #</small><h1 class="pull-left" style="margin: 0px;">1000241117-0004</h1>
-               <h4 class="pull-right" style="margin-top: 10px;">Nov 11, 2017</h4>
+               <small class="pull-left">Order #</small><h1 class="pull-left" style="margin: 0px;">{{ $Order->format($order_id) }}</h1>
+               <h4 class="pull-right" style="margin-top: 10px;">{{ $date }}</h4>
                <div class="clearfix"></div>
              <hr>
              <table class="table small">
@@ -276,7 +281,7 @@ th {
                      @php
                          $items = "";
                      @endphp
-                     @foreach ($OrderContent->where('order_id', '=', 4)->get() as $content)
+                     @foreach ($OrderContent->where('order_id', '=', $order_id)->get() as $content)
                          {{ $OrderContent->expire($content) ? '' : '' }}
                          @php
                            $items .= $content->id.','.$content->quantity . ','. $content->price . '|';
@@ -291,7 +296,7 @@ th {
                              <td>PHP {{ number_format($content->price, 2) }}</td>
                              <td>PHP {{ number_format($content->total, 2) }}</td>
                              <td>{{ date('M d, Y', strtotime($content->pickup_date)) . ' ' . $content->pickup_time }}</td>
-                             <td>{{ $content->pickup_location }}</td>
+                             <td>{{ $Location->find($content->pickup_location)->name }}</td>
                              <td><span class="label label-{{ $OrderContent->state($content->status)['state'] }}">{{ $OrderContent->state($content->status)['value'] }}</span></td>
                              <td>{{ $content->note }}</td>
                          </tr>
@@ -301,9 +306,7 @@ th {
 
              <div class="row">
                  <div class="col-md-6">
-                     <div class="pull-left">
-                         {!! QrCode::size(200)->margin(0)->generate($Encrypt->encrypt('1000241117-0004')) !!}
-                     </div>
+
                      <div class="pull-left">
                          {!! QrCode::size(200)->margin(0)->generate($Encrypt->encrypt($items)) !!}
                      </div>
@@ -311,11 +314,11 @@ th {
                  <div class="col-md-6">
                      <div class="pull-right" style="text-align: right;">
                          <small>PHP</small>
-                         <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Order Total </small> {{ number_format($Order->find(4)->total, 2) }}</h3>
+                         <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Order Total </small> {{ number_format($Order->find($order_id)->total, 2) }}</h3>
                          <small>PHP</small>
-                         <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Service Charge </small> {{ number_format($Order->find(4)->service_charge, 2) }}</h3>
+                         <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Service Charge </small> {{ number_format($Order->find($order_id)->service_charge, 2) }}</h3>
                          <small>PHP</small>
-                         <h1 style="margin-top: -5px;"><small style="font-size: 12px;">Grand Total </small> {{ number_format($Order->find(4)->total + $Order->find(4)->service_charge, 2) }}</h1>
+                         <h1 style="margin-top: -5px;"><small style="font-size: 12px;">Grand Total </small> {{ number_format($Order->find($order_id)->total + $Order->find($order_id)->service_charge, 2) }}</h1>
                      </div>
                  </div>
              </div>

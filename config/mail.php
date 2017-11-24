@@ -1,5 +1,19 @@
 <?php
 
+return array(
+  "driver" => "smtp",
+  "host" => "smtp.mailtrap.io",
+  "port" => 2525,
+  "from" => array(
+      "address" => "from@example.com",
+      "name" => "Example"
+  ),
+  "username" => "04a16f18d8d921",
+  "password" => "489a400fec6ceb",
+  "sendmail" => "/usr/sbin/sendmail -bs",
+  "pretend" => false
+);
+
 return [
 
     /*
@@ -29,7 +43,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'mail.chefsandbutlers.net'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +70,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'app@chefsandbutlers.net'),
+        'name' => env('MAIL_FROM_NAME', 'Chefs & Butler'),
     ],
 
     /*
@@ -84,9 +98,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => 'app@chefsandbutlers.net',
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => 'P@$$w0rd',
 
     /*
     |--------------------------------------------------------------------------

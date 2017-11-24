@@ -23,7 +23,7 @@
                                 @foreach ($orders as $key => $order)
                                     <button data-toggle="collapse" class="btn btn-default" style="width: 100%; margin-top:10px; text-align: left;" data-target="#order_{{ $order->id }}">
                                         <div class="pull-left">
-                                            #{{ $order->id }}
+                                            {{ $Order->format($order->id) }}
                                         </div>
 
                                         <div class="pull-right">
