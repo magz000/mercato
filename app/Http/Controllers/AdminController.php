@@ -35,8 +35,8 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
-    public function dashboard() {
-        return view('admin.dashboard');
+    public function dashboard(Request $request) {
+        return view('admin.dashboard')->with(['input' => $request]);
     }
 
     public function orders() {
@@ -199,6 +199,7 @@ class AdminController extends Controller
 
         $location = new Location;
         $location->name = $request->name;
+        $location->color = $request->color;
         $location->save();
         AuditTrail::log('locations', 'inserted a new Pick-up Location' . $location->name);
         return redirect(route('admin.locations'))->with('success', 'Successfully added a new Pick-up Location');
@@ -216,6 +217,7 @@ class AdminController extends Controller
 
         $location = Location::find($location_id);
         $location->name = $request->name;
+        $location->color = $request->color;
         $location->save();
         AuditTrail::log('locations', 'Updated Pick-up Location #' . $location->id);
         return redirect(route('admin.locations'))->with('success', 'Successfully updated a Pick-up Location');

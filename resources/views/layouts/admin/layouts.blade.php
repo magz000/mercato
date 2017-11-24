@@ -61,6 +61,7 @@
 <script src="/bower_components/jquery-bar-rating/jquery.barrating.js"></script>
 <script src="/bower_components/select2/dist/js/select2.js"></script>
 <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="/bower_components/chart.js/dist/Chart.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 

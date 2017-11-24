@@ -23,9 +23,17 @@
                                         <label for="">Pick-up Point Name</label>
                                         <input type="text" name="name" class="form-control">
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="">Color</label>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-3">
+                                            <input type="color" name="color" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
+                            <div class="clearfix"><br/></div>
                             <button id="_submit" class="btn btn-success">Add Pick-up Point</button>
                         </form>
                     </div>

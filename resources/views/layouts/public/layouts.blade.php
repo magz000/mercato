@@ -85,6 +85,18 @@
 
 <script type="text/javascript">
     $(function() {
+        $('.radio').change(function() {
+            if($(this).val() == 1) {
+                $('#_signas').html('Buyer');
+            } else{
+                $('#_signas').html('Provider');
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function() {
 
         @if ($errors->any())
             @foreach ($errors->all() as $error)

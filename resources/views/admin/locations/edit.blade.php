@@ -23,8 +23,18 @@
                                         <label for="">Pick-up Point Name</label>
                                         <input type="text" name="name" class="form-control" value="{{ $loc->name }}">
                                     </div>
+
+
+                                    <div class="form-group">
+                                        <label for="">Color</label>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-3">
+                                            <input type="color" name="color" class="form-control" value="{!! $loc->color !!}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="clearfix"><br/></div>
 
                             <button id="_submit" class="btn btn-success">Upate Pick-up Point</button>
                         </form>

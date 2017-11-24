@@ -134,7 +134,7 @@
             </div>
 
             <div class="__slider-item">
-                <video id="video" autoplay loop>
+                <video id="video" autoplay loop preload="none">
                   <source src="{{ asset('img/vid_banner.mp4') }}" type="video/mp4">
                   <source src="mov_bbb.ogg" type="video/ogg">
                   Your browser does not support HTML5 video.
