@@ -24,27 +24,27 @@ class Order extends Model
             if($key == 0) {
                 $b1 .= str_pad($content->pickup_location, 2, "0", STR_PAD_LEFT);
             } else {
-                $b1 = "00"
+                $b1 = "00";
             }
 
             if($key ==1) {
                 $b2 .= str_pad($content->pickup_location, 2, "0", STR_PAD_LEFT);
             } else {
-                $b2 = "00"
+                $b2 = "00";
             }
 
             if($key == 2) {
                 $b3 .= str_pad($content->pickup_location, 2, "0", STR_PAD_LEFT);
                 break;
             } else {
-                $b3 = "00"
+                $b3 = "00";
             }
 
             if($key == 2) {
                 $b4 .= str_pad($content->pickup_location, 2, "0", STR_PAD_LEFT);
                 break;
             } else {
-                $b4 = "00"
+                $b4 = "00";
             }
         }
 

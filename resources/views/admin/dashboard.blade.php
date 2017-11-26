@@ -127,20 +127,23 @@
 
 @section('scripts')
 
+    @php
+        $locations = $Location->all();
+        $plocs = array();
+        $total = array();
+        $color = array();
+        foreach ($locations as $key => $location) {
+            $plocs[] = explode('-', $location->name)[0];
+            $total[] = $OrderContent->where('pickup_location', '=', $location->id)->where('status', '=', 3)->sum('total');
+            $color[] = $location->color == null ? '#000' : $location->color;
+        }
+    @endphp
+
+
     <script type="text/javascript">
         $(function() {
 
-            @php
-                $locations = $Location->all();
-                $plocs = array();
-                $total = array();
-                $color = array();
-                foreach ($locations as $key => $location) {
-                    $plocs[] = explode('-', $location->name)[0];
-                    $total[] = $OrderContent->where('pickup_location', '=', $location->id)->where('status', '=', 4)->sum('total');
-                    $color[] = $location->color;
-                }
-            @endphp
+
 
             var ctx2 = document.getElementById("LocationChart");
             var myChart = new Chart(ctx2, {
@@ -172,27 +175,28 @@
                 }
             );
 
+            @if (isset($Report->sales_graph($input->sr)['label']))
+                var ctx = document.getElementById("myChart");
+                var myChart = new Chart(ctx, {
+                    "type":"line",
+                    "data":{
+                        "labels":["0", {!! '"'. implode('","', count($Report->sales_graph($input->sr)['label']) == 0 ? array() : $Report->sales_graph($input->sr)['label']) . '"' !!}],
+                        "datasets":[
+                            {
+                                "label":"Sales",
+                                "data":[0, {{ implode(',', count($Report->sales_graph($input->sr)['sales']) == 0 ? array() : $Report->sales_graph($input->sr)['sales']) }}],
+                                "fill":false,
+                                "borderColor":"rgb(75, 192, 192)",
+                                "lineTension":0.1
+                            }
+                        ]
+                    },
+                    "options":{
 
-            var ctx = document.getElementById("myChart");
-            var myChart = new Chart(ctx, {
-                "type":"line",
-                "data":{
-                    "labels":["0", {!! '"'. implode('","', $Report->sales_graph($input->sr)['label']) . '"' !!}],
-                    "datasets":[
-                        {
-                            "label":"Sales",
-                            "data":[0, {{ implode(',', $Report->sales_graph($input->sr)['sales']) }}],
-                            "fill":false,
-                            "borderColor":"rgb(75, 192, 192)",
-                            "lineTension":0.1
-                        }
-                    ]
-                },
-                "options":{
+                    }
+                });
+            @endif
 
-                }
-            }
-        );
     });
     </script>
 @endsection
