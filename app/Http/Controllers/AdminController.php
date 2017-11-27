@@ -250,4 +250,9 @@ class AdminController extends Controller
 
     }
 
+    public function logout() {
+        Auth::logout();
+        return redirect(route('landingPage'));
+    }
+
 }

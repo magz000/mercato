@@ -104,7 +104,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <h5 class="pull-left">{{ $input->slr != null ? $input->slr : 'Daily' }} Sales of Location Graphical Chart</h5>
+                                <h5 class="pull-left">{{ $input->slr != null ? $input->slr : 'Daily' }} Sales per Location Graphical Chart</h5>
                                 {{-- <div class="pull-right" style="padding-top: 8px;">
                                     <a href="{{ route('admin.dashboard') }}?slr=Daily"><button class="btn btn-default btn-xs">Daily</button></a>
                                     <a href="{{ route('admin.dashboard') }}?slr=Weekly"><button class="btn btn-default btn-xs">Weekly</button></a>
@@ -170,7 +170,10 @@
                                     }
                                 }
                             ]
-                        }
+                        },
+                        legend: {
+                            display: false
+                         }
                     }
                 }
             );
@@ -192,7 +195,9 @@
                         ]
                     },
                     "options":{
-
+                        legend: {
+                            display: false
+                         }
                     }
                 });
             @endif

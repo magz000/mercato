@@ -39,7 +39,10 @@ Route::post('/user/create',                    'UserController@create'          
 
 Route::get('/user/dashboard',                    'UserController@dashboard'            )->name('userDashboardPage');
 Route::get('/user/orders',                    'UserController@orders'            )->name('userOrderPage');
+
 Route::get('/user/profile',                    'UserController@profile'            )->name('userProfilePage');
+Route::post('/user/profile/process',                    'UserController@profile_process'            )->name('userProfileProcess');
+
 Route::get('/user/ratings',                    'UserController@profile'            )->name('userRatingPage');
 Route::post('/user/ratings/process/{oid}/{uid}/{rand}',                    'UserController@rating_process'            )->name('userRatingProcess');
 

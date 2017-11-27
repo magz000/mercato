@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
 
 // Import Models
 use App\Model\PageView;
@@ -48,7 +49,46 @@ class UserController extends Controller
 
     }
 
-    public function profile() {}
+    public function profile() {
+        return view('users.profile');
+    }
+
+    public function profile_process(Request $request) {
+        $this->validate($request, [
+            "image_base64"      => 'required',
+            "firstname"         => 'required',
+            "lastname"          => 'required',
+            "street"            => 'required',
+            "barangay"          => 'required',
+            "city"              => 'required',
+            "state"             => 'required',
+            "postal_code"       => 'required'
+        ]);
+
+        $filename  = time() . '.jpg';
+        $path = public_path().'/img/users/'. $filename;
+        $manager = new ImageManager(array('driver' => 'GD'));
+        $manager->make(file_get_contents($request->image_base64))->save($path);
+
+        $user = User::find(Auth::guard('u')->user()->id);
+
+        if (file_exists(public_path() .'/img/users/'. $user->picture)) {
+            unlink(public_path() .'/img/users/'. $user->picture);
+        }
+
+        $user->picture = $filename;
+        $user->firstname    = $request->firstname;
+        $user->middlename   = $request->middlename;
+        $user->lastname = $request->lastname;
+        $user->street   = $request->street;
+        $user->barangay = $request->barangay;
+        $user->city = $request->city;
+        $user->state    = $request->state;
+        $user->postal_code  = $request->postal_code;
+        $user->save();
+
+        return redirect(route('userProfilePage'))->with('success', "You've Successfully Updated you Profile.");
+    }
 
     public function rating_process(Request $request, $oid, $uid, $enc) {
         if( md5($oid . 'cmplx' . $uid) != $enc) return redirect(url()->previous())->with('rating_error', 'Something went wrong.');

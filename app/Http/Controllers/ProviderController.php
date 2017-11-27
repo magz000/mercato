@@ -65,6 +65,11 @@ class ProviderController extends Controller
         $manager->make(file_get_contents($request->image_base64))->save($path);
 
         $product = new Product;
+
+        if (file_exists(public_path() .'/img/uploads/'. $product->picture)) {
+            unlink(public_path() .'/img/uploads/'. $product->picture);
+        }
+
         $product->provider_id       = $this->provider_id();
         $product->name              = $request->name;
         $product->qty              = $request->quantity;
