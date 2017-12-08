@@ -18,6 +18,8 @@ use App\Model\Order;
 use App\Model\OrderContent;
 use App\Model\OrderTransaction;
 use App\Model\OrderRating;
+use App\Model\Location;
+use App\Model\ProviderLocation;
 
 class ProviderController extends Controller
 {
@@ -162,7 +164,55 @@ class ProviderController extends Controller
     }
 
     public function profile() {
+        return view('provider.profile');
+    }
 
+    public function profile_process(Request $request) {
+        $this->validate($request, [
+            "image_base64"      => 'required',
+            "firstname"         => 'required',
+            "lastname"          => 'required',
+            "street"            => 'required',
+            "barangay"          => 'required',
+            "city"              => 'required',
+            "state"             => 'required',
+            "postal_code"       => 'required'
+        ]);
+
+        $filename  = time() . '.jpg';
+        $path = public_path().'/img/providers/'. $filename;
+        $manager = new ImageManager(array('driver' => 'GD'));
+        $manager->make(file_get_contents($request->image_base64))->save($path);
+
+        $user = Provider::find(Auth::guard('p')->user()->id);
+
+        if ($request->location != null) {
+            foreach ($request->location as $key => $value) {
+                $location = new ProviderLocation;
+                $location->provider_id = $user->id;
+                $location->location = $value;
+                $location->save();
+            }
+        }
+
+        if (file_exists(public_path() .'/img/providers/'. $user->picture)) {
+            unlink(public_path() .'/img/providers/'. $user->picture);
+        }
+
+        $user->picture = $filename;
+        $user->firstname    = $request->firstname;
+        $user->middlename   = $request->middlename;
+        $user->lastname = $request->lastname;
+        $user->street   = $request->street;
+        $user->barangay = $request->barangay;
+        $user->city = $request->city;
+        $user->state    = $request->state;
+        $user->postal_code  = $request->postal_code;
+        $user->postal_code  = $request->postal_code;
+        $user->bio = $request->bio;
+        $user->save();
+
+        return redirect(route('providerProfilePage'))->with('success', "You've Successfully Updated you Profile.");
     }
 
     public function logout() {

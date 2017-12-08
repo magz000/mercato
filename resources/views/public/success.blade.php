@@ -26,18 +26,33 @@
     <div class="container">
             <div class="row">
 
-                <div class="col-md-12">
-                    <h1>Pickup Instruction</h1>
-                </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                  </div>
+                @if (App\Model\Order::find($oid)->discount != 0)
+                    <div class="col-md-12">
+                        <h1>Thank you, for Dining In.</h1>
                     </div>
-                </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                          </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <h1>Pickup Instruction</h1>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                          </div>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="col-md-6">
                     <div class="panel panel-default">
@@ -47,6 +62,7 @@
                           <table class="table __cart">
                               <tbody>
                                   @php
+                                      $order = App\Model\Order::find($oid);
                                       $carts = App\Model\OrderContent::where('order_id', '=', $oid)->get();
                                       $grandtotal=$fees=0;
                                   @endphp
@@ -124,6 +140,21 @@
                                       </td>
                                   </tr>
 
+                                  @if ($order->discount != 0)
+                                      <tr>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td style="border-top: 1px solid #c1c1c1 !important;">
+                                              <h6 class="label-h6" style="margin: 0;">Discount</h6>
+                                              <h3 style="margin: 0;">-{{ number_format($grandtotal*($order->discount/100), 2) }}</h3>
+                                          </td>
+                                      </tr>
+                                  @endif
+
                                   <tr>
                                       <td></td>
                                       <td></td>
@@ -133,7 +164,11 @@
                                       <td></td>
                                       <td style="border-top: 1px solid #c1c1c1 !important;">
                                           <h6 class="label-h6" style="margin: 0;">Grand Total</h6>
-                                          <h3 style="margin: 0;">{{ number_format($grandtotal + $fees, 2) }}</h3>
+                                          @if ($order->discount != 0)
+                                              <h3 style="margin: 0;">{{ number_format(($grandtotal - $grandtotal*($order->discount/100)) + $fees, 2) }}</h3>
+                                          @else
+                                              <h3 style="margin: 0;">{{ number_format($grandtotal + $fees, 2) }}</h3>
+                                          @endif
                                       </td>
                                   </tr>
                               </tbody>

@@ -27,7 +27,10 @@ Route::get('/checkout/{u}',                 'GeneralController@checkout'        
 Route::post('/checkout/{u}/process',        'GeneralController@checkout_process'        )->name('checkoutProcess');
 
 Route::get('/payment/{oid}/{uid}/{rand}',   'GeneralController@payment'                )->name('paymentPage');
+
 Route::post('/payment/{oid}/{uid}/{rand}/process',   'GeneralController@payment_process'                )->name('paymentProcess');
+Route::post('/payment/{oid}/{uid}/{rand}/tcg/process',   'GeneralController@payment_tcg_process'       )->name('paymentTCGProcess');
+
 Route::get('/payment/{oid}/{uid}/{rand}/success',   'GeneralController@payment_success'                )->name('paymentSuccessPage');
 Route::get('/payment/{oid}/success',   'GeneralController@payment_success_message'                )->name('paymentSuccessMessagePage');
 Route::get('/payment/{oid}/{uid}/{rand}/cancelled',   'GeneralController@payment_cancelled'                )->name('paymentCancelledPage');
@@ -55,6 +58,7 @@ Route::get('/p/orders',                    'ProviderController@orders'          
 Route::post('/p/orders/status',                    'ProviderController@orders_status_process'            )->name('order.content.update');
 
 Route::get('/p/profile',                    'ProviderController@profile'            )->name('providerProfilePage');
+Route::post('/p/profile/process',                    'ProviderController@profile_process'            )->name('providerProfileProcess');
 
 Route::get('/p/products',                    'ProviderController@products'            )->name('providerProductPage');
 Route::get('/p/product/add',                    'ProviderController@product_add'            )->name('providerProductAddPage');

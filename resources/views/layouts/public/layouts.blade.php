@@ -36,6 +36,15 @@
     @yield('content')
     @include('public.modals')
 
+    {{-- <div class="chat__support">
+        <div class="chat__conversation">
+
+        </div>
+        <div class="chat__activate">
+            <i class="glyphicon glyphicon-comment"></i>
+        </div>
+    </div> --}}
+
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
   (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -148,10 +157,21 @@
                   <li>Apply as Provider</li>
                 </ul>
           </div>
+
+         <div class="col-md-6">
+             <div class="row">
+                 <div class="col-md-3"><img style="max-width: 100%;" src="{{ asset('img/partners/partner_cravings.png') }}" alt=""></div>
+                 <div class="col-md-3"><img style="max-width: 100%;" src="{{ asset('img/partners/partner_cca.png') }}" alt=""></div>
+                 <div class="col-md-3"><img style="max-width: 100%;" src="{{ asset('img/partners/partner_epic.png') }}" alt=""></div>
+                 <div class="col-md-3"><img style="max-width: 100%;" src="{{ asset('img/partners/partner_asha.png') }}" alt=""></div>
+             </div>
+         </div>
+
+
           <div class="clearfix"></div>
             <br/>
           <div class="col-md-12">
-              © 2015-2017 <span title="Sir tig 1% po namen.">Virtual Mercato</span>. All rights reserved.
+              © 2017 Virtual Mercato. All rights reserved.
           </div>
       </div>
   </div>

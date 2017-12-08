@@ -227,7 +227,8 @@ class GeneralController extends Controller
             "barangay"      => 'required',
             "city"          => 'required',
             "state"         => 'required',
-            "contact"       => 'required'
+            "contact"       => 'required',
+            'preference'    => 'required'
         ]);
 
         $carts = Cart::where('user_id', '=', Auth::guard('u')->user()->id)->get();
@@ -243,6 +244,9 @@ class GeneralController extends Controller
         $order = new Order;
         $order->user_id         = Auth::guard('u')->user()->id;
         $order->total           = $grandtotal;
+        if($request->preference == 1) {
+            $order->discount = 10;
+        }
         $order->service_charge  = $fees;
         $order->tax             = 0;
         $order->firstname       = $request->firstname;
@@ -330,6 +334,22 @@ class GeneralController extends Controller
 
         $itemListArr[] = $item;
 
+        $discount = 0;
+        if ($order->discount != 0) {
+            $discount = ($order->total * ($order->discount/100));
+
+            $item = new Item();
+            $item->setName("Discount")
+                ->setCurrency('PHP')
+                ->setQuantity(1)
+                ->setSku('111121')
+                ->setPrice(-$discount)
+                ->setDescription('Admin Fee');
+
+            $itemListArr[] = $item;
+        }
+
+
         $itemList = new ItemList();
         $itemList->setItems($itemListArr);
 
@@ -337,7 +357,7 @@ class GeneralController extends Controller
 
 	    $amount = new Amount();
 	    $amount->setCurrency('PHP');
-	    $amount->setTotal($grandtotal+$fees);
+	    $amount->setTotal(($grandtotal - $discount)+$fees);
 
 
 	    $transaction = new Transaction();
@@ -359,6 +379,55 @@ class GeneralController extends Controller
 	    $redirectUrl = $response->links[1]->href;
 
 	    return redirect()->to( $redirectUrl );
+
+    }
+
+    public function payment_tcg_process($oid, $uid, $enc, Request $request) {
+
+        if(md5($oid . ' ' . $uid) != $enc) {
+            return redirect(route('landingPage'));
+        }
+
+
+        $this->validate($request, [
+            "firstname"     => 'required',
+            "lastname"      => 'required',
+            "employeeid"        => 'required'
+        ]);
+
+        $order = Order::find($oid);
+
+        $transaction = new OrderTransaction;
+        $transaction->order_id = $oid;
+        $transaction->payment_id = md5($oid);
+        $transaction->payer_id = md5($order->user_id);
+        $transaction->method = 'tcg';
+
+        $transaction->first_name = $request->firstname;
+        $transaction->middle_name = $request->middlename;
+        $transaction->last_name = $request->lastname;
+        $transaction->employee_id = $request->employeeid;
+
+        $transaction->status = 'approved';
+        $transaction->save();
+
+        $order->status = 2;
+        $order->save();
+
+        $user = User::find($order->user_id);
+
+        $mail_data = array(
+            "fullname"  => $user->firstname . ' ' . $user->lastname,
+            "date"      => date('m d Y', strtotime($order->create_at)),
+            "order_id"  => $order->id,
+            "control_no"=> Order::format($order->id)
+        );
+
+        $email = new Emailer('carlo.flores@chefsandbutlers.net', 'email.receipt', $mail_data, 'Receipt');
+        $email->send();
+
+        AuditTrail::log('orders', 'Paid the Order via TCG Card ' . $oid);
+        return redirect(route('paymentSuccessMessagePage', $oid));
 
     }
 

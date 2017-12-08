@@ -1,8 +1,11 @@
+
+@inject('Cart', 'App\Model\Cart')
+
 <nav>
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h4 class="logo"><a href="{{ route('landingPage') }}">Virtual Mercato</a></h4>
+                <h4 class="logo"><a style="color: #fff;" href="{{ route('landingPage') }}">Virtual Mercato</a></h4>
             </div>
 
             <div class="col-md-9" style="text-align: right;">
@@ -27,7 +30,9 @@
 
                             </div>
                         </li>
-                        <li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#__cartModal" style="color:#fff; text-decoration: none;">
+                            <i class="glyphicon glyphicon-shopping-cart"></i> <span class="badge" style="background: red;">{{ $Cart->where('user_id', '=', Auth::guard('u')->user()->id)->sum('quantity') }}</span> - <span><small>PHP</small>{{ number_format($Cart->where('user_id', '=', Auth::guard('u')->user()->id)->sum('total'), 2) }}</span>
+                        </a></li>
                     @endif
                 </ul>
             </div>

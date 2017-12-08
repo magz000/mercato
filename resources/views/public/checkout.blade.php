@@ -81,6 +81,28 @@
                           </div>
                       </div>
                     </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h5>Order For</h5>
+                            <br/>
+                            <center>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary" style="width: 150px;">
+                                      <input type="radio" name="preference" id="option2" value="1" autocomplete="off">
+                                      In Store
+                                    </label>
+
+                                    <label class="btn btn-primary" style="width: 150px;">
+                                      <input type="radio" name="preference" id="option3" value="2" autocomplete="off">
+                                      Delivery
+                                    </label>
+                                  </div>
+                            </center>
+
+                            <br/>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-6">
@@ -171,6 +193,19 @@
                                       </td>
                                   </tr>
 
+                                  <tr id="dine_in" style="display: none;">
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td style="border-top: 1px solid #c1c1c1 !important;">
+                                          <h6 class="label-h6" style="margin: 0;">Discount</h6>
+                                          <h5 style="margin: 0;" id="dine_in_value">-{{ number_format($grandtotal*0.10, 2) }}</h5>
+                                      </td>
+                                  </tr>
+
                                   <tr>
                                       <td></td>
                                       <td></td>
@@ -180,7 +215,7 @@
                                       <td></td>
                                       <td style="border-top: 1px solid #c1c1c1 !important;">
                                           <h6 class="label-h6" style="margin: 0;">Grand Total</h6>
-                                          <h3 style="margin: 0;">{{ number_format($grandtotal + $fees, 2) }}</h3>
+                                          <h3 style="margin: 0;" id="grand_total">{{ number_format($grandtotal + $fees, 2) }}</h3>
                                       </td>
                                   </tr>
                               </tbody>
@@ -195,4 +230,37 @@
             <button class="btn btn-success pull-right">Proceed to Payment</button>
         </form>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script type="text/javascript">
+        $(function() {
+            var _d = +{{ $grandtotal*0.10 }};
+            var _t = +{{ $grandtotal }};
+            var _f = +{{ $fees }};
+
+            $.fn.digits = function(){
+                return this.each(function(){
+                    $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+                })
+            }
+
+
+            $('input[name="preference"]').on('change',function() {
+                var v = $(this).val();
+
+                if(v == 1) {
+                    $('#dine_in').show('fast');
+                    $('#grand_total').html( "" + ((_t -_d) + _f).toFixed(2)).digits();
+                } else {
+                    $('#dine_in').hide('fast');
+                    $('#grand_total').html( "" + (_t + _f).toFixed(2)).digits();
+                }
+
+            });
+
+
+        });
+    </script>
 @endsection

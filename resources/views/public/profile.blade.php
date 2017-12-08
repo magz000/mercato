@@ -24,7 +24,7 @@
 
                         <div class="col-md-9">
                             <h1>{{ $Provider->firstname . ' ' . $Provider->lastname }}</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum tempore est ut natus voluptate optio aperiam quo aliquam distinctio soluta illo excepturi, incidunt perspiciatis voluptas? Dicta temporibus sint earum veniam.</p>
+                            <p>{{ $Provider->bio }}</p>
                         </div>
                     </div>
                 </div>

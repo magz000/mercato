@@ -134,12 +134,24 @@ use App\Model\Provider;
 
                                     <div class="col-md-3">
                                         <div class="pull-right" style="text-align: right;">
+                                            @php
+                                                $discount = 0;
+                                            @endphp
+                                            @if ($order->discount != 0)
+                                                @php
+                                                    $discount = $order->total*($order->discount/100);
+                                                @endphp
+                                                <small>PHP</small>
+                                                <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Discount </small> {{ number_format($order->total*($order->discount/100), 2) }}</h3>
+                                            @endif
+
                                             <small>PHP</small>
-                                            <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Order Total </small> {{ number_format($order->total, 2) }}</h3>
+                                            <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Order Total </small> {{ number_format($order->total - $discount, 2) }}</h3>
+
                                             <small>PHP</small>
                                             <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Service Charge </small> {{ number_format($order->service_charge, 2) }}</h3>
                                             <small>PHP</small>
-                                            <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Grand Total </small> {{ number_format($order->total + $order->service_charge, 2) }}</h3>
+                                            <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Grand Total </small> {{ number_format(($order->total - $discount) + $order->service_charge, 2) }}</h3>
                                         </div>
                                     </div>
                                 </div>

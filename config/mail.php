@@ -14,6 +14,7 @@ return array(
   "pretend" => false
 );
 
+
 return [
 
     /*
@@ -70,7 +71,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'app@chefsandbutlers.net'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@chefsandbutlers.net'),
         'name' => env('MAIL_FROM_NAME', 'Chefs & Butler'),
     ],
 
@@ -98,9 +99,9 @@ return [
     |
     */
 
-    'username' => 'app@chefsandbutlers.net',
+    'username' => env('MAIL_USERNAME'),
 
-    'password' => 'P@$$w0rd',
+    'password' => env('MAIL_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------

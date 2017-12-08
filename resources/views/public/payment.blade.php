@@ -53,6 +53,12 @@
                                          <img width="200" src="{{ asset('img/paymaya.png') }}" alt=""><Br/>
                                          <button class="btn btn-success">Pay via PayMaya</button><Br/><Br/>
                                      </div>
+
+                                     <div class="col-md-6 col-md-offset-3">
+                                         <br/><br/>
+                                         <img width="200" src="{{ asset('img/cravings.png') }}" alt=""><Br/><br/><Br/><br/>
+                                         <button class="btn btn-success" data-toggle="modal" data-target="#__paywithTCG">Pay via TCG Card</button><Br/><Br/>
+                                     </div>
                                  </div>
                               </center>
                           </div>
@@ -145,6 +151,21 @@
                                       </td>
                                   </tr>
 
+                                  @if ($order->discount != 0)
+                                      <tr>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td style="border-top: 1px solid #c1c1c1 !important;">
+                                              <h6 class="label-h6" style="margin: 0;">Discount</h6>
+                                              <h3 style="margin: 0;">-{{ number_format($grandtotal*($order->discount/100), 2) }}</h3>
+                                          </td>
+                                      </tr>
+                                  @endif
+
                                   <tr>
                                       <td></td>
                                       <td></td>
@@ -154,7 +175,11 @@
                                       <td></td>
                                       <td style="border-top: 1px solid #c1c1c1 !important;">
                                           <h6 class="label-h6" style="margin: 0;">Grand Total</h6>
-                                          <h3 style="margin: 0;">{{ number_format($grandtotal + $fees, 2) }}</h3>
+                                          @if ($order->discount != 0)
+                                              <h3 style="margin: 0;">{{ number_format(($grandtotal - $grandtotal*($order->discount/100)) + $fees, 2) }}</h3>
+                                          @else
+                                              <h3 style="margin: 0;">{{ number_format($grandtotal + $fees, 2) }}</h3>
+                                          @endif
                                       </td>
                                   </tr>
                               </tbody>
@@ -166,4 +191,65 @@
                 </div>
             </div>
     </div>
+
+
+
+
+
+
+    <div id="__paywithTCG" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+
+      <form class="" action="{{ route('paymentTCGProcess', [$oid, $uid, $enc]) }}" method="post">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Pay via The Craving Group Card</h4>
+      </div>
+      <div class="modal-body" style="padding: 20px;">
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">First Name</label>
+                        <input type="text" class="form-control" name="firstname" placeholder="First Name" readonly value="{{ ucwords(strtolower(Auth::guard('u')->user()->firstname)) }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Middle Name</label>
+                        <input type="text" class="form-control" name="middlename" placeholder="Middle Name" readonly value="{{ ucwords(strtolower(Auth::guard('u')->user()->middlename)) }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Last Name</label>
+                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" readonly value="{{ ucwords(strtolower(Auth::guard('u')->user()->lastname)) }}">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Employee Number</label>
+                        <input type="number" name="employeeid" class="form-control" placeholder="Employee #" >
+                    </div>
+                </div>
+            </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" type="submit">Pay</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+</form>
+  </div>
+</div>
+
+
+
 @endsection
