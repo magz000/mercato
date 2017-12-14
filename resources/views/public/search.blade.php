@@ -24,6 +24,7 @@
                             <div class="clearfix"></div>
                             <div data-categ="1" class="__categ-failed"  {!! $input->type == 1 ? '' : 'style="display: none;"' !!}>
                                 <select name="category" id="" class="form-control">
+                                    <option value="0">All Dishes</option>
                                     @foreach ($MainCategories as $category)
                                         <optgroup label="{{ $category->name }}">
                                             <option value="{{ $category->id }}" {{ $input->category == $category->id ? 'selected' : '' }}>All {{ $category->name }}</option>
@@ -122,7 +123,8 @@
 
                     @if ($results != null)
                         @foreach ($results as $key => $product)
-                            <div class="col-md-3 col-xs-6 col-sm-6">
+                            <a>
+                            <div class="col-md-3 col-xs-6 col-sm-6" data-toggle="modal" data-target="#_loginModal">
                                 <div class="__card __search_item">
                                     <div class="__img">
                                         <div style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}')"></div>
@@ -175,10 +177,17 @@
                                                     </form>
                                                 </center>
                                             </div>
+                                        @else
+                                            <div class="add-to-cart">
+                                                <center>
+                                                    <button class="btn btn-disabled btn-xs" >Add to Cart</button>
+                                                </center>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
                             </div>
+                        </a>
                         @endforeach
                     @endif
 

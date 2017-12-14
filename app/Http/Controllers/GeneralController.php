@@ -257,6 +257,7 @@ class GeneralController extends Controller
         $order->city            = $request->city;
         $order->state           = $request->state;
         $order->contact         = $request->contact;
+        $order->table_no        = $request->table_no;
         $order->save();
 
         AuditTrail::log('orders', 'Checkout of Order id ' . $order->id);

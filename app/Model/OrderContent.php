@@ -14,11 +14,14 @@ class OrderContent extends Model
         } else if($status == 1) {
             return array("state" => "primary", "value" => "Cooking");
         } else if($status == 2) {
-            return array("state" => "success", "value" => "Ready for Pickup");
+            return array("state" => "success", "value" => "Ready for Pickup");//Ready for Pickup
         } else if($status == 3) {
             return array("state" => "success", "value" => "Picked Up");
         } else if($status == 4) {
             return array("state" => "danger", "value" => "Expired");
+        }
+        else if($status == 5) {
+            return array("state" => "success", "value" => "Delivered");
         }
     }
 

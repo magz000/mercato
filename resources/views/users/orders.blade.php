@@ -149,7 +149,7 @@ use App\Model\Provider;
                                             <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Order Total </small> {{ number_format($order->total - $discount, 2) }}</h3>
 
                                             <small>PHP</small>
-                                            <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Service Charge </small> {{ number_format($order->service_charge, 2) }}</h3>
+                                            <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Admin Fee </small> {{ number_format($order->service_charge, 2) }}</h3>
                                             <small>PHP</small>
                                             <h3 style="margin-top: -5px;"><small style="font-size: 12px;">Grand Total </small> {{ number_format(($order->total - $discount) + $order->service_charge, 2) }}</h3>
                                         </div>

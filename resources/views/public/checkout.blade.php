@@ -1,6 +1,18 @@
 @extends('layouts.public.layouts')
 
 @section('content')
+    <style type="">
+    .__radiobutton {
+        background-color: #92caea;
+        border-color: #92caea;
+    }
+
+    .__radiobutton:hover , .__radiobutton:active {
+        background-color: #3097d1;
+        border-color: #3097d1;
+    }
+
+    </style>
 
      @include('layouts.public.navigation')
 
@@ -37,6 +49,41 @@
                 </div>
                 <div class="col-md-6">
                     <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h5>Order For</h5>
+                            <br/>
+                            <center>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary __radiobutton" style="width: 150px;">
+                                      <input type="radio" name="preference" id="option2" value="1" autocomplete="off">
+                                      In Store
+                                    </label>
+
+                                    <label class="btn btn-primary __radiobutton" style="width: 150px; ">
+                                      <input type="radio" name="preference" id="option3" value="2" autocomplete="off">
+                                      Delivery
+                                    </label>
+                                  </div>
+                            </center>
+
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="div-instore">
+                        <div class="panel-body">
+                            <h5>Order For</h5>
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="firstname">Table No.</label>
+                                    <input type="text" placeholder="Table No." name="table_no" class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" id="div-delivery">
                       <div class="panel-body">
                           <h5>Personal Information</h5>
 
@@ -82,27 +129,7 @@
                       </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h5>Order For</h5>
-                            <br/>
-                            <center>
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary" style="width: 150px;">
-                                      <input type="radio" name="preference" id="option2" value="1" autocomplete="off">
-                                      In Store
-                                    </label>
 
-                                    <label class="btn btn-primary" style="width: 150px;">
-                                      <input type="radio" name="preference" id="option3" value="2" autocomplete="off">
-                                      Delivery
-                                    </label>
-                                  </div>
-                            </center>
-
-                            <br/>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col-md-6">
@@ -240,6 +267,9 @@
             var _t = +{{ $grandtotal }};
             var _f = +{{ $fees }};
 
+            $('#div-instore').hide();
+            $('#div-delivery').hide();
+
             $.fn.digits = function(){
                 return this.each(function(){
                     $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
@@ -253,9 +283,16 @@
                 if(v == 1) {
                     $('#dine_in').show('fast');
                     $('#grand_total').html( "" + ((_t -_d) + _f).toFixed(2)).digits();
+
+                    $('#div-instore').show();
+                    $('#div-delivery').hide();
+
                 } else {
                     $('#dine_in').hide('fast');
                     $('#grand_total').html( "" + (_t + _f).toFixed(2)).digits();
+
+                    $('#div-instore').hide();
+                    $('#div-delivery').show();
                 }
 
             });

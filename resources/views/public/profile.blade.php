@@ -176,14 +176,14 @@
                                             </div>
                                         </div>
 
-
-
+                                        @if(Auth::guard('u')->check())
                                         <div class="add-to-cart">
                                             <br/>
                                             <center>
                                                 <button class="btn btn-primary btn-xs">Add to Cart</button>
                                             </center>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

@@ -26,7 +26,10 @@
         <div class="row">
 
             @include('layouts.providers.side_nav')
+
             <div class="col-md-10">
+                <span class="pull-right" id="countdown-timer" style="color:red; font-size: 1.75rem"> </span><br><br>
+
                 @foreach ($order_ids as $key => $order_id)
                     @php
                         $order = $OrderModel->find($order_id);
@@ -49,7 +52,7 @@
                                     <th>Price</th>
                                     <th>Total</th>
                                     <th>Pickup Date & Time</th>
-                                    <th>Pikcup Location</th>
+                                    <th>Pickup Location</th>
                                     <th>Status</th>
                                     <th>Note</th>
                                     <th>Option</th>
@@ -67,7 +70,14 @@
                                             <td>PHP {{ number_format($content->price, 2) }}</td>
                                             <td>PHP {{ number_format($content->total, 2) }}</td>
                                             <td>{{ date('M d, Y', strtotime($content->pickup_date)) . ' ' . $content->pickup_time }}</td>
-                                            <td>{{ $content->pickup_location }}</td>
+
+                                            @if($order->discount > 0)
+                                                <td>In Store - Table {{ $order->table_no }}</td>
+                                            @else
+                                                <td>{{ $content->pickup_location }}</td>
+                                            @endif
+
+
                                             <td><span class="label label-{{ $OrderContentModel->state($content->status)['state'] }}">{{ $OrderContentModel->state($content->status)['value'] }}</span></td>
                                             <td><button type="button" data-toggle="tooltip" title="{{ $content->note }}" class="btn btn-default btn-xs"><i class="fa fa-fw fa-eye"> </i></button></td>
                                             <td>
@@ -140,6 +150,10 @@
                       <option value="0">Pending</option>
                       <option value="1">Cooking</option>
                       <option value="2">Ready for Pickup</option>
+
+                      @if($order->discount > 0)
+                          <option value="5">Delivered</option>
+                      @endif
                   </select>
 
               </div>
@@ -183,5 +197,19 @@
                 $('select[name="content_status"]').val($(this).attr('data-status'));
             });
         });
+
+        var counter = 10;
+        setInterval(function(){
+
+                if(counter > 0)
+                    counter --;
+
+                $('#countdown-timer').html('Refresh In: ' + counter);
+
+                if(counter == 0)
+                    location.reload();
+           },1000);
+
+
     </script>
 @endsection
