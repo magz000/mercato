@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label for="firstname">Table No.</label>
-                                    <input type="text" placeholder="Table No." name="table_no" class="form-control" value="">
+                                    <input type="text" placeholder="Table No." name="table_no" id="table_no" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -287,12 +287,16 @@
                     $('#div-instore').show();
                     $('#div-delivery').hide();
 
+                    $("#table_no").prop('required',true);
+
                 } else {
                     $('#dine_in').hide('fast');
                     $('#grand_total').html( "" + (_t + _f).toFixed(2)).digits();
 
                     $('#div-instore').hide();
                     $('#div-delivery').show();
+
+                    $("#table_no").prop('required',false);
                 }
 
             });
