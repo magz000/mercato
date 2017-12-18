@@ -123,7 +123,6 @@
 
                     @if ($results != null)
                         @foreach ($results as $key => $product)
-                            <a>
                             <div class="col-md-3 col-xs-6 col-sm-6" data-toggle="modal" data-target="#_loginModal">
                                 <div class="__card __search_item">
                                     <div class="__img">
@@ -187,7 +186,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
                         @endforeach
                     @endif
 
