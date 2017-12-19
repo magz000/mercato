@@ -152,7 +152,7 @@
 
 
                           <!-- Wrapper for slides -->
-                          <div class="carousel-inner">
+                          <div class="carousel-inner" >
 
                             @foreach ($Setting->pull('featured_chefs', 'array') as $key => $value)
                                 @php
@@ -200,9 +200,9 @@
 
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-6 col-sm-6" >
                     <h3 class="title white">Featured Foods</h3>
-                    <div class="__card">
+                    <div class="__card" style="padding-bottom: .25rem">
                         <div id="foodCarousel" class="carousel slide" data-ride="carousel"  data-interval="5000">
 
                             <div class="clearfix"></div>
@@ -213,7 +213,7 @@
                                   @endfor
                               </ol>
                           <!-- Wrapper for slides -->
-                          <div class="carousel-inner">
+                          <div class="carousel-inner" >
                             @foreach ($Setting->pull('features_foods', 'array') as $key => $value)
                                 @php
                                     $pr = $Product->find($value);

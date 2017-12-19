@@ -1,7 +1,7 @@
 @if (Auth::guard('u')->check())
 
     <div id="__cartModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg __cart">
+  <div class="modal-dialog __cart">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -27,7 +27,40 @@
                               $fees += 20;
                           @endphp
                           <tr>
-                              <td>
+                              <td colspan="7" style="border-bottom: 1px solid #ddd !important;">
+                                  <form class="pull-right" action="{{ route('deleteCartProcess') }}" method="post">
+                                      {{ csrf_field() }}
+                                      <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+                                      <input type="hidden" name="_method" value="delete" />
+                                      <button class="btn btn-danger btn-xs" style="margin-top: 15px;">X</button>
+                                  </form>
+
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <div class="avatar med" style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}');"></div>
+
+                                          <h5 style="margin-bottom: -5px; width:150px !important;">{{ $product->name }}</h5>
+                                          <small>By {{ $provider->firstname . ' ' . $provider->lastname }}</small>
+                                      </div>
+                                      <div class="col-md-5">
+
+
+
+                                          {{-- <small class="label-h6">Pick-Up</small> --}}
+                                          <br><small><span style="color: #ababab;">Pick-Up: </span> {{ $location->name }}</small>
+
+                                          <br><small><span style="color: #ababab;">Date & Time: </span> {{ date('d M Y', strtotime($cart->pickup_date)) . ' ' . $cart->pickup_time }}</small>
+
+                                          <br><small><span style="color: #ababab;">Price: </span> {{ number_format($cart->price, 2) }}</small>
+
+                                          <br><small><span style="color: #ababab;">QTY: </span> <input type="number" value="{{ $cart->quantity }}" style="width: auto; border: none;"></small>
+
+                                          <br><small><span style="color: #ababab;">Total: </span> {{ number_format($cart->total, 2) }} </small>
+                                      </div>
+                                  </div>
+                              </td>
+
+                              {{-- <td>
                                   <div class="avatar med" style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}');"></div>
                               </td>
                               <td style="width: 20%;">
@@ -68,7 +101,7 @@
                                       <input type="hidden" name="_method" value="delete" />
                                       <button class="btn btn-danger btn-xs" style="margin-top: 15px;">X</button>
                                   </form>
-                              </td>
+                              </td> --}}
                           </tr>
                       @endforeach
                       <tr>
@@ -138,8 +171,8 @@
 
     </style>
 
-    <div id="_loginModal" class="modal fade" role="dialog">
-      <div class="modal-dialog" style="width: 350px;">
+    <div id="_loginModal" class="modal fade justify-content-center" role="dialog">
+      <div class="modal-dialog" style="width: 350px; margin-left: auto; margin-right: auto;">
 
         <!-- Modal content-->
         <div class="modal-content">

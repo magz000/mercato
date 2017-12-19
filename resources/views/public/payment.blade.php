@@ -60,17 +60,6 @@
                                          <button class="btn btn-success" data-toggle="modal" data-target="#__paywithTCG">Pay via TCG Card</button><Br/><Br/>
                                      </div>
 
-                                    @if($order->discount > 0)
-                                         <div class="col-md-6 col-md-offset-3">
-                                             <br/><br/>
-
-
-                                             {{-- <img width="200" src="{{ asset('img/cravings.png') }}" alt=""><Br/><br/><Br/><br/> --}}
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#__paywithTCG">Pay via Cash</button><Br/><Br/>
-
-                                         </div>
-                                     @endif
-
                                  </div>
                               </center>
                           </div>

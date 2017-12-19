@@ -194,3 +194,11 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        window.scrollTo(0, 500);
+    </script>
+
+
+@endsection
