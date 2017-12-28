@@ -63,32 +63,28 @@ class ProviderController extends Controller
 
         $filename  = time() . '.jpg';
 		$path = public_path().'/img/uploads/'. $filename;
-        $manager = new ImageManager(array('driver' => 'GD'));
-        $manager->make(file_get_contents($request->image_base64))->save($path);
 
-        $product = new Product;
+        $data = file_get_contents($request->image_base64);
+        //////////// Upload the decoded file/image
+        if(file_put_contents($path , $data)){
+            $product = new Product;
+            $product->provider_id       = $this->provider_id();
+            $product->name              = $request->name;
+            $product->qty              = $request->quantity;
+            $product->price             = $request->price;
+            $product->description       = $request->description;
+            $product->picture           = $filename;
+            $product->category_id       = $request->category;
+            $product->day_start         = $request->start;
+            $product->day_end           = $request->end;
+            $product->delivery_type           = 1;
+            $product->non_expiry        = $request->non_expiry != null ? 1 : 0;
+            $product->status            = $request->status != null ? 1 : 0;
+            $product->save();
 
-        if (file_exists(public_path() .'/img/uploads/'. $product->picture)) {
-            unlink(public_path() .'/img/uploads/'. $product->picture);
+            AuditTrail::log('products', 'insert new product ' . $request->name . ' with an id of ' . $product->id);
+            return redirect(route('providerProductPage'))->with('success', 'Successfully added a product.');
         }
-
-        $product->provider_id       = $this->provider_id();
-        $product->name              = $request->name;
-        $product->qty              = $request->quantity;
-        $product->price             = $request->price;
-        $product->description       = $request->description;
-        $product->picture           = $filename;
-        $product->category_id       = $request->category;
-        $product->day_start         = $request->start;
-        $product->day_end           = $request->end;
-        $product->delivery_type           = 1;
-        $product->non_expiry        = $request->non_expiry != null ? 1 : 0;
-        $product->status            = $request->status != null ? 1 : 0;
-        $product->save();
-
-        AuditTrail::log('products', 'insert new product ' . $request->name . ' with an id of ' . $product->id);
-        return redirect(route('providerProductPage'))->with('success', 'Successfully added a product.');
-
     }
 
     public function product_edit($product_id) {
@@ -113,11 +109,18 @@ class ProviderController extends Controller
         ]);
 
         $filename  = time() . '.jpg';
-        $path = public_path().'/img/uploads/'. $filename;
-        $manager = new ImageManager(array('driver' => 'GD'));
-        $manager->make(file_get_contents($request->image_base64))->save($path);
+		$path = public_path().'/img/uploads/'. $filename;
 
-        $product = Product::find($product_id);
+        $data = file_get_contents($request->image_base64);
+        //////////// Upload the decoded file/image
+
+        if(file_put_contents($path , $data)){
+            $product = Product::find($product_id);
+        if (file_exists(public_path() .'/img/uploads/'. $product->picture)) {
+            unlink(public_path() .'/img/uploads/'. $product->picture);
+        }
+
+
         $product->provider_id       = $this->provider_id();
         $product->name              = $request->name;
         $product->qty              = $request->quantity;
@@ -136,6 +139,7 @@ class ProviderController extends Controller
 
         AuditTrail::log('products', 'Updated product ' . $request->name . ' with an id of ' . $product->id);
         return redirect(route('providerProductPage'))->with('success', 'Successfully updated a product.');
+    }
 
     }
 

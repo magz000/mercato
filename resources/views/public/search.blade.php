@@ -50,7 +50,14 @@
                               <div class="joined">
                                 <label for="">Time</label>
                                 <select name="time" id="" class="form-control">
-                                    <option value="9:00 AM" {{ $input->time == '9:00 AM' ? 'selected' : '' }}>9:00 AM</option>
+                                   
+                                    
+                                     <option value="9:00 AM" {{ $input->time == '9:00 AM' ? 'selected' : '' }}>9:00 AM</option>
+                                        <option value="11:00 AM" {{ $input->time == '11:00 AM' ? 'selected' : '' }}>11:00 AM</option>
+                                        <option value="12:00 NN" {{ $input->time == '12:00 NN' ? 'selected' : '' }}>12:00 NN</option>
+                                        <option value="02:00 PM" {{ $input->time == '02:00 PM' ? 'selected' : '' }}>02:00 PM</option>
+                                        <option value="04:00 PM" {{ $input->time == '04:00 PM' ? 'selected' : '' }}>04:00 PM</option>
+                                        <option value="06:00 PM" {{ $input->time == '06:00 PM' ? 'selected' : '' }}>06:00 PM</option>
                                 </select>
                               </div>
                             </div>

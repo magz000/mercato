@@ -12,6 +12,10 @@
 */
 
 
+Route::get('/playplay', function() {
+   phpinfo();
+});
+
 Route::get('/resources/product/{id}',       'GeneralController@resources_product'       )->name('productResources');
 Route::get('/resources/provider/{id}',      'GeneralController@resources_provider'      )->name('providerResources');
 
@@ -19,6 +23,7 @@ Route::get('/resources/provider/{id}',      'GeneralController@resources_provide
 Route::get('/',                             'GeneralController@index'                   )->name('landingPage');
 Route::get('/search',                       'GeneralController@search'                  )->name('resultPage');
 Route::get('/login',                       'GeneralController@catcher'                  )->name('login');
+Route::get('/register',                       'GeneralController@registerCatcher'                  )->name('register');
 Route::get('/page/{u}',                     'GeneralController@user_page'               )->name('userPage');
 Route::post('/cart/add',                    'GeneralController@add_cart'                )->name('addCartPage');
 Route::delete('/cart/delete',                    'GeneralController@delete_cart'                )->name('deleteCartProcess');

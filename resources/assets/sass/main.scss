@@ -493,35 +493,6 @@ footer {
     }
 }
 
-.chat__support {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    z-index: 9999999999999999;
-
-    .chat__conversation {
-        height: 400px;
-        width: 300px;
-        background: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        margin-bottom: 10px;
-        border-radius: 5px;
-    }
-
-    .chat__activate {
-        background: yellow;
-        color: #000;
-        height: 70px;
-        width: 70px;
-        font-size: 24px;
-        text-align: center;
-        padding-top: 20px;
-        border-radius: 50%;
-        border: 2px solid gold;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-}
-
 .__dashboardMenu {
     margin-top: 30px;
 

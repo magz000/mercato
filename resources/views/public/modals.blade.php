@@ -32,8 +32,15 @@
                                       {{ csrf_field() }}
                                       <input type="hidden" name="cart_id" value="{{ $cart->id }}">
                                       <input type="hidden" name="_method" value="delete" />
-                                      <button class="btn btn-danger btn-xs" style="margin-top: 15px;">X</button>
+                                      <input type="submit" class="btn btn-danger btn-xs" style="margin-top: 15px;" value="X">
+
+
                                   </form>
+
+
+                                      <a class="btn btn-danger btn-xs" style="margin-top: 15px; opacity: 0;">X</a>
+
+
 
                                   <div class="row">
                                       <div class="col-md-4">

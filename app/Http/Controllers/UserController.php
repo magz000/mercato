@@ -186,7 +186,7 @@ class UserController extends Controller
                     'password'  => $request->input('password')
                 ])) {
                     AuditTrail::log('user', $request->input('email') . ' logged in.');
-                    return redirect(url()->previous())->with('signin_success', 'Successfully Logged In.');
+                    return redirect($request->referrer)->with('signin_success', 'Successfully Logged In.');
                 } else {
                     return redirect(url()->previous())->with('signin_error', 'Email or Password is Incorrect.');
                 }

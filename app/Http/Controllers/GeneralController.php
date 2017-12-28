@@ -223,11 +223,6 @@ class GeneralController extends Controller
         $this->validate($request, [
             "firstname"     => 'required',
             "lastname"      => 'required',
-            "street"        => 'required',
-            "barangay"      => 'required',
-            "city"          => 'required',
-            "state"         => 'required',
-            "contact"       => 'required',
             'preference'    => 'required'
         ]);
 
@@ -433,7 +428,21 @@ class GeneralController extends Controller
     }
 
     public function catcher() {
-        return redirect(route('landingPage'));
+
+        if (Auth::guard('u')->check()) {
+            return redirect(route('landingPage'));
+        }
+
+        return view('public.login');
+    }
+
+    public function registerCatcher() {
+
+        if (Auth::guard('u')->check()) {
+            return redirect(route('landingPage'));
+        }
+
+        return view('public.register');
     }
 
     // Below are the API for the Resources

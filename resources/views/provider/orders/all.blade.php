@@ -154,7 +154,6 @@
                       @if($order->discount > 0)
                           <option value="5">Delivered</option>
                       @endif
-
                   </select>
 
               </div>

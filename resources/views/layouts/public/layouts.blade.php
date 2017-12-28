@@ -27,6 +27,12 @@
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
 
+    <style type="stylesheet">
+        body.modal-open{
+            position:fixed !important ;
+            width: 100% !important;
+        }
+    </style>
     
 
   </head>

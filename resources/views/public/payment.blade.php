@@ -59,7 +59,6 @@
                                          <img width="200" src="{{ asset('img/cravings.png') }}" alt=""><Br/><br/><Br/><br/>
                                          <button class="btn btn-success" data-toggle="modal" data-target="#__paywithTCG">Pay via TCG Card</button><Br/><Br/>
                                      </div>
-
                                  </div>
                               </center>
                           </div>
