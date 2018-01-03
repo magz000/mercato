@@ -37,32 +37,30 @@
 
                                   </form>
 
-
                                       <a class="btn btn-danger btn-xs" style="margin-top: 15px; opacity: 0;">X</a>
 
+                                  <div class="row ">
 
-
-                                  <div class="row">
                                       <div class="col-md-4">
                                           <div class="avatar med" style="background-image: url('{{ asset('img/uploads/' . $product->picture) }}');"></div>
 
                                           <h5 style="margin-bottom: -5px; width:150px !important;">{{ $product->name }}</h5>
                                           <small>By {{ $provider->firstname . ' ' . $provider->lastname }}</small>
                                       </div>
-                                      <div class="col-md-5">
+                                      <div class="col-md-5 cart-content">
 
-
+                                          <input hidden class="cart-id" value="{{ $cart->id }}">
 
                                           {{-- <small class="label-h6">Pick-Up</small> --}}
                                           <br><small><span style="color: #ababab;">Pick-Up: </span> {{ $location->name }}</small>
 
                                           <br><small><span style="color: #ababab;">Date & Time: </span> {{ date('d M Y', strtotime($cart->pickup_date)) . ' ' . $cart->pickup_time }}</small>
 
-                                          <br><small><span style="color: #ababab;">Price: </span> {{ number_format($cart->price, 2) }}</small>
+                                          <br><small><span style="color: #ababab;">Price: </span> {{number_format($cart->price, 2)}} <input hidden class="cart-price" value="{{ $cart->price, 2 }}"></small>
 
-                                          <br><small><span style="color: #ababab;">QTY: </span> <input type="number" value="{{ $cart->quantity }}" style="width: auto; border: none;"></small>
+                                          <br><small><span style="color: #ababab;">QTY: </span> <input min='1' class='cart-qty' type="number" value="{{ $cart->quantity }}" style="width: auto;"></small>
 
-                                          <br><small><span style="color: #ababab;">Total: </span> {{ number_format($cart->total, 2) }} </small>
+                                          <br><small><span style="color: #ababab;">Total: </span> <input readonly  style="border: none;" class="cart-total" value="{{ number_format($cart->total, 2) }}"/> </small>
                                       </div>
                                   </div>
                               </td>
@@ -120,7 +118,7 @@
                           <td></td>
                           <td  data-toggle="tooltip" title="Admin fee is computed depending on the content of your cart, 20 multiplied by the number of line in your cart.">
                               <h6 class="label-h6" style="margin: 0;">Admin Fee</h6>
-                              <h5 style="margin: 0;">{{ number_format($fees, 2) }}</h5>
+                              <h5 style="margin: 0;" id="fees">{{ number_format($fees, 2) }}</h5>
                           </td>
                       </tr>
 
@@ -133,7 +131,7 @@
                           <td></td>
                           <td style="border-top: 1px solid #c1c1c1 !important;">
                               <h6 class="label-h6" style="margin: 0;">Grand Total</h6>
-                              <h3 style="margin: 0;">{{ number_format($grandtotal + $fees, 2) }}</h3>
+                              <h3 style="margin: 0;" id="grandtotal">{{ number_format($grandtotal + $fees, 2) }}</h3>
                           </td>
                       </tr>
                   @else
@@ -150,7 +148,7 @@
       </div>
       <div class="modal-footer">
         @if (count($carts) >= 1)
-            <a href="{{ route('checkoutPage', uniqid()) }}"><button type="button" class="btn btn-success">Proceed Checkout</button></a>
+            <a href="{{ route('checkoutPage', uniqid()) }}"><button id="proceedCheckout" type="button" class="btn btn-success">Proceed Checkout</button></a>
         @endif
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
@@ -345,6 +343,8 @@
 
       </div>
     </div>
+
+
 
 
 @endif

@@ -145,8 +145,80 @@
     $('[data-toggle="tooltip"]').tooltip();
 </script>
 
+    <script>
+        $('.cart-content').each(function(){
+            var price = parseFloat($(this).children('small').children('.cart-price').val());
+
+            var parent =  $(this);
+
+            var id = $(this).children('.cart-id').val();
+
+            console.log(id);
+
+            $(this).children('small').children('.cart-qty').change(function(){
+                var quantity = parseInt($(this).val())
+
+                $('#proceedCheckout').attr('disabled', true);
+
+                var total =  quantity * price;
+                parent.children('small').children('.cart-total').val(addCommas(total));
+
+                var grandtotal = 0;
+                $('.cart-content').each(function(){
+                    grandtotal += parseInt($(this).children('small').children('.cart-qty').val()) * parseFloat($(this).children('small').children('.cart-price').val());
+
+                });
+
+                grandtotal += parseFloat($('#fees').text());
+
+                $.ajax({
+                    url: "{{route('updateQuantity')}}",
+                    type: "GET",
+                    data: {id : id,
+                            quantity : quantity,
+                            total: total},
+                    success: function(data){
+                        console.log('success updating');
+
+                        $('#proceedCheckout').removeAttr('disabled');
+
+                        $('#grandtotal').text(addCommas(grandtotal));
+
+                    }
+                });
 
 
+
+
+            });
+        });
+
+
+        function addCommas(nStr)
+        {
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = '.00'
+            if(x.length > 1){
+                if(x[1].length > 2){
+                    x2 = '.' + x[1].substr(0,2);
+                }else if(x[1].length == 2){
+                    x2 = '.' + x[1];
+                }else{
+                    x2 = '.' + x[1] + '0';
+                }
+
+            }
+
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+
+    </script>
 </body>
 
 <footer>

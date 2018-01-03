@@ -115,6 +115,16 @@ class GeneralController extends Controller
         return view('public.checkout');
     }
 
+    public function updateQuantity(Request $request){
+        $cart = Cart::findOrFail($request->id);
+
+        $cart->quantity = $request->quantity;
+        $cart->total = $request->total;
+        $cart->save();
+
+        return json_encode($cart);
+    }
+
     public function payment($oid, $uid, $enc) {
 
         if(md5($oid . ' ' . $uid) != $enc) {

@@ -100,7 +100,7 @@
                             </div>
 
                              <br/>
-                             <button class="btn btn-primary pull-right">Sign Up</button>
+                             <button class="btn btn-primary pull-right">Register</button>
                              <div class="clearfix"></div>
                          </form>
                      </div>

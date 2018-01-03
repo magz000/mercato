@@ -26,6 +26,7 @@ Route::get('/login',                       'GeneralController@catcher'          
 Route::get('/register',                       'GeneralController@registerCatcher'                  )->name('register');
 Route::get('/page/{u}',                     'GeneralController@user_page'               )->name('userPage');
 Route::post('/cart/add',                    'GeneralController@add_cart'                )->name('addCartPage');
+Route::get('/cart/updateQuantity',                    'GeneralController@updateQuantity'                )->name('updateQuantity');
 Route::delete('/cart/delete',                    'GeneralController@delete_cart'                )->name('deleteCartProcess');
 
 Route::get('/checkout/{u}',                 'GeneralController@checkout'                )->name('checkoutPage');

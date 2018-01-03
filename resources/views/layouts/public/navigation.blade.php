@@ -12,7 +12,7 @@
                 <ul class="list-unstyled list-inline" style="margin-top: 10px;">
                     @if (!Auth::guard('u')->check())
                         <li><a href="{{ route('login') }}">Sign In</a></li>
-                        <li><a href="{{ route('register') }}">Sign Up</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
                     @else
                         <li>
                             <div class="dropdown">
