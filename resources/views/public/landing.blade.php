@@ -7,6 +7,7 @@
         @inject('ProductCategory', 'App\Model\ProductCategory')
         @inject('Provider', 'App\Model\Provider')
         @inject('OrderRating', 'App\Model\OrderRating')
+        @inject('Cart', 'App\Model\Cart')
 
         <style type="stylesheet">
             ul.dropdown-menu li {
@@ -123,9 +124,15 @@
                                             </ul>
 
 
+
+
                                         </div>
                                     </li>
-                                    <li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>
+
+                                    <li><a href="#" data-toggle="modal" data-target="#__cartModal" style="color:#fff; text-decoration: none;">
+                                            <i class="glyphicon glyphicon-shopping-cart"></i> <span class="badge" style="background: red;">{{ $Cart->where('user_id', '=', Auth::guard('u')->user()->id)->sum('quantity') }}</span> - <span><small>PHP</small>{{ number_format($Cart->where('user_id', '=', Auth::guard('u')->user()->id)->sum('total'), 2) }}</span>
+                                    </a></li>
+                                    {{--<li><a href="#" data-toggle="modal" data-target="#__cartModal">Cart</a></li>--}}
                                 @endif
                             </ul>
                         </div>

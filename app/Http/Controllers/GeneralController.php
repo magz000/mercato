@@ -112,6 +112,11 @@ class GeneralController extends Controller
     }
 
     public function checkout() {
+        $count = Cart::where('user_id', '=', Auth::guard('u')->user()->id)->count();
+
+        if($count <= 0)
+            return redirect()->back();
+
         return view('public.checkout');
     }
 
@@ -434,7 +439,54 @@ class GeneralController extends Controller
 
         AuditTrail::log('orders', 'Paid the Order via TCG Card ' . $oid);
         return redirect(route('paymentSuccessMessagePage', $oid));
+    }
 
+    public function payment_cash_process($oid, $uid, $enc, Request $request) {
+
+        if(md5($oid . ' ' . $uid) != $enc) {
+            return redirect(route('landingPage'));
+        }
+
+
+        $this->validate($request, [
+            "firstname"     => 'required',
+            "lastname"      => 'required',
+
+        ]);
+
+        $order = Order::find($oid);
+
+        $transaction = new OrderTransaction;
+        $transaction->order_id = $oid;
+        $transaction->payment_id = md5($oid);
+        $transaction->payer_id = md5($order->user_id);
+        $transaction->method = 'cash';
+
+        $transaction->first_name = $request->firstname;
+        $transaction->middle_name = $request->middlename;
+        $transaction->last_name = $request->lastname;
+
+
+        $transaction->status = 'approved';
+        $transaction->save();
+
+        $order->status = 3;
+        $order->save();
+
+        $user = User::find($order->user_id);
+
+        $mail_data = array(
+            "fullname"  => $user->firstname . ' ' . $user->lastname,
+            "date"      => date('m d Y', strtotime($order->create_at)),
+            "order_id"  => $order->id,
+            "control_no"=> Order::format($order->id)
+        );
+
+        $email = new Emailer('carlo.flores@chefsandbutlers.net', 'email.receipt', $mail_data, 'Receipt');
+        $email->send();
+
+        AuditTrail::log('orders', 'Paid the Order via CASH ' . $oid);
+        return redirect(route('paymentSuccessMessagePage', $oid));
     }
 
     public function catcher() {

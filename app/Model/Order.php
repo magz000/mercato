@@ -11,6 +11,8 @@ class Order extends Model
             return array("state" => "warning", "value" => "Pending Payment");
         } else if($status == 2) {
             return array("state" => "success", "value" => "Paid");
+        }else if($status == 3) {
+            return array("state" => "warning", "value" => "To be Paid in Cash");
         }
     }
 

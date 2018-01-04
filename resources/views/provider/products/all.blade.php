@@ -26,7 +26,9 @@
                             <a href="{{ route('providerProductAddPage') }}"><button class="btn btn-success btn-xs">Add Product</button></a>
                         </div>
                         <div class="clearfix"></div>
-                        <table class="table small">
+
+                        <div style="overflow: auto;">
+                        <table class="table small table-responsive">
                             <thead>
                                 <th></th>
                                 <th>Name</th>
@@ -49,12 +51,12 @@
                                         <td>{{ $CategoryModel->find($product->category_id)->name }}</td>
                                         <td>{{ $product->qty }}</td>
                                         <td>{{ $product->non_expiry == 1 ? 'Available all the time' : date('M d, Y', strtotime($product->day_start)) . ' to ' . date('M d, Y', strtotime($product->day_end)) }}</td>
-                                        <td>{{ $ProductModel->delivery_type($product->delivery_type) }}</td>
+                                        <td>{{ $ProductModel->delivery_type($product->delivery_type) == null ? '--' : $ProductModel->delivery_type($product->delivery_type) }}</td>
                                         <td>{{ $ProductModel->status($product->status) }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-default btn-xs" data-toggle="dropdown">Options <span class="caret"></span></button>
-                                                <ul class="dropdown-menu small">
+                                                <ul class="dropdown-menu dropdown-menu-right small ">
                                                     <li class="small"><a href="{{ route('providerProductEditPage', $product->id) }}">Edit</a></li>
                                                     <li class="small"><a href="#">Delete</a></li>
                                                     @if ($product->sale_price == null)
@@ -69,6 +71,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
+
                     </div>
                 </div>
             </div>

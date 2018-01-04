@@ -56,8 +56,6 @@ class ProviderController extends Controller
             "price"         => 'required',
             "quantity"      => 'required',
             "description"   => 'required',
-            "start"         => 'required',
-            "end"           => 'required',
             "category"      => 'required'
         ]);
 
@@ -103,8 +101,6 @@ class ProviderController extends Controller
             "price"         => 'required',
             "quantity"      => 'required',
             "description"   => 'required',
-            "start"         => 'required',
-            "end"           => 'required',
             "category"      => 'required'
         ]);
 

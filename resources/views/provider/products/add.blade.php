@@ -33,18 +33,18 @@
                                     <Br/>
                                     <div class="form-group">
                                         <label for="">Name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Product Name">
+                                        <input type="text" name="name" class="form-control" placeholder="Product Name" value="{{old('name')}}">
                                     </div>
 
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="">Price</label>
-                                                <input type="number" name="price" class="form-control" placehoder="Price">
+                                                <input type="number" name="price" class="form-control" placehoder="Price" value="{{old('price')}}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="">Quantity</label>
-                                                <input type="number" name="quantity" class="form-control" placehoder="Quantity">
+                                                <input type="number" name="quantity" class="form-control" placehoder="Quantity" value="{{old('quantity')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -64,18 +64,18 @@
 
                                     <div class="form-group">
                                         <label for="">Description</label>
-                                        <textarea name="description" placeholder="Product Description" class="form-control"></textarea>
+                                        <textarea name="description" placeholder="Product Description" class="form-control">{{old('description')}}</textarea>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" id="start-date-div">
                                                 <label for="">Available From</label>
-                                                <input type="text" name="start" class="form-control datetimepicker">
+                                                <input id="start-date" type="text" name="start" class="form-control datetimepicker" required value="{{old('start')}}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" id="end-date-div">
                                                 <label for="">Available To</label>
-                                                <input type="text" name="end" class="form-control datetimepicker">
+                                                <input id="end-date" type="text" name="end" class="form-control datetimepicker" required value="{{old('end')}}">
                                             </div>
 
                                             <div class="col-md-12">
@@ -138,6 +138,28 @@
 
             $('select[name="category"]').select2();
 
+
+        });
+
+
+        $('#non_expiry').change(function(){
+            if(this.checked){
+                $('#start-date-div').hide();
+                $('#end-date-div').hide();
+
+                $('#start-date').prop('required', false);
+                $('#end-date').prop('required' , false);
+
+                $('#start-date').val('');
+                $('#end-date').val('');
+            }else{
+                $('#start-date-div').show();
+                $('#end-date-div').show();
+
+                $('#start-date').prop('required', true);
+                $('#end-date').prop('required' , true);
+
+            }
         });
     </script>
 @endsection

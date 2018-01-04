@@ -36,6 +36,7 @@ Route::get('/payment/{oid}/{uid}/{rand}',   'GeneralController@payment'         
 
 Route::post('/payment/{oid}/{uid}/{rand}/process',   'GeneralController@payment_process'                )->name('paymentProcess');
 Route::post('/payment/{oid}/{uid}/{rand}/tcg/process',   'GeneralController@payment_tcg_process'       )->name('paymentTCGProcess');
+Route::post('/payment/{oid}/{uid}/{rand}/cash/process',   'GeneralController@payment_cash_process'       )->name('paymentCashProcess');
 
 Route::get('/payment/{oid}/{uid}/{rand}/success',   'GeneralController@payment_success'                )->name('paymentSuccessPage');
 Route::get('/payment/{oid}/success',   'GeneralController@payment_success_message'                )->name('paymentSuccessMessagePage');
