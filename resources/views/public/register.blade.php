@@ -94,7 +94,8 @@
                                     </div><Br/>
                                     <div class="form_group">
                                         <label for="">Date of Birth <span style="color: red">*</span></label>
-                                        <input type="text" placeholder="Birthday" value="{{ old('sbirthday') }}" readonly name="sbirthday" class="form-control birthday">
+                                        <input id="birthday" type="text" placeholder="Birthday" value="{{ old('sbirthday') }}" name="sbirthday" class="form-control birthday">
+
                                     </div>
                                 </div>
                             </div>

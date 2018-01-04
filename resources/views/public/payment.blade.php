@@ -53,27 +53,7 @@
                         <div class="row">
                             <center>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <form class="" action="{{ route('paymentProcess', [$oid, $uid, $enc]) }}"
-                                              method="post">
-                                            {{ csrf_field() }}
-                                            <div class="payment-img"
-                                                 style="background: url('{{asset('img/paypal.png')}}');"></div>
-                                            <br>
-                                            {{--<img  height="150" src="{{ asset('img/paypal.png') }}" alt=""><Br/>--}}
-                                            <button class="btn btn-success">Pay via PayPal</button>
-                                            <Br/><Br/>
-                                        </form>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="payment-img"
-                                             style="background: url('{{asset('img/paymaya.png')}}');"></div>
-                                        <br>
-                                        {{--<img  height="150" src="{{ asset('img/paymaya.png') }}" alt=""><Br/>--}}
-                                        <button class="btn btn-success">Pay via PayMaya</button>
-                                        <Br/><Br/>
-                                    </div>
 
 
                                     <div class="col-md-6 {{ $order->table_no == null ? 'col-md-offset-3' : ''}}">
@@ -103,6 +83,31 @@
                                         </div>
 
                                     @endif
+
+                                    <div class="col-md-6">
+                                        <form class="" action="{{ route('paymentProcess', [$oid, $uid, $enc]) }}"
+                                              method="post">
+                                            {{ csrf_field() }}
+                                            <div class="payment-img"
+                                                 style="background: url('{{asset('img/paypal.png')}}');"></div>
+                                            <br>
+                                            {{--<img  height="150" src="{{ asset('img/paypal.png') }}" alt=""><Br/>--}}
+                                            {{--<button disabled class="btn btn-success">Pay via PayPal</button>--}}
+                                            <button disabled class="btn btn-success">Coming Soon</button>
+                                            <Br/><Br/>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="payment-img"
+                                             style="background: url('{{asset('img/paymaya.png')}}');"></div>
+                                        <br>
+                                        {{--<img  height="150" src="{{ asset('img/paymaya.png') }}" alt=""><Br/>--}}
+                                        {{--<button disabled class="btn btn-success">Pay via PayMaya</button>--}}
+
+                                        <button disabled class="btn btn-success">Coming Soon</button>
+                                        <Br/><Br/>
+                                    </div>
                                 </div>
                             </center>
                         </div>

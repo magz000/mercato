@@ -88,22 +88,39 @@ $('.__opt-categ').click(function() {
 	$('input[name="type"]').val(category);
 });
 
-$('.datetimepicker').datetimepicker({
-	date : new Date($.now()),
-	minDate : $.now(),
-    timepicker: false,
-	format: 'Y-m-d'
+// $('.datetimepicker').datetimepicker({
+// 	date : new Date($.now()),
+// 	minDate : $.now(),
+//     timepicker: false,
+// 	format: 'Y-m-d'
+// });
+
+// $('.birthday').datetimepicker({
+// 	date : new Date($.now()),
+//     timepicker: false,
+// 	format: 'Y-m-d'
+// });
+
+// $('#date').datetimepicker({
+// 	date : new Date($.now()),
+// 	minDate : $.now(),
+//     timepicker: false,
+// 	format: 'Y-m-d'
+// });
+
+$('#date').datetimepicker({
+    minDate : $.now(),
+    format: 'Y-m-d'
 });
 
 $('.birthday').datetimepicker({
-	date : new Date($.now()),
-    timepicker: false,
-	format: 'Y-m-d'
+    minDate : $.now(),
+    format: 'Y-m-d'
 });
 
-$('#date').datetimepicker({
-	date : new Date($.now()),
-	minDate : $.now(),
-    timepicker: false,
-	format: 'Y-m-d'
+$('.datepicker').datetimepicker({
+    minDate : $.now(),
+    format: 'Y-m-d'
 });
+
+

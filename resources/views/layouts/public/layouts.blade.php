@@ -11,12 +11,15 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="/bower_components/datetimepicker/jquery.datetimepicker.css" />
+
+    {{--<link rel="stylesheet" href="/bower_components/datetimepicker/jquery.datetimepicker.css" />--}}
     <!-- endbower -->
     <!-- endbuild -->
+      <link rel="stylesheet" href="https://chefsandbutlers.net/res/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
 
-    <link rel="stylesheet" href="/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css" />
+
+      <link rel="stylesheet" href="/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css" />
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="/css/main.css">
@@ -31,6 +34,11 @@
         body.modal-open{
             position:fixed !important ;
             width: 100% !important;
+        }
+
+        .bootstrap-datetimepicker-widget{
+            z-index: 9999999999999999999999999999999999999999999999999 !important;
+            position: relative !important;
         }
     </style>
     
@@ -70,12 +78,15 @@
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
 <script src="/bower_components/jquery/dist/jquery.js"></script>
+
+<script src="https://chefsandbutlers.net/res/moment/min/moment.min.js" charset="utf-8"></script>
+
 <script src="/bower_components/modernizr/modernizr.js"></script>
 <script src="/bower_components/jquery-touchswipe/jquery.touchSwipe.js"></script>
 <script src="/bower_components/FilmRoll/js/jquery.film_roll.min.js"></script>
 <script src="/bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="/bower_components/php-date-formatter/js/php-date-formatter.js"></script>
-<script src="/bower_components/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+{{--<script src="/bower_components/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>--}}
 <script src="/bower_components/jquery-bar-rating/jquery.barrating.js"></script>
 <script src="/bower_components/select2/dist/js/select2.js"></script>
 <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
@@ -98,6 +109,8 @@
 <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
 <!-- endbuild -->
 
+
+<script src="https://chefsandbutlers.net/res/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" charset="utf-8"></script>
 
 @yield('scripts')
 
@@ -146,14 +159,18 @@
 </script>
 
     <script>
+
+        $('#date').click(function(){
+            $('.bootstrap-datetimepicker-widget.bottom').addClass('top').removeClass('bottom');
+        });
+
+
         $('.cart-content').each(function(){
             var price = parseFloat($(this).children('small').children('.cart-price').val());
 
             var parent =  $(this);
 
             var id = $(this).children('.cart-id').val();
-
-            console.log(id);
 
             $(this).children('small').children('.cart-qty').change(function(){
                 var quantity = parseInt($(this).val())
