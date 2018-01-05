@@ -5,7 +5,18 @@
      @include('layouts.public.navigation')
      @inject('OrderRating', 'App\Model\OrderRating')
 
-    <section class="__image-slider __search">
+     <style>
+         .bootstrap-datepicker-widget{
+             position: absolute !important;
+             color: #0b3e6f !important;
+             margin-top: -50px;
+         }
+
+
+
+     </style>
+
+    <section class="__new __search">
 
         <div class="__static-item">
             <div class="container">
@@ -42,16 +53,16 @@
 
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-3" style="color: #000;">
                               <div class="joined">
                                 <label for="">Date</label>
-                                <input id="date" type="text" class="form-control" name="date" placeholder="Date" value="{{ $input->date }}">
+                                <input type="text" class="form-control datepicker" name="date" placeholder="Date" value="{{ $input->date }}">
                               </div>
                               <div class="joined">
                                 <label for="">Time</label>
                                 <select name="time" id="" class="form-control">
-                                   
-                                    
+
+
                                      <option value="9:00 AM" {{ $input->time == '9:00 AM' ? 'selected' : '' }}>9:00 AM</option>
                                         <option value="11:00 AM" {{ $input->time == '11:00 AM' ? 'selected' : '' }}>11:00 AM</option>
                                         <option value="12:00 NN" {{ $input->time == '12:00 NN' ? 'selected' : '' }}>12:00 NN</option>
@@ -84,11 +95,12 @@
             </div>
         </div>
 
-
         <div class="__slider-item" style="background-image: url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1350&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D')"></div>
+
     </section>
 
-    <div class="container">
+
+     <div class="container" style="background-color: transparent;">
         <div class="row">
             <div class="col-md-12">
                 <div class="pull-right">

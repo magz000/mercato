@@ -72,7 +72,7 @@
                              <button class="btn btn-primary">Sign In</button>
 
                              <br/><br/>
-                             No Account Yet? <a href="#" data-toggle="modal" data-target="#_SignUpModal">Sign Up Here</a>
+                             {{--No Account Yet? <a href="#" data-toggle="modal" data-target="#_SignUpModal">Sign Up Here</a>--}}
                          </form>
 
                      </div>

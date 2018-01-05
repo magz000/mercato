@@ -222,8 +222,9 @@
 // });
 
         $('#date').datetimepicker({
-            minDate: $.now(),
-            format: 'MM/DD/YYYY',
+            date: new Date($.now()),
+            minDate: new Date().setHours(0,0,0,0),
+            format: 'MM-DD-YYYY',
             widgetPositioning : {
                 horizontal: 'auto',
                 vertical: 'top'
@@ -231,23 +232,23 @@
         });
 
         $('.birthday').datetimepicker({
-            minDate: $.now(),
-            format: 'MM/DD/YYYY'
+            format: 'MM-DD-YYYY',
+            viewMode: 'years'
         });
 
         $('.datepicker').datetimepicker({
-            minDate: $.now(),
-            format: 'MM/DD/YYYY'
+            minDate: new Date().setHours(0,0,0,0),
+            format: 'MM-DD-YYYY'
         });
 
         $('#start-date').datetimepicker({
-            minDate: $.now(),
-            format: 'MM/DD/YYYY'
+            minDate: new Date().setHours(0,0,0,0),
+            format: 'MM-DD-YYYY'
         });
 
         $('#end-date').datetimepicker({
-            minDate: $.now(),
-            format: 'MM/DD/YYYY'
+            minDate: new Date().setHours(0,0,0,0),
+            format: 'MM-DD-YYYY'
         });
 
 

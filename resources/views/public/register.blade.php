@@ -12,6 +12,9 @@
              footer {
                  color: #fff;
              }
+
+
+
          </style>
 
      @include('layouts.public.navigation')

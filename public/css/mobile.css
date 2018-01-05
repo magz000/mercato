@@ -19,6 +19,22 @@
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
   }
 
+  .__new.__search {
+    height: 600px;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
+
+  .__new.__search.__checkout {
+    display: none;
+  }
+
+  .__new.__profile {
+    height: 650px !important;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  }
+
   .__main-content {
     margin-top: -400px !important;
   }

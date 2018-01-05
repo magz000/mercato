@@ -13,19 +13,13 @@
         ul.dropdown-menu li {
             margin: 0px;
         }
-
-
-        table tr td .day {
-            color: #000 !important;
-        }
-
     </style>
 
     <section class="__image-slider">
         <div class="__static-item">
             <div class="container">
                 <div class="row">
-                    <br><br><br>
+                    <br><br><br><br>
                     <div class="col-md-12">
                         <div class="_searchForm">
                             <form action="{{ route('resultPage') }}" class="_form">
@@ -162,6 +156,7 @@
         </div>
     </section>
 
+    <br><br><br>
     <div class="container __main-content">
         <div class="row">
             <div class="col-md-6 col-sm-6">
