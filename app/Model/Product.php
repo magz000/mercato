@@ -52,7 +52,7 @@ class Product extends Model
             }
         }
 
-        $result = Product::whereIn('id', $resultIds)->get();
+        $result = Product::whereIn('id', $resultIds)->paginate(8);
         return $result;
     }
 
@@ -78,7 +78,7 @@ class Product extends Model
             }
         }
 
-        $result = Product::whereIn('id', $resultIds)->get();
+        $result = Product::whereIn('id', $resultIds)->paginate(8);
         return $result;
     }
 
