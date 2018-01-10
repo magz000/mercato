@@ -1,5 +1,19 @@
 <?php
 
+return array(
+    "driver" => "smtp",
+    "host" => "smtp.mailtrap.io",
+    "port" => 2525,
+    "from" => array(
+        "address" => "from@example.com",
+        "name" => "Example"
+    ),
+    "username" => "04a16f18d8d921",
+    "password" => "489a400fec6ceb",
+    "sendmail" => "/usr/sbin/sendmail -bs",
+    "pretend" => false
+);
+
 
 return [
 

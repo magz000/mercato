@@ -39,88 +39,110 @@ use PayPal\Api\Transaction;
 class GeneralController extends Controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         //PageView::insert();
 
         $this->_api_context = new ApiContext(new OAuthTokenCredential(
-          config('services.paypal.client_id'),
-          config('services.paypal.secret')));
+            config('services.paypal.client_id'),
+            config('services.paypal.secret')));
 
-         $this->_api_context->setConfig(array(
-          'mode' => 'sandbox',
-          'service.EndPoint' => 'https://api.sandbox.paypal.com',
-          'http.ConnectionTimeOut' => 120,
-          'log.LogEnabled' => true,
-          'log.FileName' => storage_path('logs/paypal.log'),
-          'log.LogLevel' => 'FINE'
-      ));
+        $this->_api_context->setConfig(array(
+            'mode' => 'sandbox',
+            'service.EndPoint' => 'https://api.sandbox.paypal.com',
+            'http.ConnectionTimeOut' => 120,
+            'log.LogEnabled' => true,
+            'log.FileName' => storage_path('logs/paypal.log'),
+            'log.LogLevel' => 'FINE'
+        ));
 
     }
 
     // TODO : Displays the Landing Page
-    public function index() {
+    public function index()
+    {
         $data = array(
-            "MainCategories"    => ProductCategory::get_main(),
-            "SubCategories"     => function($parent) {
-                    return ProductCategory::get_sub($parent);
-                },
-            "Locations"  => Location::all()
+            "MainCategories" => ProductCategory::get_main(),
+            "SubCategories" => function ($parent) {
+                return ProductCategory::get_sub($parent);
+            },
+            "Locations" => Location::all()
         );
 
         return view('public.landing')->with($data);
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
 
         $results = null;
 
-        if($request->type == 1) {
-            $results = Product::result_category($request->category, $request->date, $request->location);
-        } else if($request->type == 2) {
-            $results = Product::result_food($request->product_name, $request->date, $request->location);
+        $date_time = strtotime($request->date . ' ' . $request->time);
+
+        if (time() > $date_time) {
+            $results = null;
+        } else {
+
+            if ($request->type == 1) {
+                $results = Product::result_category($request->category,
+                                            $request->date,
+                                            $request->location,
+                                            $request->sort,
+                                            $request->amount_from,
+                                            $request->amount_to);
+            } else if ($request->type == 2) {
+                $results = Product::result_food($request->product_name,
+                                            $request->date,
+                                            $request->location,
+                                            $request->sort);
+            }
         }
 
+
         $data = array(
-            "MainCategories"    => ProductCategory::get_main(),
-            "SubCategories"     => function($parent) {
-                    return ProductCategory::get_sub($parent);
-                },
-            "Provider"          => function($provider_id) {
-                    return Provider::find($provider_id);
-                },
-            "input"            => $request,
-            "results"            => $results,
-            "Locations"  => Location::all()
+            "MainCategories" => ProductCategory::get_main(),
+            "SubCategories" => function ($parent) {
+                return ProductCategory::get_sub($parent);
+            },
+            "Provider" => function ($provider_id) {
+                return Provider::find($provider_id);
+            },
+            "input" => $request,
+            "results" => $results,
+            "Locations" => Location::all()
         );
         return view('public.search')->with($data);
     }
 
-    public function user_page(Request $request, $username) {
+    public function user_page(Request $request, $username)
+    {
 
-        $Provider =  Provider::where('username', '=', $username)->get()->first();
+        $Provider = Provider::where('username', '=', $username)->get()->first();
         $data = array(
-            "MainCategories"    => ProductCategory::get_main(),
-            "SubCategories"     => function($parent) {
-                    return ProductCategory::get_sub($parent);
-                },
-            "Provider"          => $Provider,
-            "Products"          => Product::where('provider_id', '=', $Provider->id)->get(),
+            "MainCategories" => ProductCategory::get_main(),
+            "SubCategories" => function ($parent) {
+                return ProductCategory::get_sub($parent);
+            },
+            "Provider" => $Provider,
+            "Products" => Product::where('provider_id', '=', $Provider->id)->get(),
         );
 
 
         return view('public.profile')->with($data);
     }
 
-    public function checkout() {
+    public function checkout()
+    {
         $count = Cart::where('user_id', '=', Auth::guard('u')->user()->id)->count();
 
-        if($count <= 0)
+        if ($count <= 0)
             return redirect()->back();
 
         return view('public.checkout');
     }
 
-    public function updateQuantity(Request $request){
+    public function updateQuantity(Request $request)
+    {
         $cart = Cart::findOrFail($request->id);
 
         $cart->quantity = $request->quantity;
@@ -130,32 +152,35 @@ class GeneralController extends Controller
         return json_encode($cart);
     }
 
-    public function payment($oid, $uid, $enc) {
+    public function payment($oid, $uid, $enc)
+    {
 
-        if(md5($oid . ' ' . $uid) != $enc) {
+        if (md5($oid . ' ' . $uid) != $enc) {
             return redirect(route('landingPage'));
         }
 
         $data = array(
             "order" => Order::find($oid),
-            "oid"   => $oid,
-            "uid"   => $uid,
-            "enc"   => $enc
+            "oid" => $oid,
+            "uid" => $uid,
+            "enc" => $enc
         );
 
         return view('public.payment')->with($data);
     }
 
-    public function payment_cancelled($oid, $uid, $enc) {
-        if(md5($oid . ' ' . $uid) != $enc) {
+    public function payment_cancelled($oid, $uid, $enc)
+    {
+        if (md5($oid . ' ' . $uid) != $enc) {
             AuditTrail::log('orders', 'Cancelled the Order id ' . $oid);
             return redirect(route('landingPage'));
         }
     }
 
-    public function payment_success($oid, $uid, $enc, Request $request) {
+    public function payment_success($oid, $uid, $enc, Request $request)
+    {
 
-        if(md5($oid . ' ' . $uid) != $enc) {
+        if (md5($oid . ' ' . $uid) != $enc) {
             return redirect(route('landingPage'));
         }
 
@@ -177,7 +202,7 @@ class GeneralController extends Controller
         $transaction->payment_id = $id;
         $transaction->payer_id = $payer_id;
         $transaction->method = 'paypal';
-        $transaction->status =  $executePayment->getState();
+        $transaction->status = $executePayment->getState();
         $transaction->save();
 
         $order->status = 2;
@@ -187,10 +212,10 @@ class GeneralController extends Controller
         $user = User::find($order->user_id);
 
         $mail_data = array(
-            "fullname"  => $user->firstname . ' ' . $user->lastname,
-            "date"      => date('m d Y', strtotime($order->create_at)),
-            "order_id"  => $order->id,
-            "control_no"=> Order::format($order->id)
+            "fullname" => $user->firstname . ' ' . $user->lastname,
+            "date" => date('m d Y', strtotime($order->create_at)),
+            "order_id" => $order->id,
+            "control_no" => Order::format($order->id)
         );
 
         $email = new Emailer('carlo.flores@chefsandbutlers.net', 'email.receipt', $mail_data, 'Receipt');
@@ -201,14 +226,16 @@ class GeneralController extends Controller
         return redirect(route('paymentSuccessMessagePage', $oid));
     }
 
-    public function payment_success_message($oid) {
+    public function payment_success_message($oid)
+    {
         return view('public.success')->with(array(
-            "oid"   => $oid
+            "oid" => $oid
         ));
     }
 
     // TODO: POST Methods
-    public function add_cart(Request $request) {
+    public function add_cart(Request $request)
+    {
         $this->validate($request, [
             "prid" => 'required',
             "crdate" => 'required',
@@ -222,27 +249,29 @@ class GeneralController extends Controller
         return redirect(url()->previous())->with('success', 'Successfully added to Cart.');
     }
 
-    public function delete_cart(Request $request) {
+    public function delete_cart(Request $request)
+    {
         $this->validate($request, [
             "cart_id" => 'required'
         ]);
 
         $cart = Cart::find($request->cart_id);
-        AuditTrail::log('carts',' Deleted a Cart product id = ' . $cart->product_id);
+        AuditTrail::log('carts', ' Deleted a Cart product id = ' . $cart->product_id);
         $cart->delete();
 
         return redirect(url()->previous())->with('success', 'Successfully Deleted a product from Cart.');
     }
 
-    public function checkout_process(Request $request) {
+    public function checkout_process(Request $request)
+    {
         $this->validate($request, [
-            "firstname"     => 'required',
-            "lastname"      => 'required',
-            'preference'    => 'required'
+            "firstname" => 'required',
+            "lastname" => 'required',
+            'preference' => 'required'
         ]);
 
         $carts = Cart::where('user_id', '=', Auth::guard('u')->user()->id)->get();
-        $grandtotal=$fees=0;
+        $grandtotal = $fees = 0;
 
         // TODO : Grandtotal and Fees computation
         foreach ($carts as $key => $cart) {
@@ -252,30 +281,30 @@ class GeneralController extends Controller
 
         // TODO : Inserting a new Order
         $order = new Order;
-        $order->user_id         = Auth::guard('u')->user()->id;
-        $order->total           = $grandtotal;
-        if($request->preference == 1) {
+        $order->user_id = Auth::guard('u')->user()->id;
+        $order->total = $grandtotal;
+        if ($request->preference == 1) {
             $order->discount = 10;
         }
-        $order->service_charge  = $fees;
-        $order->tax             = 0;
-        $order->firstname       = $request->firstname;
-        $order->middlename      = $request->middlename;
-        $order->lastname        = $request->lastname;
-        $order->street          = $request->street;
-        $order->barangay        = $request->barangay;
-        $order->city            = $request->city;
-        $order->state           = $request->state;
-        $order->contact         = $request->contact;
-        $order->table_no        = $request->table_no;
+        $order->service_charge = $fees;
+        $order->tax = 0;
+        $order->firstname = $request->firstname;
+        $order->middlename = $request->middlename;
+        $order->lastname = $request->lastname;
+        $order->street = $request->street;
+        $order->barangay = $request->barangay;
+        $order->city = $request->city;
+        $order->state = $request->state;
+        $order->contact = $request->contact;
+        $order->table_no = $request->table_no;
         $order->save();
 
         AuditTrail::log('orders', 'Checkout of Order id ' . $order->id);
 
         // TODO : Transfering of Cart to Order Table
         foreach ($carts as $key => $cart) {
-            $product    = Product::find($cart->product_id);
-            $provider   = Provider::find($product->provider_id);
+            $product = Product::find($cart->product_id);
+            $provider = Provider::find($product->provider_id);
 
 
             $content = new OrderContent;
@@ -300,9 +329,10 @@ class GeneralController extends Controller
         return redirect(route('paymentPage', [$order->id, $order->user_id, md5($order->id . ' ' . $order->user_id)]));
     }
 
-    public function payment_process($oid, $uid, $enc) {
+    public function payment_process($oid, $uid, $enc)
+    {
 
-        if(md5($oid . ' ' . $uid) != $enc) {
+        if (md5($oid . ' ' . $uid) != $enc) {
             return redirect(route('landingPage'));
         }
 
@@ -310,9 +340,9 @@ class GeneralController extends Controller
         $contents = OrderContent::where('order_id', '=', $order->id)->get();
 
         $payer = new Payer();
-	    $payer->setPaymentMethod('paypal');
+        $payer->setPaymentMethod('paypal');
         $itemListArr = array();
-        $grandtotal=$fees=0;
+        $grandtotal = $fees = 0;
 
         foreach ($contents as $key => $content) {
 
@@ -329,7 +359,7 @@ class GeneralController extends Controller
                 ->setQuantity($content->quantity)
                 ->setSku($product->id)
                 ->setPrice($content->price)
-                ->setDescription($product->name . ' Served By : ' . $provider->firstname .  ' ' . $provider->lastname);
+                ->setDescription($product->name . ' Served By : ' . $provider->firstname . ' ' . $provider->lastname);
 
             $itemListArr[] = $item;
 
@@ -347,7 +377,7 @@ class GeneralController extends Controller
 
         $discount = 0;
         if ($order->discount != 0) {
-            $discount = ($order->total * ($order->discount/100));
+            $discount = ($order->total * ($order->discount / 100));
 
             $item = new Item();
             $item->setName("Discount")
@@ -365,45 +395,45 @@ class GeneralController extends Controller
         $itemList->setItems($itemListArr);
 
 
+        $amount = new Amount();
+        $amount->setCurrency('PHP');
+        $amount->setTotal(($grandtotal - $discount) + $fees);
 
-	    $amount = new Amount();
-	    $amount->setCurrency('PHP');
-	    $amount->setTotal(($grandtotal - $discount)+$fees);
 
+        $transaction = new Transaction();
+        $transaction->setAmount($amount)
+            ->setItemList($itemList)
+            ->setDescription('Team / individual');
 
-	    $transaction = new Transaction();
-	    $transaction->setAmount($amount)
-                ->setItemList($itemList)
-                ->setDescription('Team / individual');
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl(route('paymentSuccessPage', [$oid, $uid, $enc]));
+        $redirectUrls->setCancelUrl(route('paymentCancelledPage', [$oid, $uid, $enc]));
 
-	    $redirectUrls = new RedirectUrls();
-	    $redirectUrls->setReturnUrl(route('paymentSuccessPage', [$oid, $uid, $enc]));
-	    $redirectUrls->setCancelUrl(route('paymentCancelledPage', [$oid, $uid, $enc]));
+        $payment = new Payment();
+        $payment->setIntent('sale');
+        $payment->setPayer($payer);
+        $payment->setRedirectUrls($redirectUrls);
+        $payment->setTransactions(array($transaction));
 
-	    $payment = new Payment();
-	    $payment->setIntent('sale');
-	    $payment->setPayer($payer);
-	    $payment->setRedirectUrls($redirectUrls);
-	    $payment->setTransactions(array($transaction));
+        $response = $payment->create($this->_api_context);
+        $redirectUrl = $response->links[1]->href;
 
-	    $response = $payment->create($this->_api_context);
-	    $redirectUrl = $response->links[1]->href;
-
-	    return redirect()->to( $redirectUrl );
+        return redirect()->to($redirectUrl);
 
     }
 
-    public function payment_tcg_process($oid, $uid, $enc, Request $request) {
+    public function payment_tcg_process($oid, $uid, $enc, Request $request)
+    {
 
-        if(md5($oid . ' ' . $uid) != $enc) {
+        if (md5($oid . ' ' . $uid) != $enc) {
             return redirect(route('landingPage'));
         }
 
 
         $this->validate($request, [
-            "firstname"     => 'required',
-            "lastname"      => 'required',
-            "employeeid"        => 'required'
+            "firstname" => 'required',
+            "lastname" => 'required',
+            "employeeid" => 'required'
         ]);
 
         $order = Order::find($oid);
@@ -428,10 +458,10 @@ class GeneralController extends Controller
         $user = User::find($order->user_id);
 
         $mail_data = array(
-            "fullname"  => $user->firstname . ' ' . $user->lastname,
-            "date"      => date('m d Y', strtotime($order->create_at)),
-            "order_id"  => $order->id,
-            "control_no"=> Order::format($order->id)
+            "fullname" => $user->firstname . ' ' . $user->lastname,
+            "date" => date('m d Y', strtotime($order->create_at)),
+            "order_id" => $order->id,
+            "control_no" => Order::format($order->id)
         );
 
         $email = new Emailer('carlo.flores@chefsandbutlers.net', 'email.receipt', $mail_data, 'Receipt');
@@ -441,16 +471,17 @@ class GeneralController extends Controller
         return redirect(route('paymentSuccessMessagePage', $oid));
     }
 
-    public function payment_cash_process($oid, $uid, $enc, Request $request) {
+    public function payment_cash_process($oid, $uid, $enc, Request $request)
+    {
 
-        if(md5($oid . ' ' . $uid) != $enc) {
+        if (md5($oid . ' ' . $uid) != $enc) {
             return redirect(route('landingPage'));
         }
 
 
         $this->validate($request, [
-            "firstname"     => 'required',
-            "lastname"      => 'required',
+            "firstname" => 'required',
+            "lastname" => 'required',
 
         ]);
 
@@ -476,10 +507,10 @@ class GeneralController extends Controller
         $user = User::find($order->user_id);
 
         $mail_data = array(
-            "fullname"  => $user->firstname . ' ' . $user->lastname,
-            "date"      => date('m d Y', strtotime($order->create_at)),
-            "order_id"  => $order->id,
-            "control_no"=> Order::format($order->id)
+            "fullname" => $user->firstname . ' ' . $user->lastname,
+            "date" => date('m d Y', strtotime($order->create_at)),
+            "order_id" => $order->id,
+            "control_no" => Order::format($order->id)
         );
 
         $email = new Emailer('carlo.flores@chefsandbutlers.net', 'email.receipt', $mail_data, 'Receipt');
@@ -489,7 +520,8 @@ class GeneralController extends Controller
         return redirect(route('paymentSuccessMessagePage', $oid));
     }
 
-    public function catcher() {
+    public function catcher()
+    {
 
         if (Auth::guard('u')->check()) {
             return redirect(route('landingPage'));
@@ -498,7 +530,8 @@ class GeneralController extends Controller
         return view('public.login');
     }
 
-    public function registerCatcher() {
+    public function registerCatcher()
+    {
 
         if (Auth::guard('u')->check()) {
             return redirect(route('landingPage'));
@@ -508,13 +541,15 @@ class GeneralController extends Controller
     }
 
     // Below are the API for the Resources
-    public function resources_product($id) {
+    public function resources_product($id)
+    {
         header('Content-Type: image/jpeg');
         $product = Product::find($id);
         echo $product->picture;
     }
 
-    public function resources_provider($id) {
+    public function resources_provider($id)
+    {
         header('Content-Type: image/jpeg');
         $provider = Provider::find($id);
         echo $provider->picture;

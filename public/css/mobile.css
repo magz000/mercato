@@ -136,5 +136,15 @@
       font-size: 16px !important;
     }
   }
+
+
+  #search-container{
+    height: 0px;
+  }
+
+  #search-btn{
+    display: inline;
+
+  }
 }
 

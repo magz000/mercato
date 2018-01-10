@@ -169,17 +169,6 @@
             e.stopPropagation();
         });
 
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
-            slide: function slide(event, ui) {
-                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-            }
-        });
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
-
         $('select[name="category"]').select2({
             placeholder: "Dessert..."
         });
@@ -224,7 +213,7 @@
         $('#date').datetimepicker({
             date: new Date($.now()),
             minDate: new Date().setHours(0,0,0,0),
-            format: 'MM-DD-YYYY',
+            format: 'YYYY-MM-DD',
             widgetPositioning : {
                 horizontal: 'auto',
                 vertical: 'top'
@@ -232,23 +221,23 @@
         });
 
         $('.birthday').datetimepicker({
-            format: 'MM-DD-YYYY',
+            format: 'YYYY-MM-DD',
             viewMode: 'years'
         });
 
         $('.datepicker').datetimepicker({
             minDate: new Date().setHours(0,0,0,0),
-            format: 'MM-DD-YYYY'
+            format: 'YYYY-MM-DD'
         });
 
         $('#start-date').datetimepicker({
             minDate: new Date().setHours(0,0,0,0),
-            format: 'MM-DD-YYYY'
+            format: 'YYYY-MM-DD'
         });
 
         $('#end-date').datetimepicker({
             minDate: new Date().setHours(0,0,0,0),
-            format: 'MM-DD-YYYY'
+            format: 'YYYY-MM-DD'
         });
 
 

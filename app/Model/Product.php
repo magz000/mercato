@@ -11,7 +11,7 @@ use App\Model\ProviderLocation;
 class Product extends Model
 {
 
-    public static function result_category($category_id, $date, $location) {
+    public static function result_category($category_id, $date, $location, $sort, $amount_from, $amount_to) {
 
         $products = Product::where('status', '=', 1)->get();
         $resultIds = array();
@@ -52,11 +52,35 @@ class Product extends Model
             }
         }
 
-        $result = Product::whereIn('id', $resultIds)->paginate(8);
+        $result = Product::whereIn('id', $resultIds);
+
+        if(isset($sort) && $sort != ""){
+            switch ($sort){
+                case 1:
+                    $result->orderBy('price', 'desc');
+                    break;
+                case 2:
+                    $result->orderBy('price');
+                    break;
+//                case 3:
+//                    $result->orderBy('price', 'desc');
+//                    break;
+//                case 4:
+//                    $result->orderBy('price', 'desc');
+//                    break;
+            }
+        }
+
+        if(isset($amount_from) && isset($amount_to) && $amount_from != "" && $amount_to != ""){
+            $result->whereBetween('price', array($amount_from, $amount_to));
+        }
+
+        $result = $result->paginate(16);
+
         return $result;
     }
 
-    public static function result_food($name, $date, $location) {
+    public static function result_food($name, $date, $location, $sort) {
 
         $products = Product::where('status', '=', 1)->where('name', 'LIKE', "%$name%")->get();
         $resultIds = array();
@@ -78,7 +102,31 @@ class Product extends Model
             }
         }
 
-        $result = Product::whereIn('id', $resultIds)->paginate(8);
+
+
+        $result = Product::whereIn('id', $resultIds);
+
+        if(isset($sort) && $sort != ""){
+            switch ($sort){
+                case 1:
+                    $result->orderBy('price', 'desc');
+                    break;
+                case 2:
+                    $result->orderBy('price');
+                    break;
+//                case 3:
+//                    $result->orderBy('price', 'desc');
+//                    break;
+//                case 4:
+//                    $result->orderBy('price', 'desc');
+//                    break;
+            }
+        }
+
+
+
+        $result = $result->paginate(16);
+
         return $result;
     }
 

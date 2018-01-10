@@ -145,6 +145,11 @@ class ProviderController extends Controller
         return view('provider.orders.all')->with($data);
     }
 
+    public function orders_ajax() {
+        $data["order_ids"] = OrderContent::where('provider_id', '=', $this->provider_id())->orderBy('created_at', 'desc')->groupBy('order_id')->pluck('order_id');
+        return view('provider.orders.orders_ajax')->with($data);
+    }
+
     public function orders_status_process(Request $request) {
 
         $this->validate($request, [

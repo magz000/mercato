@@ -64,6 +64,8 @@ Route::get('/p/dashboard',                    'ProviderController@dashboard'    
 Route::get('/p/orders',                    'ProviderController@orders'            )->name('providerOrderPage');
 Route::post('/p/orders/status',                    'ProviderController@orders_status_process'            )->name('order.content.update');
 
+Route::get('/p/orders_ajax',                    'ProviderController@orders_ajax'            )->name('providerOrderPageAjax');
+
 Route::get('/p/profile',                    'ProviderController@profile'            )->name('providerProfilePage');
 Route::post('/p/profile/process',                    'ProviderController@profile_process'            )->name('providerProfileProcess');
 
