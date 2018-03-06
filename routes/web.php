@@ -96,6 +96,11 @@ Route::get('/admin/clients',                    'AdminController@clients'       
 Route::get('/admin/clients/{id}',                    'AdminController@client_view'            )->name('admin.client.profile');
 Route::get('/admin/clients/{id}/orders',                    'AdminController@client_orders'            )->name('admin.client.orders');
 Route::get('/admin/clients/{id}/activities',                    'AdminController@client_activities'            )->name('admin.client.activities');
+Route::get('/admin/clients/{id}/location', 'AdminController@client_location')->name('admin.client.location');
+Route::post('/admin/client/{id}/location/add', 'AdminController@client_location_add')->name('admin.client.location.add');
+Route::delete('/admin/client/location/delete', 'AdminController@client_location_delete')->name('admin.client.location.delete');
+Route::get('/admin/client/{id}/changeestablishment', 'AdminController@client_changeestablishment')->name('admin.client.changeestablishment');
+
 
 Route::get('/admin/category',                    'AdminController@category'            )->name('admin.category');
 Route::get('/admin/category/add',                    'AdminController@category_add'            )->name('admin.category.add');
@@ -109,3 +114,6 @@ Route::get('/admin/location/add',                    'AdminController@location_a
 Route::post('/admin/location/add',                    'AdminController@location_add_process'            )->name('admin.location.add.process');
 Route::get('/admin/location/{id}/edit',                    'AdminController@location_edit'            )->name('admin.location.edit');
 Route::post('/admin/location{id}/edit',                    'AdminController@location_edit_process'            )->name('admin.location.edit.process');
+
+
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\LocationLimit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -61,12 +62,29 @@ class GeneralController extends Controller
     // TODO : Displays the Landing Page
     public function index()
     {
+//        echo Auth::check();
+
+
+        if(Auth::guard('u')->check()){
+            if(Auth::guard('u')->user()->location->count() > 0){
+                $location = Location::whereIn('id', LocationLimit::select('location_id')->where('user_id', Auth::guard('u')->user()->id))->get();
+            }else{
+                $location = Location::all();
+            }
+        }else{
+            $location = Location::all();
+        }
+
+
+//        $location = Location::whereIn('id', LocationLimit::select('location_id')->where('user_id', Auth::user()->id))->get();
+
+
         $data = array(
             "MainCategories" => ProductCategory::get_main(),
             "SubCategories" => function ($parent) {
                 return ProductCategory::get_sub($parent);
             },
-            "Locations" => Location::all()
+            "Locations" => $location
         );
 
         return view('public.landing')->with($data);

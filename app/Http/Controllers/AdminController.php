@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\LocationLimit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
@@ -99,6 +100,47 @@ class AdminController extends Controller
         $data['client'] = User::find($client_id);
         $data['activities'] = AuditTrail::where('user_type', '=', '1')->where('auth_id', '=', $client_id)->get();
         return view('admin.clients.activities')->with($data);
+    }
+
+
+    public function client_location($id){
+        $user = User::find($id);
+        $location = Location::whereNotIn('id', LocationLimit::select('location_id')->where('user_id', $id))->get();
+
+        return view('admin.clients.limit')->with(["client" => $user, "locations" => $location]);
+    }
+
+    public function client_location_add($id, Request $request){
+        $limit = new LocationLimit;
+
+        $limit->user_id = $id;
+        $limit->location_id = $request->input('location');
+        $limit->save();
+
+        return redirect()->back()->with('success', 'Successfully added');
+    }
+
+
+    public function client_location_delete(Request $request){
+        $limit = LocationLimit::findOrFail($request->input('id'));
+
+        $limit->delete();
+
+        return redirect()->back()->with('success', 'Successfully deleted');
+    }
+
+    public function client_changeestablishment($id){
+        $user = User::findOrFail($id);
+
+        if($user->is_establishment == null || $user->is_establishment == 0){
+            $user->is_establishment = 1;
+        }elseif($user->is_establishment == 1){
+            $user->is_establishment = 0;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Status Changed Successfully');
     }
 
     public function category() {

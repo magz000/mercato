@@ -76,7 +76,7 @@
                                 </div>
 
                                 <div class="form-group col-md-2">
-                                    <label for="">Pick-up Station</label>
+                                    <label for="">Location</label>
                                     <select name="location" id="" class="form-control">
                                         @foreach ($Locations as $location)
                                             <option value="{{ $location->id }}">{{ $location->name }}</option>
@@ -127,6 +127,7 @@
                                             <li><a href="{{ route('userDashboardPage') }}">Dashboard</a></li>
                                             <li><a href="{{ route('userOrderPage') }}">Orders</a></li>
                                             <li><a href="{{ route('userProfilePage') }}">Profiles</a></li>
+                                            <li><a href="{{ route('logoutUserPage') }}">Logout</a></li>
                                         </ul>
 
 

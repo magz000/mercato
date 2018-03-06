@@ -35,4 +35,10 @@ class User extends Authenticatable
     ];
 
 
+
+    public function location(){
+        return $this->hasMany('App\Model\LocationLimit');
+    }
+
+
 }

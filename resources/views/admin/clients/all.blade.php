@@ -33,6 +33,7 @@
                                 <th># of Orders</th>
                                 <th>Expense</th>
                                 <th>Profit</th>
+                                <th>Is Establishment</th>
                                 <th>Option</th>
                             </thead>
 
@@ -44,6 +45,7 @@
                                         <td>{{ $OrderModel->where('user_id', '=', $client->id)->count() }}</td>
                                         <td>PHP {{ number_format($OrderModel->where('user_id', '=', $client->id)->sum('total') + $OrderModel->where('user_id', '=', $client->id)->sum('service_charge') + $OrderModel->where('user_id', '=', $client->id)->sum('tax'), 2) }}</td>
                                         <td>PHP {{ number_format($OrderModel->where('user_id', '=', $client->id)->sum('service_charge'), 2) }}</td>
+                                        <td>{{ $client->is_establishment == 1 ? 'Yes' : 'No' }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle btn-xs" type="button" data-toggle="dropdown">
@@ -54,6 +56,8 @@
                                                     <li class="small"><a href="{{ route('admin.client.profile', $client->id) }}">Profile</a></li>
                                                     <li class="small"><a href="{{ route('admin.client.orders', $client->id) }}">Order List</a></li>
                                                     <li class="small"><a href="{{ route('admin.client.activities', $client->id) }}">Activities</a></li>
+                                                    <li class="small"><a href="{{ route('admin.client.location', $client->id) }}">Limit Location</a></li>
+                                                    <li class="small"><a href="{{ route('admin.client.changeestablishment', $client->id) }}">Change Is Establishment</a></li>
                                                 </ul>
                                             </div>
                                         </td>

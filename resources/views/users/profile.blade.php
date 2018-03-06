@@ -37,20 +37,33 @@
                                     <br/>
                                     <br/>
                                     <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="">First Name</label>
-                                            <input type="text" name="firstname" class="form-control" value="{{ Auth::guard('u')->user()->firstname }}">
-                                        </div>
 
-                                        <div class="form-group col-md-4">
-                                            <label for="">Middle Name</label>
-                                            <input type="text" name="middlename" class="form-control" value="{{ Auth::guard('u')->user()->middlename }}">
-                                        </div>
+                                        @if(Auth::guard('u')->user()->is_establishment == 1)
+                                            <div class="form-group col-md-10">
+                                                <label for="">Establishment Name</label>
+                                                <input type="text" name="firstname" class="form-control" value="{{ Auth::guard('u')->user()->firstname .' '. Auth::guard('u')->user()->lastname }}">
+                                            </div>
 
-                                        <div class="form-group col-md-4">
-                                            <label for="">Last Name</label>
-                                            <input type="text" name="lastname" class="form-control" value="{{ Auth::guard('u')->user()->lastname }}">
-                                        </div>
+                                        @else
+                                            <div class="form-group col-md-4">
+                                                <label for="">First Name</label>
+                                                <input type="text" name="firstname" class="form-control" value="{{ Auth::guard('u')->user()->firstname }}">
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="">Middle Name</label>
+                                                <input type="text" name="middlename" class="form-control" value="{{ Auth::guard('u')->user()->middlename }}">
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="">Last Name</label>
+                                                <input type="text" name="lastname" class="form-control" value="{{ Auth::guard('u')->user()->lastname }}">
+                                            </div>
+
+
+                                        @endif
+
+
 
                                         <div class="form-group col-md-6">
                                             <label for="">Street</label>
@@ -66,7 +79,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">State</label>
-                                            <input type="text" name="state" readonly value="{{ Auth::guard('u')->user()->state }}" class="form-control">
+                                            <input type="text" name="state" value="{{ Auth::guard('u')->user()->state }}" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Postal Code</label>
@@ -76,7 +89,7 @@
                                 </div>
                             </div>
 
-                            <button id="_submit" class="pull-right btn btn-success">Update Profile</button>
+                            <button id="_submit" class="pull-right btn btn-success" {{Auth::guard('u')->user()->is_establishment == 1 ? 'disabled' : ''}}>Update Profile</button>
                         </form>
                     </div>
                 </div>
