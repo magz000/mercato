@@ -116,7 +116,6 @@ class ProviderController extends Controller
             unlink(public_path() .'/img/uploads/'. $product->picture);
         }
 
-
         $product->provider_id       = $this->provider_id();
         $product->name              = $request->name;
         $product->qty              = $request->quantity;

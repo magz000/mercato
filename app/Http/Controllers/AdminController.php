@@ -79,7 +79,7 @@ class AdminController extends Controller
 
 
     public function clients() {
-        $data['clients'] = User::paginate(20);
+        $data['clients'] = User::latest()->paginate(20);
         return view('admin.clients.all')->with($data);
     }
 

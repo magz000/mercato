@@ -67,25 +67,32 @@ class UserController extends Controller
 
         $filename  = time() . '.jpg';
         $path = public_path().'/img/users/'. $filename;
-        $manager = new ImageManager(array('driver' => 'GD'));
-        $manager->make(file_get_contents($request->image_base64))->save($path);
+//        $manager = new ImageManager(array('driver' => 'GD'));
+//        $manager->make(file_get_contents($request->image_base64))->save($path);
 
-        $user = User::find(Auth::guard('u')->user()->id);
+        $data = file_get_contents($request->image_base64);
+        //////////// Upload the decoded file/image
 
-        if (file_exists(public_path() .'/img/users/'. $user->picture)) {
-            unlink(public_path() .'/img/users/'. $user->picture);
+        if(file_put_contents($path , $data)) {
+
+            $user = User::find(Auth::guard('u')->user()->id);
+
+            if ($user->picture != null && $user->picture != '' && file_exists(public_path() . '/img/users/' . $user->picture)) {
+                unlink(public_path() . '/img/users/' . $user->picture);
+            }
+
+            $user->picture = $filename;
+            $user->firstname = $request->firstname;
+            $user->middlename = $request->middlename;
+            $user->lastname = $request->lastname;
+            $user->street = $request->street;
+            $user->barangay = $request->barangay;
+            $user->city = $request->city;
+            $user->state = $request->state;
+            $user->postal_code = $request->postal_code;
+            $user->save();
+
         }
-
-        $user->picture = $filename;
-        $user->firstname    = $request->firstname;
-        $user->middlename   = $request->middlename;
-        $user->lastname = $request->lastname;
-        $user->street   = $request->street;
-        $user->barangay = $request->barangay;
-        $user->city = $request->city;
-        $user->state    = $request->state;
-        $user->postal_code  = $request->postal_code;
-        $user->save();
 
         return redirect(route('userProfilePage'))->with('success', "You've Successfully Updated you Profile.");
     }

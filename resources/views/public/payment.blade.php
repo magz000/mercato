@@ -55,20 +55,7 @@
                                 <div class="row">
 
 
-
-                                    <div class="col-md-6 {{ $order->table_no == null ? 'col-md-offset-3' : ''}}">
-                                        <br/><br/>
-                                        <div class="payment-img"
-                                             style="background: url('{{asset('img/cravings.png')}}'); "></div>
-                                        <br>
-                                        {{--<img width="50"  height="150" src="{{ asset('img/cravings.png') }}" alt=""><Br/><br/><Br/><br/>--}}
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#__paywithTCG">
-                                            Pay via TCG Card
-                                        </button>
-                                        <Br/><Br/>
-                                    </div>
-
-                                    @if($order->table_no != null)
+                                    @if($order->table_no != null || Auth::guard('u')->user()->is_establishment == 1)
 
                                         <div class="col-md-6">
                                             <br/><br/>
@@ -77,37 +64,52 @@
                                             <br>
                                             {{--<img  height="150" src="{{ asset('img/cash.png') }}" alt=""><Br/><br/><Br/><br/>--}}
                                             <button class="btn btn-success" data-toggle="modal"
-                                                    data-target="#__paywithCash">Pay via CASH
+                                                    data-target="#__paywithCash">Cash {{Auth::guard('u')->user()->is_establishment == 1 ? ' On Delivery' : ''}}
                                             </button>
                                             <Br/><Br/>
                                         </div>
 
                                     @endif
 
-                                    <div class="col-md-6">
-                                        <form class="" action="{{ route('paymentProcess', [$oid, $uid, $enc]) }}"
-                                              method="post">
-                                            {{ csrf_field() }}
+                                    @if(Auth::guard('u')->user()->is_establishment != 1)
+
+                                            <div class="col-md-6 {{ $order->table_no == null ? 'col-md-offset-3' : ''}}">
+                                                <br/><br/>
+                                                <div class="payment-img"
+                                                     style="background: url('{{asset('img/cravings.png')}}'); "></div>
+                                                <br>
+                                                {{--<img width="50"  height="150" src="{{ asset('img/cravings.png') }}" alt=""><Br/><br/><Br/><br/>--}}
+                                                <button class="btn btn-success" data-toggle="modal" data-target="#__paywithTCG">
+                                                    Pay via TCG Card
+                                                </button>
+                                                <Br/><Br/>
+                                            </div>
+
+                                        <div class="col-md-6">
+                                            <form class="" action="{{ route('paymentProcess', [$oid, $uid, $enc]) }}"
+                                                  method="post">
+                                                {{ csrf_field() }}
+                                                <div class="payment-img"
+                                                     style="background: url('{{asset('img/paypal.png')}}');"></div>
+                                                <br>
+                                                {{--<img  height="150" src="{{ asset('img/paypal.png') }}" alt=""><Br/>--}}
+                                                {{--<button disabled class="btn btn-success">Pay via PayPal</button>--}}
+                                                <button disabled class="btn btn-success">Coming Soon</button>
+                                                <Br/><Br/>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-md-6">
                                             <div class="payment-img"
-                                                 style="background: url('{{asset('img/paypal.png')}}');"></div>
+                                                 style="background: url('{{asset('img/paymaya.png')}}');"></div>
                                             <br>
-                                            {{--<img  height="150" src="{{ asset('img/paypal.png') }}" alt=""><Br/>--}}
-                                            {{--<button disabled class="btn btn-success">Pay via PayPal</button>--}}
+                                            {{--<img  height="150" src="{{ asset('img/paymaya.png') }}" alt=""><Br/>--}}
+                                            {{--<button disabled class="btn btn-success">Pay via PayMaya</button>--}}
+
                                             <button disabled class="btn btn-success">Coming Soon</button>
                                             <Br/><Br/>
-                                        </form>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="payment-img"
-                                             style="background: url('{{asset('img/paymaya.png')}}');"></div>
-                                        <br>
-                                        {{--<img  height="150" src="{{ asset('img/paymaya.png') }}" alt=""><Br/>--}}
-                                        {{--<button disabled class="btn btn-success">Pay via PayMaya</button>--}}
-
-                                        <button disabled class="btn btn-success">Coming Soon</button>
-                                        <Br/><Br/>
-                                    </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </center>
                         </div>

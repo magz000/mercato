@@ -57,7 +57,7 @@
                                                     <li class="small"><a href="{{ route('admin.client.orders', $client->id) }}">Order List</a></li>
                                                     <li class="small"><a href="{{ route('admin.client.activities', $client->id) }}">Activities</a></li>
                                                     <li class="small"><a href="{{ route('admin.client.location', $client->id) }}">Limit Location</a></li>
-                                                    <li class="small"><a href="{{ route('admin.client.changeestablishment', $client->id) }}">Change Is Establishment</a></li>
+                                                    <li class="small"><a href="{{ route('admin.client.changeestablishment', $client->id) }}">Change As Establishment</a></li>
                                                 </ul>
                                             </div>
                                         </td>

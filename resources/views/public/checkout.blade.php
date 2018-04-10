@@ -47,8 +47,8 @@
                 <div class="col-md-12">
                     <h1>Checkout</h1>
                 </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default">
+                <div class="col-md-6" >
+                    <div class="panel panel-default" {{Auth::guard('u')->user()->is_establishment ? "hidden" : ""}}>
                         <div class="panel-body">
                             <h5>Order For</h5>
                             <br/>
@@ -60,7 +60,8 @@
                                     </label>
 
                                     <label class="btn btn-primary __radiobutton" style="width: 150px; ">
-                                      <input type="radio" name="preference" id="option3" value="2" autocomplete="off">
+                                      <input type="radio" name="preference" id="option3" value="2" autocomplete="off"
+                                              {{Auth::guard('u')->user()->is_establishment ? "checked" : ""}}>
                                       Delivery
                                     </label>
                                   </div>
@@ -269,6 +270,16 @@
 
             $('#div-instore').hide();
             $('#div-delivery').hide();
+
+            @if(Auth::guard('u')->user()->is_establishment == 1)
+                $('#div-instore').hide();
+                $('#div-delivery').show();
+
+                $("#table_no").prop('required',false);
+
+                console.log('lul');
+            @endif
+
 
             $.fn.digits = function(){
                 return this.each(function(){
