@@ -17,4 +17,8 @@ class ProductCategory extends Model
         return ProductCategory::where('parent', '=', $parent)->get();
     }
 
+    public function products(){
+        return $this->hasMany('App\Model\Product', 'category_id');
+    }
+
 }
