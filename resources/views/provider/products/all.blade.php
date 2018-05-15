@@ -58,12 +58,12 @@
                                                 <button class="btn btn-default btn-xs" data-toggle="dropdown">Options <span class="caret"></span></button>
                                                 <ul class="dropdown-menu dropdown-menu-right small ">
                                                     <li class="small"><a href="{{ route('providerProductEditPage', $product->id) }}">Edit</a></li>
-                                                    <li class="small"><a href="#">Delete</a></li>
-                                                    @if ($product->sale_price == null)
-                                                        <li class="small"><a href="#">Put On Sale</a></li>
-                                                    @else
-                                                        <li class="small"><a href="#">Remove On Sale</a></li>
-                                                    @endif
+                                                    {{--<li class="small"><a href="#">Delete</a></li>--}}
+                                                    {{--@if ($product->sale_price == null)--}}
+                                                        {{--<li class="small"><a href="#">Put On Sale</a></li>--}}
+                                                    {{--@else--}}
+                                                        {{--<li class="small"><a href="#">Remove On Sale</a></li>--}}
+                                                    {{--@endif--}}
                                                 </ul>
                                             </div>
                                         </td>

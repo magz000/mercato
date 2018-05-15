@@ -36,7 +36,7 @@
                             </div>
                             <div class="clearfix"><br/></div>
 
-                            <button id="_submit" class="btn btn-success">Upate Pick-up Point</button>
+                            <button id="_submit" class="btn btn-success">Update Pick-up Point</button>
                         </form>
                     </div>
                 </div>

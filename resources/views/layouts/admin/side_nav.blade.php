@@ -6,6 +6,6 @@
         <li><a href="{{ route('admin.clients') }}"> <i class="fa fa-fw fa-users"> </i> Clients</a></li>
         <li><a href="{{ route('admin.category') }}"> <i class="fa fa-fw fa-tags"> </i> Categories</a></li>
         <li><a href="{{ route('admin.locations') }}"> <i class="fa fa-fw fa-map-marker"> </i> Locations</a></li>
-        <li><a href="{{ route('admin.profile') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>
+{{--        <li><a href="{{ route('admin.profile') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>--}}
     </ul>
 </div>

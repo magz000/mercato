@@ -20,7 +20,7 @@
                                   <li><a href="{{ route('admin.orders') }}"> <i class="fa fa-fw fa-list"> </i> Orders</a></li>
                                   <li><a href="{{ route('admin.providers') }}"> <i class="fa fa-fw fa-cutlery"> </i> Providers</a></li>
                                   <li><a href="{{ route('admin.clients') }}"> <i class="fa fa-fw fa-users"> </i> Clients</a></li>
-                                  <li><a href="{{ route('admin.profile') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>
+{{--                                  <li><a href="{{ route('admin.profile') }}"> <i class="fa fa-fw fa-user"> </i> Profiles</a></li>--}}
                                   <li><a href="{{ route('admin.logout') }}"> <i class="fa fa-fw fa-sign-out"> </i> Logout</a></li>
                                 </ul>
 

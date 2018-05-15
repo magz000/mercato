@@ -56,7 +56,8 @@ class AdminController extends Controller
     }
 
     public function provider_view($provider_id) {
-
+        $data['provider'] = Provider::find($provider_id);
+        return view('admin.providers.profile')->with($data);
     }
 
     public function provider_products($provider_id) {
@@ -84,7 +85,8 @@ class AdminController extends Controller
     }
 
     public function client_view($client_id) {
-
+        $data['client'] = User::find($client_id);
+        return view('admin.clients.profile')->with($data);
     }
 
     public function client_orders($client_id) {
