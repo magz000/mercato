@@ -181,6 +181,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
+        Orangehill\Iseed\IseedServiceProvider::class,
+
     ],
 
     /*

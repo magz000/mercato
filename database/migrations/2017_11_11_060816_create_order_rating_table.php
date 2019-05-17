@@ -15,9 +15,11 @@ class CreateOrderRatingTable extends Migration
     {
         Schema::create('order_ratings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('order_id');
+            $table->integer('product_id');
+            $table->integer('content_id');
             $table->text('category');
             $table->text('value');
+            $table->text('message');
             $table->integer('total');
             $table->timestamps();
         });

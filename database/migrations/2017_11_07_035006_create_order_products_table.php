@@ -24,6 +24,7 @@ class CreateOrderProductsTable extends Migration
              $table->string('pickup_location');
              $table->date('pickup_date');
              $table->string('pickup_time');
+             $table->text('note')->nullable();
              $table->integer('progress')->default('1');
              $table->integer('status')->default('1');
              $table->timestamps();

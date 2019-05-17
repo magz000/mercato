@@ -21,6 +21,7 @@ class CreateProviderTable extends Migration
              $table->string('lastname');
              $table->string('email')->unique();
              $table->string('password');
+             $table->text('bio');
              $table->string('contact');
              $table->string('street');
              $table->string('barangay');

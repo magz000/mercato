@@ -19,6 +19,10 @@ class ReateTransactionTable extends Migration
              $table->string('payment_id');
              $table->string('payer_id');
              $table->string('method');
+             $table->string('first_name')->nullable();
+             $table->string('middle_name')->nullable();
+             $table->string('last_name')->nullable();
+             $table->integer('employee_id')->nullable();
              $table->string('status');
              $table->timestamps();
          });

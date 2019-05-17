@@ -23,6 +23,7 @@ class CreateAdminTable extends Migration
             $table->integer('privilege_id');
             $table->string('contact');
             $table->integer('status')->default(1);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -13,10 +13,10 @@ class AlterProductCategories extends Migration
      */
     public function up()
     {
-        Schema::table('product_categories', function($table)
-        {
-            $table->binary('image');
-        });
+//        Schema::table('product_categories', function($table)
+//        {
+//            $table->binary('image');
+//        });
     }
 
     /**
@@ -26,9 +26,9 @@ class AlterProductCategories extends Migration
      */
     public function down()
     {
-        Schema::table('product_categories', function($table)
-        {
-            $table->dropColumn('image');
-        });
+//        Schema::table('product_categories', function($table)
+//        {
+//            $table->dropColumn('image');
+//        });
     }
 }

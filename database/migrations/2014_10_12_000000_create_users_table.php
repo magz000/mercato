@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('postal_code');
+            $table->integer('is_establishment')->default('1');
             $table->integer('status')->default('1');
             $table->rememberToken();
             $table->timestamps();
