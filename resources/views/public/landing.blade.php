@@ -59,8 +59,8 @@
                                 <div class="form-group col-md-3" style="color: #000 !important; z-index: 9999 !important;">
                                     <div class="joined">
                                         <label for="">Date</label>
-                                        <input id="date" type="text" class="form-control" name="date" placeholder="date"
-                                               value="{{ date('Y-m-d') }}">
+                                        <input id="date" type="date" class="form-control" name="date" placeholder="date"
+                                               value="{{ date('Y-m-d', strtotime('tomorrow')) }}">
                                     </div>
                                     <div class="joined">
                                         <label for="">Time</label>

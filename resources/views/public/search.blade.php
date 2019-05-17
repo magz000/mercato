@@ -86,7 +86,7 @@
                                 <div class="form-group col-md-3" style="color: #000;">
                                     <div class="joined">
                                         <label for="">Date</label>
-                                        <input type="text" class="form-control datepicker" name="date"
+                                        <input type="date" class="form-control datepicker" name="date"
                                                placeholder="Date" value="{{ $input->date }}">
                                     </div>
                                     <div class="joined">
